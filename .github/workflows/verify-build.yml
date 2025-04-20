@@ -33,10 +33,6 @@ jobs:
         run: |
           cp -r ./ScheduleOneAssemblies/Il2CppAssemblies ./S1API/Il2CppAssemblies
           cp -r ./ScheduleOneAssemblies/Managed ./S1API/Managed
-      
-      - name: Debug project files
-        run: |
-          ls -R
           
       - name: Run .NET Build for Mono
         run: dotnet build ./S1API/S1API/S1API.csproj -c Mono -f netstandard2.1

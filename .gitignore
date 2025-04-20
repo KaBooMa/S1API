@@ -4,4 +4,8 @@
 obj/
 bin/
 *.user
-*Assemblies/
+
+# Local assembly references
+Il2CppAssemblies/
+Managed/
+MelonLoader/
