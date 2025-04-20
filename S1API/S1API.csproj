@@ -97,10 +97,4 @@
     <ItemGroup>
       <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>
-    <Target Name="PostBuildIl2Cpp" AfterTargets="PostBuildEvent"  Condition="'$(Configuration)' == 'Il2Cpp'">
-        <Exec Command="copy &quot;.\bin\Il2Cpp\netstandard2.1\S1API.dll&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Schedule I\Mods\S1API.dll&quot;" />
-    </Target>
-    <Target Name="PostBuildMono" AfterTargets="PostBuildEvent"  Condition="'$(Configuration)' == 'Mono'">
-        <Exec Command="copy &quot;.\bin\Mono\netstandard2.1\S1API.dll&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy\Mods\S1API.dll&quot;" />
-    </Target>
 </Project>
