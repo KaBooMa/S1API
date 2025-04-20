@@ -1,4 +1,5 @@
 {
+  "name": "semantic-versioning",
   "release": {
     "branches": ["semantic-versioning'"]
   }
