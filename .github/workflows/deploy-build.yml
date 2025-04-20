@@ -1,14 +1,7 @@
 name: Deploy Build
 
 on:
-#  push:
-#    branches:
-#      - stable
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+  push:
     branches:
       - bleeding-edge
 
@@ -53,7 +46,5 @@ jobs:
       # Run semantic-release to handle versioning, changelog, and release
       - name: Run semantic-release
         uses: cycjimmy/semantic-release-action@v4
-        with:
-          dry_run: true
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}  # GitHub Personal Access Token for authentication
