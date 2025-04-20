@@ -32,16 +32,16 @@
             <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.UI.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.JSONSerializeModule">
             <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
