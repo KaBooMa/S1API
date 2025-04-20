@@ -3,7 +3,7 @@ name: Deploy Build
 on:
   push:
     branches:
-      - bleeding-edge
+      - semantic-versioning
 
 jobs:
   build:
