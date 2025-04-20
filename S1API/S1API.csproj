@@ -11,75 +11,75 @@
     <!-- IL2CPP Specific Deps -->
     <ItemGroup Condition="'$(Configuration)' == 'Il2Cpp'">
         <Reference Include="Assembly-CSharp">
-            <HintPath>..\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Runtime">
-            <HintPath>..\Il2CppAssemblies\Il2CppInterop.Runtime.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2CppInterop.Runtime.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Common">
-            <HintPath>..\Il2CppAssemblies\Il2CppInterop.Common.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2CppInterop.Common.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.HarmonySupport">
             <HintPath>..\Il2CppAssemblies\Il2CppInterop.HarmonySupport.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Generator">
-            <HintPath>..\Il2CppAssemblies\Il2CppInterop.Generator.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2CppInterop.Generator.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppFishNet.Runtime">
-            <HintPath>..\Il2CppAssemblies\Il2CppFishNet.Runtime.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2CppFishNet.Runtime.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
-            <HintPath>..\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>..\IL2CppAssemblies\UnityEngine.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\IL2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>..\IL2CppAssemblies\UnityEngine.UI.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-            <HintPath>..\IL2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\IL2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.JSONSerializeModule">
-            <HintPath>..\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     
     <!-- Mono Specific Deps -->
     <ItemGroup Condition="'$(Configuration)' == 'Mono'">
         <Reference Include="Assembly-CSharp">
-            <HintPath>..\Managed\Assembly-CSharp.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>..\Managed\UnityEngine.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\Managed\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="FishNet.Runtime">
-            <HintPath>..\Managed\FishNet.Runtime.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Managed\FishNet.Runtime.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>..\Managed\UnityEngine.UI.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-            <HintPath>..\Managed\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.UIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.JSONSerializeModule">
-            <HintPath>..\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
         </Reference>
     </ItemGroup>
 
     <!-- Shared Deps -->
     <ItemGroup>
         <Reference Include="0Harmony">
-            <HintPath>..\MelonLoader\0Harmony.dll</HintPath>
+            <HintPath>..\ScheduleOneAssemblies\MelonLoader\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json">
-          <HintPath>..\Managed\Newtonsoft.Json.dll</HintPath>
+          <HintPath>..\ScheduleOneAssemblies\Managed\Newtonsoft.Json.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>

@@ -6,6 +6,4 @@ bin/
 *.user
 
 # Local assembly references
-Il2CppAssemblies/
-Managed/
-MelonLoader/
+ScheduleOneAssemblies/

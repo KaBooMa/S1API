@@ -28,14 +28,9 @@ jobs:
           
       - name: Restore .NET Dependencies
         run: dotnet restore
-        
-      - name: Copy Game Assemblies into Project
-        run: |
-          cp -r ./ScheduleOneAssemblies/Il2CppAssemblies ./S1API/Il2CppAssemblies
-          cp -r ./ScheduleOneAssemblies/Managed ./S1API/Managed
           
       - name: Run .NET Build for Mono
-        run: dotnet build ./S1API/S1API/S1API.csproj -c Mono -f netstandard2.1
+        run: dotnet build ./S1API/S1API.csproj -c Mono -f netstandard2.1
         
       - name: Run .NET Build for Il2Cpp
-        run: dotnet build ./S1API/S1API/S1API.csproj -c Il2Cpp -f netstandard2.1
+        run: dotnet build ./S1API/S1API.csproj -c Il2Cpp -f netstandard2.1
