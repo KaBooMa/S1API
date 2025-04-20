@@ -93,8 +93,6 @@
         <Reference Include="Newtonsoft.Json">
           <HintPath>..\ScheduleOneAssemblies\Managed\Newtonsoft.Json.dll</HintPath>
         </Reference>
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+        <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>
 </Project>
