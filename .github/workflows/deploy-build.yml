@@ -1,0 +1,60 @@
+name: Deploy Build
+
+on:
+#  push:
+#    branches:
+#      - stable
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - bleeding-edge
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh -y
+        
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+
+      - name: Clone Game Assemblies
+        run: |
+          git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/KaBooMa/ScheduleOneAssemblies.git ./ScheduleOneAssemblies
+
+      - name: Restore .NET Dependencies
+        run: dotnet restore
+
+      - name: Run .NET Build for Mono
+        run: dotnet build ./S1API/S1API.csproj -c Mono -f netstandard2.1
+
+      - name: Run .NET Build for Il2Cpp
+        run: dotnet build ./S1API/S1API.csproj -c Il2Cpp -f netstandard2.1
+          
+      # Install Node.js and semantic-release
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Use a version compatible with your environment
+
+      - name: Install semantic-release
+        run: |
+          npm install -g semantic-release
+
+      # Run semantic-release to handle versioning, changelog, and release
+      - name: Run semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}  # GitHub Personal Access Token for authentication
