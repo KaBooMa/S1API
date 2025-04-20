@@ -14,16 +14,16 @@
             <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Runtime">
-            <HintPath>..\MelonLoader\Il2CppAssemblies\Il2CppInterop.Runtime.dll</HintPath>
+            <HintPath>..\MelonLoader\Il2CppInterop.Runtime.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Common">
-            <HintPath>..\MelonLoader\Il2CppAssemblies\Il2CppInterop.Common.dll</HintPath>
+            <HintPath>..\MelonLoader\Il2CppInterop.Common.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.HarmonySupport">
             <HintPath>..\MelonLoader\Il2CppInterop.HarmonySupport.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Generator">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2CppInterop.Generator.dll</HintPath>
+            <HintPath>..\MelonLoader\Il2CppInterop.Generator.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppFishNet.Runtime">
             <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2CppFishNet.Runtime.dll</HintPath>
