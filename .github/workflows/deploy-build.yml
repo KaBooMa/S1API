@@ -14,8 +14,8 @@ jobs:
       id-token: write
     
     steps:
-#      - name: Checkout Repo
-#        uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
         
 #      - name: Setup .NET
 #        uses: actions/setup-dotnet@v4
