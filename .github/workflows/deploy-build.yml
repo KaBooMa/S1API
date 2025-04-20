@@ -50,4 +50,4 @@ jobs:
           branches:
             semantic-versioning
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # GitHub Personal Access Token for authentication
+          GH_TOKEN: ${{ secrets.GH_PAT }}  # GitHub Personal Access Token for authentication
