@@ -46,5 +46,8 @@ jobs:
       # Run semantic-release to handle versioning, changelog, and release
       - name: Run semantic-release
         uses: cycjimmy/semantic-release-action@v4
+        with:
+          branches:
+            semantic-versioning
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}  # GitHub Personal Access Token for authentication
