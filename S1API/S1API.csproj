@@ -46,6 +46,12 @@
         <Reference Include="UnityEngine.JSONSerializeModule">
             <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     
     <!-- Mono Specific Deps -->
@@ -70,6 +76,12 @@
         </Reference>
         <Reference Include="UnityEngine.JSONSerializeModule">
             <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
         </Reference>
     </ItemGroup>
 
