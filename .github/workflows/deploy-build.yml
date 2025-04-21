@@ -58,8 +58,8 @@ jobs:
 
       - name: Update MelonInfo version for S1API and S1APILoader
         run: |
-          sed -i "s/{VERSION_NUMBER}/\"${{ env.VERSION }}\"/" ./S1API/S1API.cs
-          sed -i "s/{VERSION_NUMBER}/\"${{ env.VERSION }}\"/" ./S1APILoader/S1APILoader.cs
+          sed -i "s/{VERSION_NUMBER}/${{ env.VERSION }}/" ./S1API/S1API.cs
+          sed -i "s/{VERSION_NUMBER}/${{ env.VERSION }}/" ./S1APILoader/S1APILoader.cs
 
       - name: Run .NET build for Mono
         run: dotnet build ./S1API.sln -c Mono -f netstandard2.1
