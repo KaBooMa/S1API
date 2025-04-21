@@ -42,7 +42,8 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4
         with:
           branches:
-            semantic-versioning
+            - stable
+            - publishing
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/exec
