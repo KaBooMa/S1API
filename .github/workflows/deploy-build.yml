@@ -53,13 +53,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
 
-      - name: Get Version from semantic-release
-        run: echo "VERSION=${{ steps.semantic-release.outputs.version }}" >> $GITHUB_ENV
-
       - name: Update MelonInfo version for S1API and S1APILoader
         run: |
-          sed -i "s/{VERSION_NUMBER}/${{ env.VERSION }}/" ./S1API/S1API.cs
-          sed -i "s/{VERSION_NUMBER}/${{ env.VERSION }}/" ./S1APILoader/S1APILoader.cs
+          sed -i "s/{VERSION_NUMBER}/${{ steps.semantic-release.outputs.new_release_version }}/" ./S1API/S1API.cs
+          sed -i "s/{VERSION_NUMBER}/${{ steps.semantic-release.outputs.new_release_version }}" ./S1APILoader/S1APILoader.cs
 
       - name: Run .NET build for Mono
         run: dotnet build ./S1API.sln -c Mono -f netstandard2.1
@@ -81,7 +78,7 @@ jobs:
           description: S1API
           token: ${{ secrets.TS_TOKEN }}
           name: s1api
-          version: ${{ env.VERSION }}
+          version: ${{ steps.semantic-release.outputs.new_release_version }}
           community: schedule-i
           dev: true
           wrap: ./artifacts/thunderstore
