@@ -31,6 +31,8 @@ jobs:
       # Install Node.js and semantic-release
       - name: Set up Node.js
         uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
       - name: Install semantic-release via NPM
         run: |
