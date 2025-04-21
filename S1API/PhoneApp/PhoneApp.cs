@@ -218,12 +218,13 @@ namespace S1API.PhoneApp
             return ChangeAppIconImage(iconObj, fileName);
         }
 
+
         /// <summary>
-        /// Updates the image of the app icon with the specified file, if the file exists and is valid.
+        /// Updates the app icon image with the specified file if the corresponding Image component is found and the file exists.
         /// </summary>
-        /// <param name="iconObj">The GameObject representing the app icon.</param>
-        /// <param name="filename">The name of the file containing the new icon image.</param>
-        /// <returns>Returns true if the app icon image was successfully changed; otherwise, false.</returns>
+        /// <param name="iconObj">The GameObject representing the app icon whose image is to be updated.</param>
+        /// <param name="filename">The name of the image file to be loaded and applied as the icon.</param>
+        /// <returns>True if the icon image was successfully updated, otherwise false.</returns>
         private bool ChangeAppIconImage(GameObject iconObj, string filename)
         {
             Transform imageTransform = iconObj.transform.Find("Mask/Image");
@@ -234,7 +235,7 @@ namespace S1API.PhoneApp
                 return false;
             }
 
-            string path = Path.Combine(MelonEnvironment.UserDataDirectory, filename);
+            string path = Path.Combine(MelonEnvironment.ModsDirectory, filename);
             if (!File.Exists(path))
             {
                 LoggerInstance?.Error("Icon file not found: " + path);
