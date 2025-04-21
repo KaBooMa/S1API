@@ -5,4 +5,4 @@ plugins:
   - "@semantic-release/github"
 
 branches:
-  - stable
+  - publishing
