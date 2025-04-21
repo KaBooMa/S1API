@@ -5,7 +5,5 @@ obj/
 bin/
 *.user
 
-Directory.Build.props
-
 # Local assembly references
 ScheduleOneAssemblies/
