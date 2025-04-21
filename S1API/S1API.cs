@@ -1,6 +1,7 @@
 ﻿using MelonLoader;
 using S1API.PhoneApp;
-[assembly: MelonInfo(typeof(S1API.S1API), "S1API", "1.0.0", "KaBooMa")]
+
+[assembly: MelonInfo(typeof(S1API.S1API), "S1API", "{VERSION_NUMBER}", "KaBooMa")]
 
 namespace S1API
 {
