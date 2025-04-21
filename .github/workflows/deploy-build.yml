@@ -81,7 +81,7 @@ jobs:
           version: ${{ steps.semantic-release.outputs.new_release_version }}
           community: schedule-i
           dev: true
-          wrap: ./artifacts/thunderstore
+          path: ./artifacts/thunderstore
           categories: |
             mono
             il2cpp
