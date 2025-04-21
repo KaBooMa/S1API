@@ -79,10 +79,10 @@ jobs:
           token: ${{ secrets.TS_TOKEN }}
           name: s1api
           version: ${{ steps.semantic-release.outputs.new_release_version }}
-          community: schedule-i
+          community: ultrakill
           dev: true
           path: ./artifacts/thunderstore
-          categories: |
-            mono
-            il2cpp
-            libraries
+#          categories: |
+#            mono
+#            il2cpp
+#            libraries
