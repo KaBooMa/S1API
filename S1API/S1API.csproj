@@ -5,6 +5,9 @@
         <Configurations>Mono;Il2Cpp</Configurations>
         <Platforms>AnyCPU</Platforms>
         <RootNamespace>S1API</RootNamespace>
+        <AutomateLocalDeployment>true</AutomateLocalDeployment>
+        <LocalIl2CppDeploymentPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy</LocalIl2CppDeploymentPath>
+        <LocalMonoDeploymentPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I</LocalMonoDeploymentPath>
     </PropertyGroup>
 
     <!-- IL2CPP Specific Deps -->
@@ -88,6 +91,9 @@
     <ItemGroup>
         <Reference Include="0Harmony">
             <HintPath>..\ScheduleOneAssemblies\MelonLoader\0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.Runtime">
+            <HintPath>..\ScheduleOneAssemblies\MelonLoader\Il2CppInterop.Runtime.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json">
             <HintPath>..\ScheduleOneAssemblies\Managed\Newtonsoft.Json.dll</HintPath>
