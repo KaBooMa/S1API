@@ -6,8 +6,13 @@ using S1API.Internal.Abstraction;
 using S1API.PhoneApp;
 
 namespace S1API.Internal.Patches
-{
-    [HarmonyPatch(typeof(SceneManager), "SceneManagerInternal_SceneLoaded")]
+{   
+#if IL2CPP
+    [HarmonyPatch(typeof(SceneManager), nameof(SceneManager.Internal_SceneLoaded))]
+#else
+    [HarmonyPatch(typeof(SceneManager), "Internal_SceneLoaded", new Type[] { typeof(Scene), typeof(LoadSceneMode) })]
+
+#endif
     internal static class PhoneAppPatches
     {
         private static bool _loaded = false;
