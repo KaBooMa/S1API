@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Provides static utility methods to create common UI components in Unity applications.
-/// </summary>
 public static class UIFactory
 {
     /// <summary>

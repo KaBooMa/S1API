@@ -13,109 +13,99 @@ using System.IO;
 using MelonLoader;
 using Object = UnityEngine.Object;
 using MelonLoader.Utils;
-using S1API.Internal.Abstraction;
 
 namespace S1API.PhoneApp
 {
     /// <summary>
-    /// Serves as an abstract base class for creating in-game phone applications with customizable functionality and appearance.
+    /// Base class for defining in-game phone apps. Automatically clones the phone UI,
+    /// injects your app, and supports icon customization.
     /// </summary>
-    /// <remarks>
-    /// Implementations of this class enable the creation of bespoke applications that integrate seamlessly into a game's phone system.
-    /// Derived classes are required to define key properties and methods, such as application name, icon, and UI behavior.
-    /// This class also manages the app's lifecycle, including its initialization and destruction processes.
-    /// </remarks>
-    public abstract class PhoneApp : Registerable
+    public abstract class PhoneApp
     {
-        protected static readonly MelonLogger.Instance LoggerInstance = new MelonLogger.Instance("PhoneApp");
-
         /// <summary>
-        /// The player object in the scene.
+        /// Reference to the player object in the scene.
         /// </summary>
         protected GameObject Player;
 
         /// <summary>
-        /// The in-game UI panel representing the app.
+        /// The actual app panel instance in the phone UI.
         /// </summary>
         protected GameObject AppPanel;
 
         /// <summary>
-        /// Whether the app was successfully created.
+        /// Whether the app panel was created by this instance.
         /// </summary>
         protected bool AppCreated;
 
         /// <summary>
-        /// Whether the app icon was already modified.
+        /// Tracks whether the app icon has been injected into the home screen.
         /// </summary>
         protected bool IconModified;
 
         /// <summary>
-        /// Unique GameObject name of the app (e.g. "SilkroadApp").
+        /// Prevents double-initialization.
+        /// </summary>
+        protected bool InitializationStarted;
+
+        /// <summary>
+        /// Unique internal name for the app GameObject.
         /// </summary>
         protected abstract string AppName { get; }
 
         /// <summary>
-        /// The title shown at the top of the app UI.
+        /// Title text displayed at the top of the app UI.
         /// </summary>
         protected abstract string AppTitle { get; }
 
         /// <summary>
-        /// The label shown under the app icon on the home screen.
+        /// Label shown below the app icon on the phone home screen.
         /// </summary>
         protected abstract string IconLabel { get; }
 
         /// <summary>
-        /// The PNG file name (in UserData) used for the app icon.
+        /// PNG filename for the app icon (must be placed in UserData folder).
         /// </summary>
         protected abstract string IconFileName { get; }
 
         /// <summary>
-        /// Called when the app's UI should be created inside the container.
+        /// Called after the app is created and a UI container is available.
+        /// Implement your custom UI here.
         /// </summary>
-        /// <param name="container">The container GameObject to build into.</param>
-        protected abstract void OnCreatedUI(GameObject container);
+        /// <param name="container">The GameObject container inside the app panel.</param>
+        protected abstract void OnCreated(GameObject container);
 
         /// <summary>
-        /// Called when the app is loaded into the scene (delayed after phone UI is present).
+        /// Begins async setup of the app, including icon and panel creation.
+        /// Should only be called once per session.
         /// </summary>
-        protected override void OnCreated()
+        /// <param name="logger">Logger to report errors and status.</param>
+        public void Init(MelonLogger.Instance logger)
         {
-            MelonCoroutines.Start(InitApp());
-        }
-
-        /// <summary>
-        /// Called when the app is unloaded or the scene is reset.
-        /// </summary>
-        protected override void OnDestroyed()
-        {
-            if (AppPanel != null)
+            if (!InitializationStarted)
             {
-                Object.Destroy(AppPanel);
-                AppPanel = null;
+                InitializationStarted = true;
+                MelonCoroutines.Start(DelayedInit(logger));
             }
-
-            AppCreated = false;
-            IconModified = false;
         }
 
         /// <summary>
-        /// Coroutine that injects the app UI and icon after scene/UI has loaded.
+        /// Coroutine that delays setup to ensure all UI elements are ready.
         /// </summary>
-        private IEnumerator InitApp()
+        private IEnumerator DelayedInit(MelonLogger.Instance logger)
         {
             yield return new WaitForSeconds(5f);
 
             Player = GameObject.Find("Player_Local");
             if (Player == null)
             {
-                LoggerInstance.Error("Player_Local not found.");
+                logger.Error("Player_Local not found.");
                 yield break;
             }
 
             GameObject appsCanvas = GameObject.Find("Player_Local/CameraContainer/Camera/OverlayCamera/GameplayMenu/Phone/phone/AppsCanvas");
             if (appsCanvas == null)
             {
-                LoggerInstance.Error("AppsCanvas not found.");
+                logger.Error("AppsCanvas not found.");
                 yield break;
             }
 
@@ -123,14 +113,14 @@ namespace S1API.PhoneApp
             if (existingApp != null)
             {
                 AppPanel = existingApp.gameObject;
-                SetupExistingAppPanel(AppPanel);
+                SetupExistingAppPanel(AppPanel, logger);
             }
             else
             {
                 Transform templateApp = appsCanvas.transform.Find("ProductManagerApp");
                 if (templateApp == null)
                 {
-                    LoggerInstance.Error("Template ProductManagerApp not found.");
+                    logger.Error("Template ProductManagerApp not found.");
                     yield break;
                 }
 
@@ -142,7 +132,7 @@ namespace S1API.PhoneApp
                 {
                     GameObject container = containerTransform.gameObject;
                     ClearContainer(container);
-                    OnCreatedUI(container);
+                    OnCreated(container);
                 }
 
                 AppCreated = true;
@@ -152,15 +142,16 @@ namespace S1API.PhoneApp
 
             if (!IconModified)
             {
-                IconModified = ModifyAppIcon(IconLabel, IconFileName);
+                IconModified = ModifyAppIcon(IconLabel, IconFileName, logger);
+                if (IconModified)
+                    logger.Msg("Icon modified.");
             }
         }
 
         /// <summary>
-        /// Configures the provided GameObject panel to prepare it for use with the app.
+        /// Sets up an existing app panel found in the scene (likely reused from a previous session).
         /// </summary>
-        /// <param name="panel">The GameObject representing the UI panel of the app.</param>
-        private void SetupExistingAppPanel(GameObject panel)
+        private void SetupExistingAppPanel(GameObject panel, MelonLogger.Instance logger)
         {
             Transform containerTransform = panel.transform.Find("Container");
             if (containerTransform != null)
@@ -169,13 +160,17 @@ namespace S1API.PhoneApp
                 if (container.transform.childCount < 2)
                 {
                     ClearContainer(container);
-                    OnCreatedUI(container);
+                    // TODO: (@omar-akermi) Looks like a method got relabeled. Need to resolve :(
+                    // BuildUI(container);
                 }
             }
 
             AppCreated = true;
         }
 
+        /// <summary>
+        /// Destroys all children of the app container to prepare for UI rebuilding.
+        /// </summary>
         private void ClearContainer(GameObject container)
         {
             for (int i = container.transform.childCount - 1; i >= 0; i--)
@@ -183,28 +178,21 @@ namespace S1API.PhoneApp
         }
 
         /// <summary>
-        /// Modifies the application's icon by cloning an existing icon, updating its label,
-        /// and setting a new icon image based on the specified parameters.
+        /// Attempts to clone an app icon from the home screen and customize it.
         /// </summary>
-        /// <param name="labelText">The text to be displayed as the label for the modified icon.</param>
-        /// <param name="fileName">The file name of the new icon image to apply.</param>
-        /// <returns>
-        /// A boolean value indicating whether the icon modification was successful.
-        /// Returns true if the modification was completed successfully; otherwise, false.
-        /// </returns>
-        private bool ModifyAppIcon(string labelText, string fileName)
+        private bool ModifyAppIcon(string labelText, string fileName, MelonLogger.Instance logger)
         {
             GameObject parent = GameObject.Find("Player_Local/CameraContainer/Camera/OverlayCamera/GameplayMenu/Phone/phone/HomeScreen/AppIcons/");
             if (parent == null)
             {
-                LoggerInstance?.Error("AppIcons not found.");
+                logger?.Error("AppIcons not found.");
                 return false;
             }
 
             Transform lastIcon = parent.transform.childCount > 0 ? parent.transform.GetChild(parent.transform.childCount - 1) : null;
             if (lastIcon == null)
             {
-                LoggerInstance?.Error("No icon found to clone.");
+                logger?.Error("No icon found to clone.");
                 return false;
             }
 
@@ -215,29 +203,26 @@ namespace S1API.PhoneApp
             Text label = labelTransform?.GetComponent<Text>();
             if (label != null) label.text = labelText;
 
-            return ChangeAppIconImage(iconObj, fileName);
+            return ChangeAppIconImage(iconObj, fileName, logger);
         }
 
         /// <summary>
-        /// Updates the image of the app icon with the specified file, if the file exists and is valid.
+        /// Loads the icon PNG from disk and applies it to the cloned icon.
         /// </summary>
-        /// <param name="iconObj">The GameObject representing the app icon.</param>
-        /// <param name="filename">The name of the file containing the new icon image.</param>
-        /// <returns>Returns true if the app icon image was successfully changed; otherwise, false.</returns>
-        private bool ChangeAppIconImage(GameObject iconObj, string filename)
+        private bool ChangeAppIconImage(GameObject iconObj, string filename, MelonLogger.Instance logger)
         {
             Transform imageTransform = iconObj.transform.Find("Mask/Image");
             Image image = imageTransform?.GetComponent<Image>();
             if (image == null)
             {
-                LoggerInstance?.Error("Image component not found in icon.");
+                logger?.Error("Image component not found in icon.");
                 return false;
             }
 
             string path = Path.Combine(MelonEnvironment.UserDataDirectory, filename);
             if (!File.Exists(path))
             {
-                LoggerInstance?.Error("Icon file not found: " + path);
+                logger?.Error("Icon file not found: " + path);
                 return false;
             }
 
@@ -245,16 +230,18 @@ namespace S1API.PhoneApp
             {
                 byte[] bytes = File.ReadAllBytes(path);
                 Texture2D tex = new Texture2D(2, 2);
-                if (tex.LoadImage(bytes))
+
+                if (tex.LoadImage(bytes)) // IL2CPP-safe overload
                 {
                     image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
                     return true;
                 }
+
                 Object.Destroy(tex);
             }
             catch (System.Exception e)
             {
-                LoggerInstance?.Error("Failed to load image: " + e.Message);
+                logger?.Error("Failed to load image: " + e.Message);
             }
 
             return false;

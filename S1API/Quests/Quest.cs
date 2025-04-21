@@ -59,13 +59,7 @@ namespace S1API.Quests
         private readonly QuestData _questData;
         
         internal string? SaveFolder => S1Quest.SaveFolderName;
-        /// <summary>
-        /// Optional icon sprite to display for the quest. 
-        /// Override to use a custom icon loaded at runtime (e.g., from a file).
-        /// protected override Sprite? QuestIcon => ImageUtils.LoadImage("icon.png");
-        /// </summary>
-        protected virtual Sprite? QuestIcon => null;
-
+        
         internal readonly S1Quests.Quest S1Quest;
         private readonly GameObject _gameObject;
         
@@ -102,7 +96,7 @@ namespace S1API.Quests
             );
             iconPrefabObject.transform.SetParent(_gameObject.transform);
             Image iconImage = iconPrefabObject.GetComponent<Image>();
-            iconImage.sprite = QuestIcon ?? S1Dev.PlayerSingleton<S1Contacts.ContactsApp>.Instance.AppIcon;
+            iconImage.sprite = S1Dev.PlayerSingleton<S1Contacts.ContactsApp>.Instance.AppIcon;
             S1Quest.IconPrefab = iconPrefabObject.GetComponent<RectTransform>();
             
             // Setup UI for POI prefab
@@ -128,7 +122,7 @@ namespace S1API.Quests
             );
             iconContainerObject.transform.SetParent(uiPrefabObject.transform);
             Image poiIconImage = iconContainerObject.GetComponent<Image>();
-            poiIconImage.sprite = QuestIcon ?? S1Dev.PlayerSingleton<S1Contacts.ContactsApp>.Instance.AppIcon;
+            poiIconImage.sprite = S1Dev.PlayerSingleton<S1Contacts.ContactsApp>.Instance.AppIcon;
             RectTransform iconRectTransform = poiIconImage.GetComponent<RectTransform>();
             iconRectTransform.sizeDelta = new Vector2(20, 20);
             

@@ -9,4 +9,4 @@ Directory.Build.props
 
 # Local assembly references
 ScheduleOneAssemblies/
-*.bin
+*.csproj
