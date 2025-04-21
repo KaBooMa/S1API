@@ -2,15 +2,21 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1API", "S1API\S1API.csproj", "{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1APILoader", "S1APILoader\S1APILoader.csproj", "{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Mono|Any CPU = Mono|Any CPU
-		IL2CPP|Any CPU = IL2CPP|Any CPU
+		Il2Cpp|Any CPU = Il2Cpp|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Mono|Any CPU.ActiveCfg = Mono|Any CPU
 		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Mono|Any CPU.Build.0 = Mono|Any CPU
-		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.IL2CPP|Any CPU.ActiveCfg = IL2CPP|Any CPU
-		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.IL2CPP|Any CPU.Build.0 = IL2CPP|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2Cpp|Any CPU.ActiveCfg = Il2Cpp|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2Cpp|Any CPU.Build.0 = Il2Cpp|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Mono|Any CPU.ActiveCfg = Mono|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Mono|Any CPU.Build.0 = Mono|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2Cpp|Any CPU.ActiveCfg = Il2Cpp|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2Cpp|Any CPU.Build.0 = Il2Cpp|Any CPU
 	EndGlobalSection
 EndGlobal

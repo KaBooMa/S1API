@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
@@ -95,4 +94,17 @@
         </Reference>
         <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>
+    
+    <!-- Automated local deployment -->
+    <Target Name="PostBuildIl2Cpp" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Il2Cpp' ">
+        <Message Text="Deploying S1API to local Il2Cpp plugins folder" Importance="high"/>
+        <Copy SourceFiles=".\bin\Il2Cpp\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
+        <Copy SourceFiles=".\bin\Mono\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
+    </Target>
+    
+    <Target Name="PostBuildMono" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Mono' ">
+        <Message Text="Deploying S1API to local Mono plugins folder" Importance="high"/>
+        <Copy SourceFiles=".\bin\Il2Cpp\netstandard2.1\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
+        <Copy SourceFiles=".\bin\Mono\netstandard2.1\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
+    </Target>
 </Project>
