@@ -7,7 +7,7 @@ using S1API.PhoneApp;
 
 namespace S1API.Internal.Patches
 {
-    [HarmonyPatch(typeof(SceneManager), nameof(SceneManager.Internal_SceneLoaded))]
+    [HarmonyPatch(typeof(SceneManager), "SceneManagerInternal_SceneLoaded")]
     internal static class PhoneAppPatches
     {
         private static bool _loaded = false;
