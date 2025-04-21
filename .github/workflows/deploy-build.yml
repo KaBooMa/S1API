@@ -3,8 +3,7 @@ name: Deploy Build
 on:
   push:
     branches:
-#      - stable
-      - publishing
+      - stable
 
 jobs:
   build:
@@ -43,8 +42,7 @@ jobs:
         with:
           branches: |
             [
-              'stable',
-              'publishing'
+              'stable'
             ]
           extra_plugins: |
             @semantic-release/changelog
@@ -79,10 +77,10 @@ jobs:
           token: ${{ secrets.TS_TOKEN }}
           name: s1api
           version: ${{ steps.semantic-release.outputs.new_release_version }}
-          community: ultrakill
-          dev: true
+          community: schedule-i
+          deps: LavaGang-MelonLoader-0.7.0
           path: ./artifacts/thunderstore
-#          categories: |
-#            mono
-#            il2cpp
-#            libraries
+          categories: |
+            mono
+            il2cpp
+            libraries
