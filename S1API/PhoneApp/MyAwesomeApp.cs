@@ -4,6 +4,13 @@ using S1API.PhoneApp;
 
 namespace S1API.PhoneApp
 {
+    /// <summary>
+    /// Defines the MyAwesomeApp, a specialized application integrated into an in-game phone system.
+    /// </summary>
+    /// <remarks>
+    /// This class leverages the PhoneApp framework to specify application-specific properties like name, title,
+    /// icon label, and icon file name. It also overrides the method for defining the user interface layout upon creation.
+    /// </remarks>
     public class MyAwesomeApp : PhoneApp
     {
         protected override string AppName => "MyAwesomeApp";
@@ -11,10 +18,10 @@ namespace S1API.PhoneApp
         protected override string IconLabel => "Awesome";
         protected override string IconFileName => "my_icon.png";
 
-        protected override void OnCreated(GameObject container)
+        protected override void OnCreatedUI(GameObject container)
         {
-            GameObject panel = UIFactory.Panel("MainPanel", container.transform, Color.black);
-            UIFactory.Text("HelloText", "Hello from My Awesome App!", panel.transform, 22, TextAnchor.MiddleCenter, FontStyle.Bold);
+            var panel = UIFactory.Panel("MainPanel", container.transform, Color.black);
+            UIFactory.Text("HelloText", "📱 Hello!", panel.transform, 22, TextAnchor.MiddleCenter);
         }
     }
 }

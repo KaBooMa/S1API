@@ -4,85 +4,105 @@
         <Nullable>enable</Nullable>
         <Configurations>Mono;Il2Cpp</Configurations>
         <Platforms>AnyCPU</Platforms>
-        <RootNamespace>S1API</RootNamespace>
+        <RootNamespace>S1API</RootNamespace>			
+		<AutomateLocalDeployment>true</AutomateLocalDeployment>
+		<LocalIl2CppDeploymentPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy</LocalIl2CppDeploymentPath>
+		<LocalMonoDeploymentPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I</LocalMonoDeploymentPath>
     </PropertyGroup>
 
     <!-- IL2CPP Specific Deps -->
     <ItemGroup Condition="'$(Configuration)' == 'Il2Cpp'">
-        <Reference Include="Assembly-CSharp">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppInterop.Runtime">
-            <HintPath>..\ScheduleOneAssemblies\MelonLoader\Il2CppInterop.Runtime.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppInterop.Common">
-            <HintPath>..\ScheduleOneAssemblies\MelonLoader\Il2CppInterop.Common.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppInterop.HarmonySupport">
-            <HintPath>..\ScheduleOneAssemblies\MelonLoader\Il2CppInterop.HarmonySupport.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppInterop.Generator">
-            <HintPath>..\ScheduleOneAssemblies\MelonLoader\Il2CppInterop.Generator.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppFishNet.Runtime">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2CppFishNet.Runtime.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2Cppmscorlib">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UI">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UIModule">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.JSONSerializeModule">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.ImageConversionModule">
-            <HintPath>..\ScheduleOneAssemblies\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    
-    <!-- Mono Specific Deps -->
-    <ItemGroup Condition="'$(Configuration)' == 'Mono'">
-        <Reference Include="Assembly-CSharp">
-            <HintPath>..\ScheduleOneAssemblies\Managed\Assembly-CSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
-        <Reference Include="FishNet.Runtime">
-            <HintPath>..\ScheduleOneAssemblies\Managed\FishNet.Runtime.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UI">
-            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.UI.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UIModule">
-            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.UIModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.JSONSerializeModule">
-            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.ImageConversionModule">
-            <HintPath>..\ScheduleOneAssemblies\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
-        </Reference>
-    </ItemGroup>
+		<Reference Include="Il2CppInterop.Runtime">
+			<HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Common">
+			<HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.HarmonySupport">
+			<HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy\MelonLoader\net6\Il2CppInterop.HarmonySupport.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Generator">
+			<HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy\MelonLoader\net6\Il2CppInterop.Generator.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppFishNet.Runtime">
+			<HintPath>..\Il2CppAssemblies\Il2CppFishNet.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>..\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppmscorlib">
+			<HintPath>..\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>..\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppSystem.Core">
+			<HintPath>..\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy\MelonLoader\Il2CppAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>..\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>..\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>..\Il2CppAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>..\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+
+	<!-- Mono Specific Deps -->
+	<ItemGroup Condition="'$(Configuration)' == 'MONO'">
+		<Reference Include="Assembly-CSharp">
+			<HintPath>..\MonoAssemblies\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>..\MonoAssemblies\UnityEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>..\MonoAssemblies\UnityEngine.UIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>..\MonoAssemblies\UnityEngine.ImageConversionModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>..\MonoAssemblies\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>..\MonoAssemblies\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="FishNet.Runtime">
+			<HintPath>..\MonoAssemblies\FishNet.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>..\MonoAssemblies\UnityEngine.JSONSerializeModule.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<!-- Shared Deps -->
+	<ItemGroup>
+		<Reference Include="0Harmony">
+			<HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I - Copy\MelonLoader\0Harmony.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Runtime">
+			<HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2Cppmscorlib">
+			<HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+		</Reference>
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>..\MonoAssemblies\Newtonsoft.Json.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Schedule I\Schedule I_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
     <!-- Shared Deps -->
     <ItemGroup>
@@ -94,7 +114,7 @@
         </Reference>
         <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>
-    
+
     <!-- Automated local deployment -->
     <Target Name="PostBuildIl2Cpp" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Il2Cpp' ">
         <Message Text="Deploying S1API to local Il2Cpp plugins folder" Importance="high"/>

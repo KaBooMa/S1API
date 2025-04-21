@@ -54,7 +54,12 @@ namespace S1API.NPCs
         internal readonly S1NPCs.NPC S1NPC;
 
         private readonly GameObject _gameObject;
-        
+        /// <summary>
+        /// Optional custom mugshot icon sprite. If null, defaults to ContactsApp icon.
+        /// protected override Sprite? NPCIcon => ImageUtils.LoadImage("icon.png");
+        /// </summary>
+        protected virtual Sprite? NPCIcon => null;
+
         /// <summary>
         /// Base constructor for a new NPC.
         /// Intended to be wrapped in your derived class constructor such as:
@@ -77,7 +82,7 @@ namespace S1API.NPCs
             S1NPC.LastName = lastName;
             S1NPC.ID = guid;
             S1NPC.BakedGUID = Guid.NewGuid().ToString();
-            S1NPC.MugshotSprite = S1DevUtilities.PlayerSingleton<S1ContactApps.ContactsApp>.Instance.AppIcon;
+            S1NPC.MugshotSprite = NPCIcon ?? S1DevUtilities.PlayerSingleton<S1ContactApps.ContactsApp>.Instance.AppIcon;
 
             // ReSharper disable once UseObjectOrCollectionInitializer
             S1NPC.ConversationCategories = new List<S1Messaging.EConversationCategory>();
