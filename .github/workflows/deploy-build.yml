@@ -49,7 +49,7 @@ jobs:
         run: dotnet restore
 
       - name: Run .NET Build for Mono
-        run: dotnet build ./S1API/S1API.csproj -c Mono -f netstandard2.1
+        run: dotnet build ./S1API.sln -c Mono -f netstandard2.1
 
       - name: Run .NET Build for Il2Cpp
-        run: dotnet build ./S1API/S1API.csproj -c Il2Cpp -f netstandard2.1
+        run: dotnet build ./S1API.sln -c Il2Cpp -f netstandard2.1
