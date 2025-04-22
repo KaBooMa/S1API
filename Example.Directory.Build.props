@@ -1,7 +1,0 @@
-<Project>
-    <PropertyGroup>
-        <AutomateLocalDeployment>true</AutomateLocalDeployment>
-        <LocalIl2CppDeploymentPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I</LocalIl2CppDeploymentPath>
-        <LocalMonoDeploymentPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I</LocalMonoDeploymentPath>
-    </PropertyGroup>
-</Project>

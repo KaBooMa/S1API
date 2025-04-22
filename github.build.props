@@ -1,0 +1,31 @@
+<!-- This file should be placed inside your local directory in order to build. -->
+<!-- Name the file `local.build.props`. -->
+<!-- Adjust the properties below to fit your local configuration. -->
+
+<Project>
+    <PropertyGroup>
+<!-- General Configuration -->
+        
+        <!-- Whether or not you want the build steps to copy over the newly built versions. -->
+        <AutomateLocalDeployment>false</AutomateLocalDeployment>
+
+        <!-- Used when building both Il2Cpp and Mono. Typically located at `steamapps/Schedule I/MelonLoader/net6` -->
+        <MelonLoaderAssembliesPath>.\ScheduleOneAssemblies\MelonLoader</MelonLoaderAssembliesPath>
+        
+<!-- Mono Configuration -->
+        
+        <!-- Used only when building against Mono. Typically located at `steamapps/Schedule I` -->
+        <LocalMonoDeploymentPath>null</LocalMonoDeploymentPath>
+        
+        <!-- Used only when building against Mono. Typically located at `steamapps/Schedule I/Schedule I_Data/Managed` -->
+        <MonoAssembliesPath>.\ScheduleOneAssemblies\Managed</MonoAssembliesPath>
+        
+<!-- Il2Cpp Configuration -->
+
+        <!-- Used only when building against Il2Cpp. Typically located at `steamapps/Schedule I` -->
+        <LocalIl2CppDeploymentPath>null</LocalIl2CppDeploymentPath>
+        
+        <!-- Used only when building against Il2Cpp. Typically located at `steamapps/Schedule I/MelonLoader/Il2CppAssemblies` -->
+        <Il2CppAssembliesPath>.\ScheduleOneAssemblies\Il2CppAssemblies</Il2CppAssembliesPath>
+    </PropertyGroup>
+</Project>

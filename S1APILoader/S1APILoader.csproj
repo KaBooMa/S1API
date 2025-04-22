@@ -1,4 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Imports the standard GitHub build properties. -->
+    <Import Project="../github.build.props" Condition="Exists('../github.build.props')" />
+
+    <!-- Imports any local build properties over the GitHub repository one. -->
+    <Import Project="../local.build.props" Condition="Exists('../local.build.props')" />
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>

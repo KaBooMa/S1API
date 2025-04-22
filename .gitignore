@@ -5,8 +5,10 @@ obj/
 bin/
 *.user
 
-Directory.Build.props
+# Build props
+local.*
 
 # Local assembly references
+### TODO: ScheduleOneAssemblies is deprecated and needs removed after communications
 ScheduleOneAssemblies/
 *.bin
