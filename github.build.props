@@ -10,7 +10,7 @@
         <AutomateLocalDeployment>false</AutomateLocalDeployment>
 
         <!-- Used when building both Il2Cpp and Mono. Typically located at `steamapps/Schedule I/MelonLoader/net6` -->
-        <MelonLoaderAssembliesPath>.\ScheduleOneAssemblies\MelonLoader</MelonLoaderAssembliesPath>
+        <MelonLoaderAssembliesPath>..\ScheduleOneAssemblies\MelonLoader</MelonLoaderAssembliesPath>
         
 <!-- Mono Configuration -->
         
@@ -18,7 +18,7 @@
         <LocalMonoDeploymentPath>null</LocalMonoDeploymentPath>
         
         <!-- Used only when building against Mono. Typically located at `steamapps/Schedule I/Schedule I_Data/Managed` -->
-        <MonoAssembliesPath>.\ScheduleOneAssemblies\Managed</MonoAssembliesPath>
+        <MonoAssembliesPath>..\ScheduleOneAssemblies\Managed</MonoAssembliesPath>
         
 <!-- Il2Cpp Configuration -->
 
@@ -26,6 +26,6 @@
         <LocalIl2CppDeploymentPath>null</LocalIl2CppDeploymentPath>
         
         <!-- Used only when building against Il2Cpp. Typically located at `steamapps/Schedule I/MelonLoader/Il2CppAssemblies` -->
-        <Il2CppAssembliesPath>.\ScheduleOneAssemblies\Il2CppAssemblies</Il2CppAssembliesPath>
+        <Il2CppAssembliesPath>..\ScheduleOneAssemblies\Il2CppAssemblies</Il2CppAssembliesPath>
     </PropertyGroup>
 </Project>
