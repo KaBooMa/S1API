@@ -87,3 +87,9 @@ jobs:
             mono
             il2cpp
             libraries
+            
+      - name: Pack NuGet package
+        run: dotnet pack ./S1API/S1API/S1API.csproj -c Mono --no-build --output ./nupkg /p:PackageVersion=${{ steps.semantic-release.outputs.new_release_version }}
+        
+      - name: Push to NuGet Gallery
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json

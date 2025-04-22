@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <Authors>KaBooMa</Authors>
+        <PackageId>S1API</PackageId>
+        <Description>A Schedule One Mono / Il2Cpp Cross Compatibility Layer</Description>
+        <RepositoryUrl>https://github.com/KaBooMa/S1API</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Nullable>enable</Nullable>
         <Configurations>Mono;Il2Cpp</Configurations>
         <Platforms>AnyCPU</Platforms>
