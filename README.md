@@ -1,36 +1,80 @@
-# S1API - A Schedule One Mono / Il2Cpp Cross Compatibility Layer
-S1API is an open source collaboration project to help standardize Schedule One modding processes.
-The goal is to provide a standard place for common functionalities so you can focus on making content versus reverse engineering the game.
+# S1API - Schedule I Modding API
 
-> **This GitHub repository is intended for developers.**
-> If you are just looking to mod your game, please refer to the releases / mod repositories such as Thunderstore and Nexus Mods.
+S1API is the official community-driven API for **Schedule I** modding.
 
-## What Does it Do?
-* Allows creation of new game elements (quests, npcs, etc.)
-* Provides an easy-to-use abstraction for save/load of class data
-* Eases access to various common game functions without needing to import the assembly themselves, removing the Mono / Il2Cpp dependency for your mod.
-* Allow modders to live in the Managed environment, regardless of Mono / Il2Cpp development
-* Lower the bearer of entry into S1 modding, especially for Il2Cpp builds
-* Support mod developers by allowing them to compile a single assembly that works across both builds
-* Who knows what else? We will have to see who all is willing to collaborate on this ❤️
+It provides a stable, safe, and powerful framework for developing custom mods, allowing modders to create new gameplay features, quests, events, and systems without having to directly reverse engineer the game.
 
-## What Are the Limitations?
-* S1API will NOT be the be-all and end-all. It's just not possible.
-* Handle Il2Cpp / Mono communication when utilizing game assemblies as dependencies
-* Cover all modding needs. It will never be as flexible as writing your own mod referencing game assemblies.
+---
 
-## How It's Designed to Work
-S1API is designed to compile for Mono and Il2Cpp separately.
-Mod users install the version applicable to they're preferred build.
+## 🚀 Features
 
-Mod developers can develop their mods on whichever build, Mono or Il2Cpp, without having to step into the Il2Cpp environment.
-Caveat: If you do utilize Il2Cpp functionality within your mod, you lose cross compatibility.
-I can't think of why you would. I wanted to make sure that is clarified though.
+- 🔥 Cross-compatible with **Mono** and **Il2Cpp** builds
+- 📦 Modular **Save System** for storing custom mod data
+- 📜 **Quest Manager** for creating and tracking new quests
+- 🧩 **Event System** (40+ planned events) for hooking into gameplay moments
+- 🏭 **Warehouse Manager** to expand property interactions
+- 🛠️ Utility classes for **safe reflection** and **dynamic type access**
+- 💬 Clean **Logger** wrapper for structured mod logs
+- 🏗️ Built for future expansion (UI apps, stash mods, economy control)
 
-S1API is designed to be a tag-along as well.
-If you want to do custom content specific to Mono or Il2Cpp, S1API can still assist with some of the common repetitive tasks.
+---
 
-## Want to Contribute?
-This is a massive project with so many different areas to specialize in.
-If you're interested in contributing, please do!
-Look over the [CONTRIBUTING.md](CONTRIBUTING.md) for guidance on code standards and the process.
+## 📚 Documentation
+
+Full documentation is available inside the [`/docs`](./docs) folder.
+
+- [Overview](./docs/overview.md)
+- [Getting Started](./docs/getting_started.md)
+- [Save System](./docs/save_system.md)
+- [Quest System](./docs/quest_system.md)
+- [Event System](./docs/event_system.md)
+- [Warehouse System](./docs/warehouse_system.md)
+- [Utilities (Reflection, Logger)](./docs/utilities.md)
+- [Code Examples](./docs/examples.md)
+- [Future Plans](./docs/future_plans.md)
+
+---
+
+## 📥 Installation
+
+Coming Soon!  
+(Currently in active development.)
+
+---
+
+## 🛠️ How to Use
+
+Once S1API is installed:
+
+- Create mods by referencing `S1API.dll`
+- Use the managers provided to hook into the game
+- Subscribe to lifecycle events
+- Save your custom data safely
+- Expand Schedule I gameplay however you like!
+
+Example snippets and guides are available in the [examples page](./docs/examples.md).
+
+---
+
+## 🙏 Credits
+
+- Created by **KaBooMa**
+- Huge thanks to the **Forkers** who help continue expanding and maintaining S1API ❤️
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.  
+You are free to use, modify, and distribute under the terms of MIT.
+
+---
+
+## 🌟 Why S1API?
+
+Schedule I is an amazing game — but until now, modding it was hard and unsafe.  
+S1API was created to **open the game** to full community creativity in a stable, maintainable, and expandable way.
+
+> The future of Schedule I modding starts here.
+
+---
