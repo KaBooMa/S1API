@@ -19,9 +19,6 @@ namespace S1API.AssetBundles
     {
         public bool isStreamedAssetBundle => _realBundle.isStreamedSceneAssetBundle;
 
-        public Object mainAsset => _realBundle.mainAsset;
-
-
         public AssetBundle _realBundle;
 
         public WrappedAssetBundle(AssetBundle realBundle)
