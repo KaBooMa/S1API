@@ -4,6 +4,8 @@
 using Type = Il2CppSystem.Type;
 using AssetBundle = UnityEngine.Il2CppAssetBundle;
 using AssetBundleRequest = UnityEngine.Il2CppAssetBundleRequest;
+#else
+using Type = System.Type;
 #endif
 
 
