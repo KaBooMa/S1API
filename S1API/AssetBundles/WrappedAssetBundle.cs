@@ -8,6 +8,8 @@ using AssetBundleRequest = UnityEngine.Il2CppAssetBundleRequest;
 using Type = System.Type;
 #endif
 
+using Object = UnityEngine.Object;
+
 
 namespace S1API.AssetBundles
 {
