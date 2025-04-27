@@ -33,6 +33,9 @@
         <Reference Include="Il2CppInterop.Generator">
             <HintPath>$(MelonLoaderAssembliesPath)\Il2CppInterop.Generator.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.Il2CppAssetBundleManager">
+          <HintPath>$(MelonLoaderAssembliesPath)\UnityEngine.Il2CppAssetBundleManager.dll</HintPath>
+        </Reference>
         <Reference Include="Assembly-CSharp">
             <HintPath>$(Il2CppAssembliesPath)\Assembly-CSharp.dll</HintPath>
         </Reference>
@@ -75,6 +78,9 @@
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
             <HintPath>$(MonoAssembliesPath)\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AssetBundleModule">
+          <HintPath>$(MonoAssembliesPath)\UnityEngine.AssetBundleModule.dll</HintPath>
         </Reference>
         <Reference Include="FishNet.Runtime">
             <HintPath>$(MonoAssembliesPath)\FishNet.Runtime.dll</HintPath>
