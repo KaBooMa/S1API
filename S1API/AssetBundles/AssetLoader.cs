@@ -16,32 +16,26 @@ namespace S1API.AssetBundles
         /// <returns>The loaded Il2CppAssetBundle, or throws on failure.</returns>
         public static  WrappedAssetBundle GetAssetBundleFromStream(string fullResourceName)
         {
-            try
+            // Attempt to find the embedded resource in the executing assembly
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(fullResourceName))
             {
-                // Attempt to find the embedded resource in the executing assembly
-                var assembly = Assembly.GetExecutingAssembly();
-                using (Stream stream = assembly.GetManifestResourceStream(fullResourceName))
-                {
-                    if (stream == null)
-                        throw new Exception($"Embedded resource '{fullResourceName}' not found in {assembly.FullName}."); // hoping these throws will be melon/bepinex-agnostic
+                if (stream == null)
+                    throw new Exception($"Embedded resource '{fullResourceName}' not found in {assembly.FullName}."); // hoping these throws will be melon/bepinex-agnostic
 
-                    // Read the stream into a byte array
-                    byte[] data = new byte[stream.Length];
-                    stream.Read(data, 0, data.Length);
+                // Read the stream into a byte array
+                byte[] data = new byte[stream.Length];
+                stream.Read(data, 0, data.Length);
 
-                    // Load the AssetBundle from memory
-                    Il2CppAssetBundle bundle = Il2CppAssetBundleManager.LoadFromMemory(data);
-                    if (bundle == null)
-                        throw new Exception($"Failed to load AssetBundle from memory: {fullResourceName}");
+                // Load the AssetBundle from memory
+                Il2CppAssetBundle bundle = Il2CppAssetBundleManager.LoadFromMemory(data);
 
-                    return new(bundle);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions as needed
-                Debug.LogError($"Error loading AssetBundle from stream: {ex.Message}");
-                throw;
+                if (bundle == null){
+                MelonLoader.Logger.Error($"Failed to load AssetBundle from memory: {fullResourceName}");
+                    throw new Exception($"Failed to load AssetBundle from memory: {fullResourceName}");
+                    }
+
+                return new(bundle);
             }
         }
 #else

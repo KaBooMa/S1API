@@ -191,3 +191,19 @@ public static class Il2CppObjectArrayExtensions
 */
 
 
+/*
+ * 
+ * [12:57:44.463] [ManorMod] Unhandled exception in coroutine. It will not continue executing.
+System.MissingMethodException: Method not found: 'UnityEngine.AssetBundle UnityEngine.AssetBundle.LoadFromStream(System.IO.Stream)'.
+   at S1API.AssetBundles.AssetLoader.GetAssetBundleFromStream(String fullResourceName)
+   at S1API.AssetBundles.AssetLoader.EasyLoad[T](String bundle_name, String object_name, Assembly assemblyOverride, WrappedAssetBundle& bundle)
+   at S1API.AssetBundles.AssetLoader.EasyLoad[T](String bundle_name, String object_name)
+   at ManorMod.Core.LoadAssetBundle()+MoveNext()
+   at MelonLoader.Support.MonoEnumeratorWrapper.MoveNext() in D:\a\MelonLoader\MelonLoader\Dependencies\SupportModules\Il2Cpp\MonoEnumeratorWrapper.cs:line 39
+[12:57:48.792] [ManorMod] System.MissingMethodException: Method not found: 'Void UnityEngine.Events.UnityAction..ctor(System.Object, IntPtr)'.
+   at ManorMod.Core.OnLateInitializeMelon()
+   at MelonLoader.MelonEvent.<>c.<Invoke>b__1_0(LemonAction x) in D:\a\MelonLoader\MelonLoader\MelonLoader\Melons\Events\MelonEvent.cs:line 174
+   at MelonLoader.MelonEventBase`1.Invoke(Action`1 delegateInvoker) in D:\a\MelonLoader\MelonLoader\MelonLoader\Melons\Events\MelonEvent.cs:line 143
+
+
+*/
