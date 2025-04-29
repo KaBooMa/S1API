@@ -43,7 +43,8 @@ namespace S1API.Products
         /// <summary>
         /// The quality of this product instance.
         /// </summary>
-        public EQuality Quality => S1ProductInstance.Quality;
+        public Quality Quality => S1ProductInstance.Quality.ToAPI();
+
 
     }
 
