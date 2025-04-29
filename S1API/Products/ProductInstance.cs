@@ -7,6 +7,7 @@ using S1Product = ScheduleOne.Product;
 using ScheduleOne.ItemFramework;
 #endif
 
+using System.Collections.Generic;
 using S1API.Internal.Utils;
 using ItemInstance = S1API.Items.ItemInstance;
 
@@ -27,7 +28,9 @@ namespace S1API.Products
         /// INTERNAL: Creates a product instance from the in-game product instance.
         /// </summary>
         /// <param name="productInstance"></param>
-        internal ProductInstance(S1Product.ProductItemInstance productInstance) : base(productInstance) { }
+        internal ProductInstance(S1Product.ProductItemInstance productInstance) : base(productInstance)
+        {
+        }
 
         /// <summary>
         /// Whether this product is currently packaged or not.
@@ -40,12 +43,16 @@ namespace S1API.Products
         /// </summary>
         public PackagingDefinition AppliedPackaging =>
             new PackagingDefinition(S1ProductInstance.AppliedPackaging);
+
         /// <summary>
         /// The quality of this product instance.
         /// </summary>
         public Quality Quality => S1ProductInstance.Quality.ToAPI();
 
+        // Expose the underlying definition's properties (if S1ProductInstance.Definition is available)
+        public IReadOnlyList<Properties.Property> Properties => Definition.Properties;
 
+        // Add Definition property if you don't have one yet
+        public ProductDefinition Definition => new ProductDefinition(S1ProductInstance.Definition);
     }
-
 }

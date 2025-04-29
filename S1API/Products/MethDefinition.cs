@@ -6,34 +6,60 @@ using ScheduleOne.Product;
 using S1MethDefinition = ScheduleOne.Product.MethDefinition;
 #endif
 
+using System.Collections.Generic;
 using S1API.Internal.Utils;
 using S1API.Items;
 
 namespace S1API.Products
 {
     /// <summary>
-    /// Represents the definition of a Meth product.
+    /// Represents the definition of a Meth product in the product framework.
     /// </summary>
+    /// <remarks>
+    /// Provides methods for retrieving properties and creating instances of meth products. This class extends the base functionality provided by <see cref="ProductDefinition"/>.
+    /// </remarks>
     public class MethDefinition : ProductDefinition
     {
         /// <summary>
-        /// INTERNAL: Strongly typed access to the MethDefinition.
+        /// INTERNAL: Strongly typed access to S1MethDefinition, representing the Il2CppScheduleOne.Product.MethDefinition entity.
         /// </summary>
         internal S1MethDefinition S1MethDefinition =>
             CrossType.As<S1MethDefinition>(S1ItemDefinition);
 
         /// <summary>
-        /// Creates a new meth product definition.
+        /// Represents the definition of a Meth product.
         /// </summary>
-        /// <param name="definition">The original in-game meth definition.</param>
         internal MethDefinition(S1MethDefinition definition)
-            : base(definition) { }
+            : base(definition)
+        {
+        }
 
         /// <summary>
-        /// Creates an instance of this meth product.
+        /// Creates an instance of this meth product with a specified quantity.
         /// </summary>
+        /// <param name="quantity">The quantity of the meth product to instantiate. Defaults to 1 if not provided.</param>
+        /// <returns>An instance of the meth product as a <see cref="ItemInstance"/>.</returns>
         public override ItemInstance CreateInstance(int quantity = 1) =>
             new ProductInstance(CrossType.As<ProductItemInstance>(
                 S1MethDefinition.GetDefaultInstance(quantity)));
+
+        /// <summary>
+        /// Retrieves the list of properties associated with the meth product definition.
+        /// </summary>
+        /// <returns>A list of properties that belong to the meth product definition.</returns>
+        public List<Il2CppScheduleOne.Properties.Property> GetProperties()
+        {
+            var result = new List<Il2CppScheduleOne.Properties.Property>();
+            var list = S1MethDefinition?.Properties;
+            if (list != null)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    result.Add(list[i]);
+                }
+            }
+
+            return result;
+        }
     }
 }
