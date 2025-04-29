@@ -27,8 +27,11 @@ namespace S1API.Products
         /// INTERNAL: Creates a product definition from the in-game product definition.
         /// </summary>
         /// <param name="productDefinition"></param>
+        #if IL2CPPBEPINEX || IL2CPPMELON
         internal ProductDefinition(Il2CppScheduleOne.ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
-
+#else
+        internal ProductDefinition(ScheduleOne.ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
+        #endif
         /// <summary>
         /// The price associated with this product.
         /// </summary>

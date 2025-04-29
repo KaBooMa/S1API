@@ -47,9 +47,17 @@ namespace S1API.Products
         /// Retrieves the list of properties associated with the meth product definition.
         /// </summary>
         /// <returns>A list of properties that belong to the meth product definition.</returns>
+#if IL2CPPBEPINEX || IL2CPPMELON
         public List<Il2CppScheduleOne.Properties.Property> GetProperties()
+#else
+        public List<ScheduleOne.Properties.Property> GetProperties()
+#endif
         {
+#if IL2CPPBEPINEX || IL2CPPMELON
             var result = new List<Il2CppScheduleOne.Properties.Property>();
+#else
+            var result = new List<ScheduleOne.Properties.Property>();
+#endif
             var list = S1MethDefinition?.Properties;
             if (list != null)
             {
