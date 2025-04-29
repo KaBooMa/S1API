@@ -53,10 +53,14 @@ namespace S1API.Products
         {
             get { return S1ProductDefinition.Icon; }
         }
+#if IL2CPPBEPINEX || IL2CPPMELON
+        private List<Il2CppScheduleOne.Properties.Property> properties; // or however properties are stored
+        public List<Il2CppScheduleOne.Properties.Property> Properties; // or however properties are stored
+#else
+        private List<ScheduleOne.Properties.Property> properties; // or however properties are stored
+        public IReadOnlyList<ScheduleOne.Properties.Property> Properties => properties.AsReadOnly();
+#endif
 
-    private List<Properties.Property> properties; // or however properties are stored
 
-    // Add this public property if it doesn't exist yet
-    public IReadOnlyList<Properties.Property> Properties => properties.AsReadOnly();
 }
 }

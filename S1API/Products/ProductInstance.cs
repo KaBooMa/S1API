@@ -50,9 +50,17 @@ namespace S1API.Products
         public Quality Quality => S1ProductInstance.Quality.ToAPI();
 
         // Expose the underlying definition's properties (if S1ProductInstance.Definition is available)
-        public IReadOnlyList<Properties.Property> Properties => Definition.Properties;
 
         // Add Definition property if you don't have one yet
+
+#if IL2CPPBEPINEX || IL2CPPMELON
+        public IReadOnlyList<Il2CppScheduleOne.Properties.Property> Properties => Definition.Properties;
         public ProductDefinition Definition => new ProductDefinition(S1ProductInstance.Definition);
+#else
+        public IReadOnlyList<ScheduleOne.Properties.Property> Properties => Definition.Properties;
+        public ProductDefinition Definition => new ProductDefinition(S1ProductInstance.Definition);
+
+#endif
+
     }
 }
