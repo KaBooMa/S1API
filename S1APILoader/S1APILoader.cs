@@ -17,20 +17,22 @@ namespace S1APILoader
             if (pluginsFolder == null)
                 throw new Exception("Failed to identify plugins folder.");
             
-            string buildsFolder = Path.Combine(pluginsFolder, BuildFolderName);
+            string modsFolder = Path.Combine(pluginsFolder, "../Mods");
 
             string activeBuild = MelonUtils.IsGameIl2Cpp() ? "Il2Cpp" : "Mono";
+            string inactiveBuild = !MelonUtils.IsGameIl2Cpp() ? "Il2Cpp" : "Mono";
+            
             MelonLogger.Msg($"Loading S1API for {activeBuild}...");
             
-            string s1APIBuildFile = Path.Combine(buildsFolder, $"S1API.{activeBuild}.dll");
+            string s1APIActiveBuildFile = Path.Combine(modsFolder, $"S1API.{activeBuild}.MelonLoader.dll");
+            string s1APIInactiveBuildFile = Path.Combine(modsFolder, $"S1API.{inactiveBuild}.MelonLoader.dll");
 
-            // FIX: https://github.com/KaBooMa/S1API/issues/30
-            // Manual assembly loading versus file manipulation.
-            // Thunderstore doesn't pick it up if we do file manipulation.
-            Assembly assembly = Assembly.LoadFile(s1APIBuildFile);
-            MelonAssembly melonAssembly = MelonAssembly.LoadMelonAssembly(s1APIBuildFile, assembly);
-            foreach (MelonBase melon in melonAssembly.LoadedMelons)
-                melon.Register();
+            string disabledActiveBuildFile = $"{s1APIActiveBuildFile}.disabled";
+            if (File.Exists(disabledActiveBuildFile))
+                File.Move($"{s1APIActiveBuildFile}.disabled", s1APIActiveBuildFile);
+            
+            if (File.Exists(s1APIInactiveBuildFile))
+                File.Move(s1APIInactiveBuildFile, $"{s1APIInactiveBuildFile}.disabled");
             
             MelonLogger.Msg($"Successfully loaded S1API for {activeBuild}!");
         }

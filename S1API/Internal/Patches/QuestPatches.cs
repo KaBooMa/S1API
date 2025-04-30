@@ -1,12 +1,16 @@
-﻿#if (IL2CPP)
+﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
 using S1Loaders = Il2CppScheduleOne.Persistence.Loaders;
 using S1Datas = Il2CppScheduleOne.Persistence.Datas;
 using S1Quests = Il2CppScheduleOne.Quests;
-using Il2CppSystem.Collections.Generic;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Loaders = ScheduleOne.Persistence.Loaders;
 using S1Datas = ScheduleOne.Persistence.Datas;
 using S1Quests = ScheduleOne.Quests;
+#endif
+
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+using Il2CppSystem.Collections.Generic;
+#elif (MONOMELON || MONOBEPINEX)
 using System.Collections.Generic;
 #endif
 
@@ -39,11 +43,11 @@ namespace S1API.Internal.Patches
         private static void QuestManagerWriteData(S1Quests.QuestManager __instance, string parentFolderPath, ref List<string> __result)
         {
             string questsPath = Path.Combine(parentFolderPath, "Quests");
-            
+
             foreach (Quest quest in QuestManager.Quests)
                 quest.SaveInternal(questsPath, ref __result);
         }
-        
+
         /// <summary>
         /// Patching performed for when all quests are loaded.
         /// </summary>
@@ -56,11 +60,11 @@ namespace S1API.Internal.Patches
             // Make sure we have a quests directory (fresh saves don't at this point in runtime)
             if (!Directory.Exists(mainPath))
                 return;
-            
+
             string[] questDirectories = Directory.GetDirectories(mainPath)
                 .Select(Path.GetFileName)
-                .Where(directory => directory.StartsWith("Quest_"))
-                .ToArray();
+                .Where(directory => directory != null && directory.StartsWith("Quest_"))
+                .ToArray()!;
 
             foreach (string questDirectory in questDirectories)
             {
@@ -108,10 +112,10 @@ namespace S1API.Internal.Patches
             foreach (string unapprovedQuestDirectory in unapprovedQuestDirectories)
                 Directory.Delete(unapprovedQuestDirectory, true);
         }
-        
+
         [HarmonyPatch(typeof(S1Quests.Quest), "Start")]
         [HarmonyPrefix]
-        private static void QuestStart(S1Quests.Quest __instance) => 
+        private static void QuestStart(S1Quests.Quest __instance) =>
             QuestManager.Quests.FirstOrDefault(quest => quest.S1Quest == __instance)?.CreateInternal();
 
         /////// TODO: Quests doesn't have OnDestroy. Find another way to clean up
@@ -123,7 +127,7 @@ namespace S1API.Internal.Patches
         //     NPC? npc = NPCs.FirstOrDefault(npc => npc.S1NPC == __instance);
         //     if (npc == null)
         //         return;
-        //     
+        //
         //     // npc.OnDestroyed();
         //     NPCs.Remove(npc);
         // }

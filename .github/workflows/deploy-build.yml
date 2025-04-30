@@ -12,7 +12,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
-    
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
 
       - name: Restore .NET dependencies
         run: dotnet restore
-        
+
       # Install Node.js and semantic-release
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -56,18 +56,29 @@ jobs:
           sed -i "s/{VERSION_NUMBER}/${{ steps.semantic-release.outputs.new_release_version }}/" ./S1API/S1API.cs
           sed -i "s/{VERSION_NUMBER}/${{ steps.semantic-release.outputs.new_release_version }}/" ./S1APILoader/S1APILoader.cs
 
-      - name: Run .NET build for Mono
-        run: dotnet build ./S1API.sln -c Mono -f netstandard2.1
+      - name: Run .NET build for MonoBepInEx
+        run: dotnet build ./S1API.sln -c MonoBepInEx -f netstandard2.1
 
-      - name: Run .NET build for Il2Cpp
-        run: dotnet build ./S1API.sln -c Il2Cpp -f netstandard2.1
+# TODO (@MaxtorCoder): Il2CppBepInEx still does not build properly.
+#      - name: Run .NET build for Il2CppBepInEx
+#        run: dotnet build ./S1API.sln -c Il2CppBepInEx -f net6.0
 
+      - name: Run .NET build for MonoMelon
+        run: dotnet build ./S1API.sln -c MonoMelon -f netstandard2.1
+
+      - name: Run .NET build for Il2CppMelon
+        run: dotnet build ./S1API.sln -c Il2CppMelon -f net6.0
+        
       - name: Build artifact zip for Thunderstore
         run: |
-          mkdir -p ./artifacts/thunderstore/Plugins/S1API
-          cp ./S1APILoader/bin/Mono/netstandard2.1/S1APILoader.dll ./artifacts/thunderstore/Plugins/S1APILoader.dll
-          cp ./S1API/bin/Il2Cpp/netstandard2.1/S1API.dll ./artifacts/thunderstore/Plugins/S1API/S1API.Il2Cpp.dll
-          cp ./S1API/bin/Mono/netstandard2.1/S1API.dll ./artifacts/thunderstore/Plugins/S1API/S1API.Mono.dll
+          mkdir -p ./artifacts/thunderstore/Plugins
+          mkdir -p ./artifacts/thunderstore/Mods
+          cp ./S1APILoader/bin/MonoMelon/netstandard2.1/S1APILoader.dll ./artifacts/thunderstore/Plugins/S1APILoader.MelonLoader.dll
+          cp ./S1APILoader/bin/MonoBepInEx/netstandard2.1/S1APILoader.dll ./artifacts/thunderstore/Plugins/S1APILoader.BepInEx.dll
+          cp ./S1API/bin/Il2CppMelon/net6.0/S1API.dll ./artifacts/thunderstore/Mods/S1API.Il2Cpp.MelonLoader.dll
+          cp ./S1API/bin/MonoMelon/netstandard2.1/S1API.dll ./artifacts/thunderstore/Mods/S1API.Mono.MelonLoader.dll
+          cp ./S1API/bin/MonoBepInEx/netstandard2.1/S1API.dll ./artifacts/thunderstore/Mods/S1API.Mono.BepInEx.dll
+#          cp ./S1API/bin/Il2CppBepInEx/net6.0/S1API.dll ./artifacts/thunderstore/Mods/S1API.Il2Cpp.BepInEx.dll
           
       - name: Publish artifact to Thunderstore
         uses: GreenTF/upload-thunderstore-package@v4.3
@@ -87,9 +98,9 @@ jobs:
             mono
             il2cpp
             libraries
-            
+
       - name: Pack NuGet package
-        run: dotnet pack ./S1API/S1API.csproj -c Mono --no-build --output ./nupkg /p:PackageVersion=${{ steps.semantic-release.outputs.new_release_version }}
+        run: dotnet pack ./S1API/S1API.csproj -c MonoMelon --output ./nupkg /p:PackageVersion=${{ steps.semantic-release.outputs.new_release_version }}
         
       - name: Push to NuGet Gallery
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json

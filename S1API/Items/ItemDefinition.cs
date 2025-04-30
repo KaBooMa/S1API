@@ -1,6 +1,6 @@
-﻿#if (IL2CPP)
+﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
 using S1ItemFramework = Il2CppScheduleOne.ItemFramework;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1ItemFramework = ScheduleOne.ItemFramework;
 #endif
 
@@ -19,12 +19,12 @@ namespace S1API.Items
         /// INTERNAL: A reference to the item definition in the game.
         /// </summary>
         internal readonly S1ItemFramework.ItemDefinition S1ItemDefinition;
-        
+
         /// <summary>
         /// Creates a new item definition from the game item definition instance.
         /// </summary>
         /// <param name="s1ItemDefinition"></param>
-        internal ItemDefinition(S1ItemFramework.ItemDefinition s1ItemDefinition) => 
+        internal ItemDefinition(S1ItemFramework.ItemDefinition s1ItemDefinition) =>
             S1ItemDefinition = s1ItemDefinition;
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace S1API.Items
         /// <returns>The applicable item definition, if found.</returns>
         internal static ItemDefinition GetFromGUID(string guid) =>
             ItemManager.GetItemDefinition(guid);
-        
+
         /// <summary>
         /// Performs an equals check on the game item definition instance.
         /// </summary>
@@ -61,7 +61,7 @@ namespace S1API.Items
             if (ReferenceEquals(left, right)) return true;
             return left?.S1ItemDefinition == right?.S1ItemDefinition;
         }
-        
+
         /// <summary>
         /// Performs an != check on the game item definition instance.
         /// </summary>
@@ -70,41 +70,41 @@ namespace S1API.Items
         /// <returns>Whether the item definitions are different or not.</returns>
         public static bool operator !=(ItemDefinition left, ItemDefinition right) =>
             !(left == right);
-        
+
         /// <summary>
         /// The unique identifier assigned to this item definition.
         /// </summary>
-        public virtual string GUID => 
+        public virtual string GUID =>
             S1ItemDefinition.ID;
 
         /// <summary>
         /// The unique identifier assigned to this item definition.
         /// </summary>
-        public string ID => 
+        public string ID =>
             S1ItemDefinition.ID;
-        
+
         /// <summary>
         /// The display name for this item.
         /// </summary>
-        public string Name => 
+        public string Name =>
             S1ItemDefinition.Name;
-        
+
         /// <summary>
         /// The description used for this item.
         /// </summary>
-        public string Description => 
+        public string Description =>
             S1ItemDefinition.Description;
-        
+
         /// <summary>
         /// The category this item is assigned to.
         /// </summary>
-        public ItemCategory Category => 
+        public ItemCategory Category =>
             (ItemCategory)S1ItemDefinition.Category;
-        
+
         /// <summary>
         /// The stack limit for this item.
         /// </summary>
-        public int StackLimit => 
+        public int StackLimit =>
             S1ItemDefinition.StackLimit;
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace S1API.Items
         /// </summary>
         /// <param name="quantity">How many of the item the instance will have.</param>
         /// <returns>A new item instance within the game.</returns>
-        public virtual ItemInstance CreateInstance(int quantity = 1) => 
+        public virtual ItemInstance CreateInstance(int quantity = 1) =>
             new ItemInstance(S1ItemDefinition.GetDefaultInstance(quantity));
     }
 }

@@ -1,8 +1,7 @@
-﻿#if IL2CPP
+﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
 using Il2CppInterop.Runtime.InteropTypes;
-
 using S1Product = Il2CppScheduleOne.Product;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Product = ScheduleOne.Product;
 #endif
 
@@ -20,27 +19,27 @@ namespace S1API.Products
         /// <summary>
         /// INTERNAL: Stored reference to the game product definition.
         /// </summary>
-        internal S1Product.ProductDefinition S1ProductDefinition => 
+        internal S1Product.ProductDefinition S1ProductDefinition =>
             CrossType.As<S1Product.ProductDefinition>(S1ItemDefinition);
-        
+
         /// <summary>
         /// INTERNAL: Creates a product definition from the in-game product definition.
         /// </summary>
         /// <param name="productDefinition"></param>
         internal ProductDefinition(S1Product.ProductDefinition productDefinition) : base(productDefinition) { }
-        
+
         /// <summary>
         /// The price associated with this product.
         /// </summary>
-        public float Price => 
+        public float Price =>
             S1ProductDefinition.Price;
-        
+
         /// <summary>
         /// Creates an instance of this product in-game.
         /// </summary>
         /// <param name="quantity">The quantity of product.</param>
         /// <returns>An instance of the product.</returns>
-        public override ItemInstance CreateInstance(int quantity = 1) => 
+        public override ItemInstance CreateInstance(int quantity = 1) =>
             new ProductInstance(CrossType.As<S1Product.ProductItemInstance>(S1ProductDefinition.GetDefaultInstance(quantity)));
 
         /// <summary>

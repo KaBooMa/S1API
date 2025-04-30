@@ -36,7 +36,7 @@ namespace S1API.Internal.Abstraction
         /// <param name="unityEvent">The event you want to unsubscribe from.</param>
         internal static void RemoveListener(Action listener, UnityEvent unityEvent)
         {
-            SubscribedActions.TryGetValue(listener, out UnityAction wrappedAction);
+            SubscribedActions.TryGetValue(listener, out UnityAction? wrappedAction);
             SubscribedActions.Remove(listener);
             unityEvent.RemoveListener(wrappedAction);
         }

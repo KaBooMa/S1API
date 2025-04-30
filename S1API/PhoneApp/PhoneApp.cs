@@ -1,143 +1,174 @@
-﻿#if IL2CPP
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-#elif MONO
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
+using Object = UnityEngine.Object;
+using S1API.Internal.Abstraction;
+using S1API.Internal.Patches;
+
+#if (MONOMELON || IL2CPPMELON)
+using MelonLoader.Utils;
 #endif
 
-using System.Collections;
-using System.IO;
-using MelonLoader;
-using Object = UnityEngine.Object;
-using MelonLoader.Utils;
-using S1API.Internal.Abstraction;
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+using Il2CppScheduleOne.UI.Phone;
+#elif (MONOBEPINEX || MONOMELON)
+using ScheduleOne.UI.Phone;
+#endif
 
 namespace S1API.PhoneApp
 {
     /// <summary>
-    /// Serves as an abstract base class for creating in-game phone applications with customizable functionality and appearance.
+    /// Abstract base class for creating custom applications to be used within an in-game phone system.
     /// </summary>
     /// <remarks>
-    /// Implementations of this class enable the creation of bespoke applications that integrate seamlessly into a game's phone system.
-    /// Derived classes are required to define key properties and methods, such as application name, icon, and UI behavior.
-    /// This class also manages the app's lifecycle, including its initialization and destruction processes.
+    /// This class provides an extensible framework for defining application behaviors, user interface elements,
+    /// and registration mechanics for integration into the phone's ecosystem.
     /// </remarks>
     public abstract class PhoneApp : Registerable
     {
-        protected static readonly MelonLogger.Instance LoggerInstance = new MelonLogger.Instance("PhoneApp");
+        /// <summary>
+        /// Logger instance used for logging messages, warnings, or errors
+        /// related to the functionality of in-game phone applications.
+        /// </summary>
+        protected static readonly Logging.Log Logger = new Logging.Log("PhoneApp");
 
         /// <summary>
-        /// The player object in the scene.
+        /// Represents the panel associated with the phone app's UI.
+        /// This is dynamically instantiated or retrieved when the app is initiated and serves as the container
+        /// for the app's user interface elements within the phone system. The panel exists within the
+        /// app canvas structure in the game's Unity hierarchy.
         /// </summary>
-        protected GameObject Player;
+        private GameObject? _appPanel;
 
         /// <summary>
-        /// The in-game UI panel representing the app.
+        /// Indicates whether the application UI has been successfully created and initialized.
         /// </summary>
-        protected GameObject AppPanel;
+        /// <remarks>
+        /// This variable is used internally to track the state of the application's UI.
+        /// When set to true, it denotes that the app UI panel has been created and configured.
+        /// </remarks>
+        private bool _appCreated;
 
         /// <summary>
-        /// Whether the app was successfully created.
+        /// Indicates whether the phone application icon has been modified.
+        /// This flag prevents redundant modification of the icon once it has already
+        /// been updated or created.
         /// </summary>
-        protected bool AppCreated;
+        private bool _iconModified;
 
         /// <summary>
-        /// Whether the app icon was already modified.
+        /// Gets the unique identifier for the application within the phone system.
         /// </summary>
-        protected bool IconModified;
-
-        /// <summary>
-        /// Unique GameObject name of the app (e.g. "SilkroadApp").
-        /// </summary>
+        /// <remarks>
+        /// This property is used as a key to identify the application when creating UI elements or interacting with other components
+        /// of the in-game phone system. It must be implemented in derived classes to provide a consistent and unique name for
+        /// the application.
+        /// </remarks>
         protected abstract string AppName { get; }
 
         /// <summary>
-        /// The title shown at the top of the app UI.
+        /// Gets the display title of the application as it appears in the in-game phone system.
         /// </summary>
+        /// <remarks>
+        /// This property specifies the human-readable name of the application, different from the internal
+        /// <c>AppName</c> that uniquely identifies the app within the system. It is displayed to the user
+        /// on the application icon or within the application UI.
+        /// </remarks>
         protected abstract string AppTitle { get; }
 
         /// <summary>
-        /// The label shown under the app icon on the home screen.
+        /// Gets the label text displayed on the application's icon.
         /// </summary>
+        /// <remarks>
+        /// The <c>IconLabel</c> property is an abstract member that must be overridden by each implementation
+        /// of the <see cref="PhoneApp"/> class. It specifies the label text shown directly below the application's
+        /// icon on the in-game phone's home screen.
+        /// This property is utilized when creating or modifying the app's icon, as part of the <c>SpawnIcon</c> method,
+        /// to ensure that the label represents the application's name or a relevant description. The value should
+        /// be concise and contextually meaningful to the user.
+        /// </remarks>
+        /// <value>
+        /// A string representing the label text displayed under the app icon, which explains or identifies
+        /// the app to the user.
+        /// </value>
         protected abstract string IconLabel { get; }
 
         /// <summary>
-        /// The PNG file name (in UserData) used for the app icon.
+        /// Specifies the file name of the icon used to represent the phone application in the in-game phone system.
         /// </summary>
+        /// <remarks>
+        /// The value of this property is typically a string containing the file name of the icon asset,
+        /// such as "icon-name.png". It is used to identify and load the appropriate icon for the application.
+        /// </remarks>
         protected abstract string IconFileName { get; }
 
         /// <summary>
-        /// Called when the app's UI should be created inside the container.
+        /// Invoked to define the user interface layout when the application panel is created.
+        /// The method is used to populate the provided container with custom UI elements specific to the application.
         /// </summary>
-        /// <param name="container">The container GameObject to build into.</param>
+        /// <param name="container">The GameObject container where the application's UI elements will be added.</param>
         protected abstract void OnCreatedUI(GameObject container);
 
         /// <summary>
-        /// Called when the app is loaded into the scene (delayed after phone UI is present).
+        /// Invoked when the PhoneApp instance is created.
+        /// Responsible for registering the app with the PhoneAppRegistry,
+        /// integrating it into the in-game phone system.
         /// </summary>
         protected override void OnCreated()
         {
-            MelonCoroutines.Start(InitApp());
+            PhoneAppRegistry.Register(this);
         }
 
         /// <summary>
-        /// Called when the app is unloaded or the scene is reset.
+        /// Cleans up resources and resets state when the app is destroyed.
+        /// This method ensures any associated UI elements and resources are properly disposed of and variables tracking the app state are reset.
         /// </summary>
         protected override void OnDestroyed()
         {
-            if (AppPanel != null)
+            if (_appPanel != null)
             {
-                Object.Destroy(AppPanel);
-                AppPanel = null;
+                Object.Destroy(_appPanel);
+                _appPanel = null;
             }
 
-            AppCreated = false;
-            IconModified = false;
+            _appCreated = false;
+            _iconModified = false;
         }
 
         /// <summary>
-        /// Coroutine that injects the app UI and icon after scene/UI has loaded.
+        /// Generates and initializes the UI panel for the application within the in-game phone system.
+        /// This method locates the parent container in the UI hierarchy, clones a template panel if needed,
+        /// clears its content, and then invokes the implementation-specific OnCreatedUI method
+        /// for further customization of the UI panel.
         /// </summary>
-        private IEnumerator InitApp()
+        internal void SpawnUI(HomeScreen homeScreenInstance)
         {
-            yield return new WaitForSeconds(5f);
-
-            Player = GameObject.Find("Player_Local");
-            if (Player == null)
-            {
-                LoggerInstance.Error("Player_Local not found.");
-                yield break;
-            }
-
-            GameObject appsCanvas = GameObject.Find("Player_Local/CameraContainer/Camera/OverlayCamera/GameplayMenu/Phone/phone/AppsCanvas");
+            GameObject? appsCanvas = homeScreenInstance.transform.parent.Find("AppsCanvas")?.gameObject;
             if (appsCanvas == null)
             {
-                LoggerInstance.Error("AppsCanvas not found.");
-                yield break;
+                Logger.Error("AppsCanvas not found.");
+                return;
             }
 
             Transform existingApp = appsCanvas.transform.Find(AppName);
             if (existingApp != null)
             {
-                AppPanel = existingApp.gameObject;
-                SetupExistingAppPanel(AppPanel);
+                _appPanel = existingApp.gameObject;
+                SetupExistingAppPanel(_appPanel);
             }
             else
             {
                 Transform templateApp = appsCanvas.transform.Find("ProductManagerApp");
                 if (templateApp == null)
                 {
-                    LoggerInstance.Error("Template ProductManagerApp not found.");
-                    yield break;
+                    Logger.Error("Template ProductManagerApp not found.");
+                    return;
                 }
 
-                AppPanel = Object.Instantiate(templateApp.gameObject, appsCanvas.transform);
-                AppPanel.name = AppName;
+                _appPanel = Object.Instantiate(templateApp.gameObject, appsCanvas.transform);
+                _appPanel.name = AppName;
 
-                Transform containerTransform = AppPanel.transform.Find("Container");
+                Transform containerTransform = _appPanel.transform.Find("Container");
                 if (containerTransform != null)
                 {
                     GameObject container = containerTransform.gameObject;
@@ -145,21 +176,54 @@ namespace S1API.PhoneApp
                     OnCreatedUI(container);
                 }
 
-                AppCreated = true;
+                _appCreated = true;
             }
 
-            AppPanel.SetActive(true);
-
-            if (!IconModified)
-            {
-                IconModified = ModifyAppIcon(IconLabel, IconFileName);
-            }
+            _appPanel.SetActive(true);
         }
 
         /// <summary>
-        /// Configures the provided GameObject panel to prepare it for use with the app.
+        /// Creates or modifies the application icon displayed on the in-game phone's home screen.
+        /// This method clones an existing icon, updates its label, and changes its image based on the provided file name.
         /// </summary>
-        /// <param name="panel">The GameObject representing the UI panel of the app.</param>
+        internal void SpawnIcon(HomeScreen homeScreenInstance)
+        {
+            if (_iconModified)
+                return;
+
+            GameObject? appIcons = homeScreenInstance.transform.Find("AppIcons")?.gameObject;
+            if (appIcons == null)
+            {
+                Logger.Error("AppIcons not found under HomeScreen.");
+                return;
+            }
+
+            // Find the LAST icon (the one most recently added)
+            Transform? lastIcon = appIcons.transform.childCount > 0 ? appIcons.transform.GetChild(appIcons.transform.childCount - 1) : null;
+            if (lastIcon == null)
+            {
+                Logger.Error("No icons found in AppIcons.");
+                return;
+            }
+
+            GameObject iconObj = lastIcon.gameObject;
+            iconObj.name = AppName; // Rename it now
+
+            // Update label
+            Transform labelTransform = iconObj.transform.Find("Label");
+            Text? label = labelTransform?.GetComponent<Text>();
+            if (label != null)
+                label.text = IconLabel;
+
+            // Update image
+            _iconModified = ChangeAppIconImage(iconObj, IconFileName);
+        }
+
+
+        /// <summary>
+        /// Configures an existing app panel by clearing and rebuilding its UI elements if necessary.
+        /// </summary>
+        /// <param name="panel">The app panel to configure, represented as a GameObject.</param>
         private void SetupExistingAppPanel(GameObject panel)
         {
             Transform containerTransform = panel.transform.Find("Container");
@@ -173,9 +237,13 @@ namespace S1API.PhoneApp
                 }
             }
 
-            AppCreated = true;
+            _appCreated = true;
         }
 
+        /// <summary>
+        /// Removes all child objects from the specified container to clear its contents.
+        /// </summary>
+        /// <param name="container">The parent GameObject whose child objects will be destroyed.</param>
         private void ClearContainer(GameObject container)
         {
             for (int i = container.transform.childCount - 1; i >= 0; i--)
@@ -183,62 +251,32 @@ namespace S1API.PhoneApp
         }
 
         /// <summary>
-        /// Modifies the application's icon by cloning an existing icon, updating its label,
-        /// and setting a new icon image based on the specified parameters.
+        /// Changes the image of the app icon based on the specified filename, and applies the new icon to the given GameObject.
         /// </summary>
-        /// <param name="labelText">The text to be displayed as the label for the modified icon.</param>
-        /// <param name="fileName">The file name of the new icon image to apply.</param>
+        /// <param name="iconObj">The GameObject representing the app icon that will have its image changed.</param>
+        /// <param name="filename">The name of the file containing the new icon image to be loaded.</param>
         /// <returns>
-        /// A boolean value indicating whether the icon modification was successful.
-        /// Returns true if the modification was completed successfully; otherwise, false.
+        /// A boolean value indicating whether the operation was successful.
+        /// Returns true if the image was successfully loaded and applied; otherwise, returns false.
         /// </returns>
-        private bool ModifyAppIcon(string labelText, string fileName)
-        {
-            GameObject parent = GameObject.Find("Player_Local/CameraContainer/Camera/OverlayCamera/GameplayMenu/Phone/phone/HomeScreen/AppIcons/");
-            if (parent == null)
-            {
-                LoggerInstance?.Error("AppIcons not found.");
-                return false;
-            }
-
-            Transform lastIcon = parent.transform.childCount > 0 ? parent.transform.GetChild(parent.transform.childCount - 1) : null;
-            if (lastIcon == null)
-            {
-                LoggerInstance?.Error("No icon found to clone.");
-                return false;
-            }
-
-            GameObject iconObj = lastIcon.gameObject;
-            iconObj.name = AppName;
-
-            Transform labelTransform = iconObj.transform.Find("Label");
-            Text label = labelTransform?.GetComponent<Text>();
-            if (label != null) label.text = labelText;
-
-            return ChangeAppIconImage(iconObj, fileName);
-        }
-
-
-        /// <summary>
-        /// Updates the app icon image with the specified file if the corresponding Image component is found and the file exists.
-        /// </summary>
-        /// <param name="iconObj">The GameObject representing the app icon whose image is to be updated.</param>
-        /// <param name="filename">The name of the image file to be loaded and applied as the icon.</param>
-        /// <returns>True if the icon image was successfully updated, otherwise false.</returns>
         private bool ChangeAppIconImage(GameObject iconObj, string filename)
         {
             Transform imageTransform = iconObj.transform.Find("Mask/Image");
-            Image image = imageTransform?.GetComponent<Image>();
+            Image? image = imageTransform?.GetComponent<Image>();
             if (image == null)
             {
-                LoggerInstance?.Error("Image component not found in icon.");
+                Logger.Error("Image component not found in icon.");
                 return false;
             }
 
+#if MONOMELON || IL2CPPMELON
             string path = Path.Combine(MelonEnvironment.ModsDirectory, filename);
+#elif MONOBEPINEX || IL2CPPBEPINEX
+            string path = Path.Combine(BepInEx.Paths.PluginPath, filename);
+#endif
             if (!File.Exists(path))
             {
-                LoggerInstance?.Error("Icon file not found: " + path);
+                Logger.Error("Icon file not found: " + path);
                 return false;
             }
 
@@ -255,7 +293,7 @@ namespace S1API.PhoneApp
             }
             catch (System.Exception e)
             {
-                LoggerInstance?.Error("Failed to load image: " + e.Message);
+                Logger.Error("Failed to load image: " + e.Message);
             }
 
             return false;

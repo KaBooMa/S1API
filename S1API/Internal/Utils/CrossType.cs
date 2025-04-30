@@ -1,6 +1,6 @@
-﻿#if (MONO)
+﻿#if (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using System;
-# elif (IL2CPP)
+#elif (IL2CPPMELON)
 using Il2CppSystem;
 using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.InteropTypes;
@@ -21,9 +21,9 @@ namespace S1API.Internal.Utils
         /// <returns>The type of the class.</returns>
         internal static Type Of<T>()
         {
-#if (MONO)
+#if (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
             return typeof(T);
-# elif (IL2CPP)
+# elif (IL2CPPMELON)
             return Il2CppType.Of<T>();
 #endif
         }
@@ -36,13 +36,13 @@ namespace S1API.Internal.Utils
         /// <typeparam name="T">The class we're checking against.</typeparam>
         /// <returns>Whether obj is of class T or not.</returns>
         internal static bool Is<T>(object obj, out T result)
-#if (IL2CPP) 
+#if (IL2CPPMELON)
             where T : Il2CppObjectBase
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
             where T : class
 #endif
         {
-#if (IL2CPP)
+#if (IL2CPPMELON)
             if (obj is Object il2CppObj)
             {
                 Type il2CppType = Il2CppType.Of<T>();
@@ -52,7 +52,7 @@ namespace S1API.Internal.Utils
                     return true;
                 }
             }
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
             if (obj is T t)
             {
                 result = t;
@@ -71,15 +71,15 @@ namespace S1API.Internal.Utils
         /// <typeparam name="T">The type to cast to.</typeparam>
         /// <returns>The object cast to the specified type.</returns>
         internal static T As<T>(object obj)
-#if (IL2CPP)
+#if (IL2CPPMELON)
             where T : Il2CppObjectBase
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
             where T : class
 #endif
             =>
-#if (IL2CPP)
+#if (IL2CPPMELON)
                 obj is Object il2CppObj ? il2CppObj.Cast<T>() : null!;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
                 (T)obj;
 #endif
     }

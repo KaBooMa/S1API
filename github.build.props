@@ -11,6 +11,7 @@
 
         <!-- Used when building both Il2Cpp and Mono. Typically located at `steamapps/Schedule I/MelonLoader/net6` -->
         <MelonLoaderAssembliesPath>..\ScheduleOneAssemblies\MelonLoader</MelonLoaderAssembliesPath>
+        <BepInExAssembliesPath>..\ScheduleOneAssemblies\BepInEx</BepInExAssembliesPath>
         
 <!-- Mono Configuration -->
         

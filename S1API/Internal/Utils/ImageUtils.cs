@@ -1,14 +1,17 @@
-using MelonLoader;
-using System;
-using System.Collections.Generic;
+using S1API.Logging;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
 namespace S1API.Internal.Utils
 {
+    /// <summary>
+    /// A utility class to assist with loading images into the game.
+    /// Useful for icons such as on phone apps, custom NPCs, quests, etc.
+    /// </summary>
     public static class ImageUtils
     {
+        private static readonly Log _loggerInstance = new Log("ImageUtils");
+
         /// <summary>
         /// Loads an image from the specified file path and converts it into a Sprite object.
         /// </summary>
@@ -16,12 +19,12 @@ namespace S1API.Internal.Utils
         /// <returns>
         /// A Sprite object representing the loaded image, or null if the image could not be loaded or the file does not exist.
         /// </returns>
-        public static Sprite LoadImage(string fileName)
+        public static Sprite? LoadImage(string fileName)
         {
             string fullPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? string.Empty, fileName);
             if (!File.Exists(fullPath))
             {
-                MelonLogger.Error($"❌ Icon file not found: {fullPath}");
+                _loggerInstance.Error($"❌ Icon file not found: {fullPath}");
                 return null;
             }
 
@@ -36,7 +39,7 @@ namespace S1API.Internal.Utils
             }
             catch (System.Exception ex)
             {
-                MelonLogger.Error("❌ Failed to load sprite: " + ex);
+                _loggerInstance.Error("❌ Failed to load sprite: " + ex);
             }
 
             return null;

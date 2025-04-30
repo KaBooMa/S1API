@@ -1,126 +1,115 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <!-- Imports the standard GitHub build properties. -->
     <Import Project="../github.build.props" Condition="Exists('../github.build.props')" />
-    
+
     <!-- Imports any local build properties over the GitHub repository one. -->
     <Import Project="../local.build.props" Condition="Exists('../local.build.props')" />
-    
+
     <!-- General properties -->
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
         <Authors>KaBooMa</Authors>
         <PackageId>S1API</PackageId>
         <Description>A Schedule One Mono / Il2Cpp Cross Compatibility Layer</Description>
         <RepositoryUrl>https://github.com/KaBooMa/S1API</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Nullable>enable</Nullable>
-        <Configurations>Mono;Il2Cpp</Configurations>
+        <Configurations>MonoMelon;MonoBepInEx;Il2CppMelon;Il2CppBepInEx</Configurations>
         <Platforms>AnyCPU</Platforms>
         <RootNamespace>S1API</RootNamespace>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'MonoBepInEx'">
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Il2CppMelon' or '$(Configuration)' == 'Il2CppBepInEx'">
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'MonoBepInEx' or '$(Configuration)' == 'Il2CppBepInEx'">
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json;
+            https://nuget.samboy.dev/v3/index.json
+        </RestoreAdditionalProjectSources>
     </PropertyGroup>
 
     <!-- IL2CPP Specific Deps -->
-    <ItemGroup Condition="'$(Configuration)' == 'Il2Cpp'">
-        <Reference Include="Il2CppInterop.Runtime">
-            <HintPath>$(MelonLoaderAssembliesPath)\Il2CppInterop.Runtime.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppInterop.Common">
-            <HintPath>$(MelonLoaderAssembliesPath)\Il2CppInterop.Common.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppInterop.HarmonySupport">
-            <HintPath>$(MelonLoaderAssembliesPath)\Il2CppInterop.HarmonySupport.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppInterop.Generator">
-            <HintPath>$(MelonLoaderAssembliesPath)\Il2CppInterop.Generator.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.Il2CppAssetBundleManager">
-          <HintPath>$(MelonLoaderAssembliesPath)\UnityEngine.Il2CppAssetBundleManager.dll</HintPath>
-        </Reference>
-        <Reference Include="Assembly-CSharp">
-            <HintPath>$(Il2CppAssembliesPath)\Assembly-CSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2CppFishNet.Runtime">
-            <HintPath>$(Il2CppAssembliesPath)\Il2CppFishNet.Runtime.dll</HintPath>
-        </Reference>
-        <Reference Include="Il2Cppmscorlib">
-            <HintPath>$(Il2CppAssembliesPath)\Il2Cppmscorlib.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>$(Il2CppAssembliesPath)\UnityEngine.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(Il2CppAssembliesPath)\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UI">
-            <HintPath>$(Il2CppAssembliesPath)\UnityEngine.UI.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UIModule">
-            <HintPath>$(Il2CppAssembliesPath)\UnityEngine.UIModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.JSONSerializeModule">
-            <HintPath>$(Il2CppAssembliesPath)\UnityEngine.JSONSerializeModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>$(Il2CppAssembliesPath)\UnityEngine.TextRenderingModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.ImageConversionModule">
-            <HintPath>$(Il2CppAssembliesPath)\UnityEngine.ImageConversionModule.dll</HintPath>
-        </Reference>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Il2CppMelon' or '$(Configuration)' == 'Il2CppBepInEx'">
+        <Reference Include="$(MelonLoaderAssembliesPath)\Il2CppInterop.Runtime.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
+        <Reference Include="$(MelonLoaderAssembliesPath)\Il2CppInterop.Common.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
+        <Reference Include="$(MelonLoaderAssembliesPath)\Il2CppInterop.HarmonySupport.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
+        <Reference Include="$(MelonLoaderAssembliesPath)\Il2CppInterop.Generator.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
+
+        <Reference Include="$(BepInExAssembliesPath)\Il2CppInterop.Runtime.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
+        <Reference Include="$(BepInExAssembliesPath)\Il2CppInterop.Common.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
+        <Reference Include="$(BepInExAssembliesPath)\Il2CppInterop.HarmonySupport.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
+        <Reference Include="$(BepInExAssembliesPath)\Il2CppInterop.Generator.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
+
+        <Reference Include="$(Il2CppAssembliesPath)\Assembly-CSharp.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\Il2Cppmscorlib.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.CoreModule.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.UI.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.UIModule.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.JSONSerializeModule.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.TextRenderingModule.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.ImageConversionModule.dll" />
+      
+        <Reference Include="$(MelonLoaderAssembliesPath)\UnityEngine.Il2CppAssetBundleManager.dll" />
+
+        <Reference Include="$(Il2CppAssembliesPath)\Il2CppFishNet.Runtime.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
+        <Reference Include="$(Il2CppAssembliesPath)\FishNet.Runtime.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
     </ItemGroup>
 
     <!-- Mono Specific Deps -->
-    <ItemGroup Condition="'$(Configuration)' == 'Mono'">
-        <Reference Include="Assembly-CSharp">
-            <HintPath>$(MonoAssembliesPath)\Assembly-CSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>$(MonoAssembliesPath)\UnityEngine.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(MonoAssembliesPath)\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.AssetBundleModule">
-          <HintPath>$(MonoAssembliesPath)\UnityEngine.AssetBundleModule.dll</HintPath>
-        </Reference>
-        <Reference Include="FishNet.Runtime">
-            <HintPath>$(MonoAssembliesPath)\FishNet.Runtime.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UI">
-            <HintPath>$(MonoAssembliesPath)\UnityEngine.UI.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UIModule">
-            <HintPath>$(MonoAssembliesPath)\UnityEngine.UIModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.JSONSerializeModule">
-            <HintPath>$(MonoAssembliesPath)\UnityEngine.JSONSerializeModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>$(MonoAssembliesPath)\UnityEngine.TextRenderingModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.ImageConversionModule">
-            <HintPath>$(MonoAssembliesPath)\UnityEngine.ImageConversionModule.dll</HintPath>
-        </Reference>
+    <ItemGroup Condition="'$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'MonoBepInEx'">
+        <Reference Include="$(MonoAssembliesPath)\Assembly-CSharp.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.CoreModule.dll" />
+        <Reference Include="$(MonoAssembliesPath)\FishNet.Runtime.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.UI.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.UIModule.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.JSONSerializeModule.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.TextRenderingModule.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.ImageConversionModule.dll" />
+      
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.AssetBundleModule.dll" />
+    </ItemGroup>
+
+    <!-- Melon Deps -->
+    <ItemGroup Condition="'$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'Il2CppMelon'">
+        <Reference Include="$(MelonLoaderAssembliesPath)\0Harmony.dll" />
+        <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
+    </ItemGroup>
+
+    <!-- BepInEx Deps -->
+    <ItemGroup Condition="'$(Configuration)' == 'MonoBepInEx' or '$(Configuration)' == 'Il2CppBepInEx'">
+        <Reference Include="$(BepInExAssembliesPath)\0Harmony.dll" />
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.Unity.Mono" Version="6.0.0-be.*" IncludeAssets="compile" Condition="'$(Configuration)' == 'MonoBepInEx'" />
+        <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.*" IncludeAssets="compile" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+        <PackageReference Include="UnityEngine.Modules" Version="2022.3.32" IncludeAssets="compile" Condition="'$(Configuration)' == 'MonoBepInEx'" />
     </ItemGroup>
 
     <!-- Shared Deps -->
     <ItemGroup>
-        <Reference Include="0Harmony">
-            <HintPath>$(MelonLoaderAssembliesPath)\0Harmony.dll</HintPath>
-        </Reference>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-        <PackageReference Include="LavaGang.MelonLoader" Version="0.7.0" />
     </ItemGroup>
 
     <!-- Automated local deployment -->
-    <Target Name="PostBuildIl2Cpp" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Il2Cpp' ">
+    <Target Name="PostBuildIl2Cpp" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and ('$(Configuration)' == 'Il2CppMono' or '$(Configuration)' == 'Il2CppBepInEx') ">
         <Message Text="Deploying S1API to local Il2Cpp plugins folder" Importance="high"/>
-        <Copy SourceFiles=".\bin\Il2Cpp\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
-        <Copy SourceFiles=".\bin\Mono\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
+        <Copy SourceFiles=".\bin\Il2CppMelon\net6.0\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
+        <Copy SourceFiles=".\bin\MonoMelon\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
     </Target>
 
-    <Target Name="PostBuildMono" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Mono' ">
+    <Target Name="PostBuildMono" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and ('$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'MonoBepInEx') ">
         <Message Text="Deploying S1API to local Mono plugins folder" Importance="high"/>
-        <Copy SourceFiles=".\bin\Il2Cpp\netstandard2.1\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
-        <Copy SourceFiles=".\bin\Mono\netstandard2.1\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
+        <Copy SourceFiles=".\bin\Il2CppMelon\net6.0\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
+        <Copy SourceFiles=".\bin\MonoMelon\netstandard2.1\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
     </Target>
 </Project>

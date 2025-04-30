@@ -1,11 +1,11 @@
-﻿#if (IL2CPP)
+#if (IL2CPPMELON || IL2CPPBEPINEX)
 using S1Messaging = Il2CppScheduleOne.Messaging;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Messaging = ScheduleOne.Messaging;
 #endif
 using System;
 
-namespace S1API.NPCs
+namespace S1API.Messaging
 {
     /// <summary>
     /// Represents a message response displayed for the player.
@@ -16,14 +16,14 @@ namespace S1API.NPCs
         /// INTERNAL: The instance of the response in-game.
         /// </summary>
         internal readonly S1Messaging.Response S1Response;
-        
+
         /// <summary>
         /// Creates a new response for displaying in-game.
         /// </summary>
         public Response() => S1Response = new S1Messaging.Response();
-        
+
         /// <summary>
-        /// INTERNAL: Creates a response from the in-game response instance. 
+        /// INTERNAL: Creates a response from the in-game response instance.
         /// </summary>
         /// <param name="response"></param>
         internal Response(S1Messaging.Response response) => S1Response = response;
@@ -36,7 +36,7 @@ namespace S1API.NPCs
             get => S1Response.callback == null ? null : new Action(() => S1Response.callback.Invoke());
             set => S1Response.callback = value;
         }
-        
+
         /// <summary>
         /// The unique identifier for this response.
         /// </summary>
@@ -45,7 +45,7 @@ namespace S1API.NPCs
             get => S1Response.label;
             set => S1Response.label = value;
         }
-        
+
         /// <summary>
         /// The text displayed in-game for the player.
         /// </summary>

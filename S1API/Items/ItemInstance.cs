@@ -1,6 +1,6 @@
-﻿#if (IL2CPP)
+﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
 using S1ItemFramework = Il2CppScheduleOne.ItemFramework;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1ItemFramework = ScheduleOne.ItemFramework;
 #endif
 
@@ -18,18 +18,18 @@ namespace S1API.Items
         /// INTERNAL: The reference to the instance of this item.
         /// </summary>
         internal readonly S1ItemFramework.ItemInstance S1ItemInstance;
-        
+
         /// <summary>
         /// INTERNAL: Creates an item instance
         /// </summary>
         /// <param name="itemInstance">The instance of the item instance in-game.</param>
-        internal ItemInstance(S1ItemFramework.ItemInstance itemInstance) => 
+        internal ItemInstance(S1ItemFramework.ItemInstance itemInstance) =>
             S1ItemInstance = itemInstance;
-        
+
         /// <summary>
         /// The item definition of this item.
         /// </summary>
-        public ItemDefinition Definition => 
+        public ItemDefinition Definition =>
             new ItemDefinition(S1ItemInstance.Definition);
     }
 }

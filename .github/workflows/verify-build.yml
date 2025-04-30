@@ -13,23 +13,30 @@ jobs:
   build:
     name: Verify Successful Build
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-    
+
       - name: Clone Game Assemblies
         run: |
           git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/KaBooMa/ScheduleOneAssemblies.git ./ScheduleOneAssemblies
-      
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
-          
+
       - name: Restore .NET Dependencies
         run: dotnet restore
-          
-      - name: Run .NET Build for Mono
-        run: dotnet build ./S1API.sln -c Mono -f netstandard2.1
-        
-      - name: Run .NET Build for Il2Cpp
-        run: dotnet build ./S1API.sln -c Il2Cpp -f netstandard2.1
+
+      - name: Run .NET build for MonoBepInEx
+        run: dotnet build ./S1API.sln -c MonoBepInEx -f netstandard2.1
+      
+# TODO (@MaxtorCoder): Il2CppBepInEx still does not build properly.
+#      - name: Run .NET build for Il2CppBepInEx
+#        run: dotnet build ./S1API.sln -c Il2CppBepInEx -f net6.0
+
+      - name: Run .NET build for MonoMelon
+        run: dotnet build ./S1API.sln -c MonoMelon -f netstandard2.1
+
+      - name: Run .NET build for Il2CppMelon
+        run: dotnet build ./S1API.sln -c Il2CppMelon -f net6.0

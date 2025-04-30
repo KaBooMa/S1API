@@ -1,4 +1,5 @@
-﻿using System;
+﻿using S1API.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -19,19 +20,22 @@ namespace S1API.Internal.Utils
         {
             List<Type> derivedClasses = new List<Type>();
             Assembly[] applicableAssemblies = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(assembly => !assembly.FullName.StartsWith("System") &&
-                        !assembly.FullName.StartsWith("Unity") &&
-                        !assembly.FullName.StartsWith("Il2Cpp") &&
-                        !assembly.FullName.StartsWith("mscorlib") &&
-                        !assembly.FullName.StartsWith("Mono.") &&
-                        !assembly.FullName.StartsWith("netstandard"))
+                .Where(assembly => !assembly.FullName!.StartsWith("System") &&
+                        !assembly.FullName!.StartsWith("Unity") &&
+                        !assembly.FullName!.StartsWith("Il2Cpp") &&
+                        !assembly.FullName!.StartsWith("mscorlib") &&
+                        !assembly.FullName!.StartsWith("Mono.") &&
+                        !assembly.FullName!.StartsWith("netstandard") &&
+                        // Additional filters to resolve crashes in BepInEx
+                        !assembly.FullName!.StartsWith("com.rlabrecque") &&
+                        !assembly.FullName!.StartsWith("__Generated"))
                 .ToArray();
             foreach (Assembly assembly in applicableAssemblies)
                 derivedClasses.AddRange(assembly.GetTypes()
-                    .Where(type => typeof(TBaseClass).IsAssignableFrom(type) 
-                                   && type != typeof(TBaseClass) 
+                    .Where(type => typeof(TBaseClass).IsAssignableFrom(type)
+                                   && type != typeof(TBaseClass)
                                    && !type.IsAbstract));
-            
+
             return derivedClasses;
         }
 
@@ -48,13 +52,13 @@ namespace S1API.Internal.Utils
                 Type? foundType = assembly.GetTypes().FirstOrDefault(type => type.Name == typeName);
                 if (foundType == null)
                     continue;
-                
+
                 return foundType;
             }
 
             return null;
         }
-        
+
         /// <summary>
         /// INTERNAL: Recursively gets fields from a class down to the object type.
         /// </summary>
@@ -71,7 +75,7 @@ namespace S1API.Internal.Utils
             }
             return fieldInfos.ToArray();
         }
-        
+
         /// <summary>
         /// INTERNAL: Recursively searches for a method by name from a class down to the object type.
         /// </summary>
@@ -86,7 +90,7 @@ namespace S1API.Internal.Utils
                 MethodInfo? method = type.GetMethod(methodName, bindingFlags);
                 if (method != null)
                     return method;
-                
+
                 type = type.BaseType;
             }
 

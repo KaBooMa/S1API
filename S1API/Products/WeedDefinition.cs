@@ -1,7 +1,7 @@
-#if IL2CPP
+#if (IL2CPPMELON || IL2CPPBEPINEX)
 using Il2CppScheduleOne.Product;
 using S1WeedDefinition = Il2CppScheduleOne.Product.WeedDefinition;
-#elif MONO
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using ScheduleOne.Product;
 using S1WeedDefinition = ScheduleOne.Product.WeedDefinition;
 #endif
@@ -21,7 +21,7 @@ namespace S1API.Products
         /// </summary>
         internal S1WeedDefinition S1WeedDefinition =>
             CrossType.As<S1WeedDefinition>(S1ItemDefinition);
-        
+
 
         /// <summary>
         /// Creates a new weed product definition.

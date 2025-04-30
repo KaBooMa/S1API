@@ -1,6 +1,6 @@
-﻿#if (IL2CPP)
+﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
 using S1Product = Il2CppScheduleOne.Product;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Product = ScheduleOne.Product;
 #endif
 
@@ -17,9 +17,9 @@ namespace S1API.Products
         /// <summary>
         /// INTERNAL: The stored reference to the in-game product instance.
         /// </summary>
-        internal S1Product.ProductItemInstance S1ProductInstance => 
+        internal S1Product.ProductItemInstance S1ProductInstance =>
             CrossType.As<S1Product.ProductItemInstance>(S1ItemInstance);
-        
+
         /// <summary>
         /// INTERNAL: Creates a product instance from the in-game product instance.
         /// </summary>
@@ -29,13 +29,13 @@ namespace S1API.Products
         /// <summary>
         /// Whether this product is currently packaged or not.
         /// </summary>
-        public bool IsPackaged => 
+        public bool IsPackaged =>
             S1ProductInstance.AppliedPackaging;
-        
+
         /// <summary>
         /// The type of packaging applied to this product.
         /// </summary>
-        public PackagingDefinition AppliedPackaging => 
+        public PackagingDefinition AppliedPackaging =>
             new PackagingDefinition(S1ProductInstance.AppliedPackaging);
     }
 }

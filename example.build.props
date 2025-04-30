@@ -11,6 +11,7 @@
 
         <!-- Used when building both Il2Cpp and Mono. Typically located at `steamapps/Schedule I/MelonLoader/net6` -->
         <MelonLoaderAssembliesPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I\MelonLoader\net6</MelonLoaderAssembliesPath>
+        <BepInExAssembliesPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I\BepInEx\core</BepInExAssembliesPath>
 
 <!-- Mono Configuration -->
 
@@ -25,7 +26,10 @@
         <!-- Used only when building against Il2Cpp. Typically located at `steamapps/Schedule I` -->
         <LocalIl2CppDeploymentPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I</LocalIl2CppDeploymentPath>
 
-        <!-- Used only when building against Il2Cpp. Typically located at `steamapps/Schedule I/MelonLoader/Il2CppAssemblies` -->
-        <Il2CppAssembliesPath>C:\Program Files (x86)\Steam\steamapps\common\Schedule I\Melonloader\Il2CppAssemblies</Il2CppAssembliesPath>
+        <!-- Used only when building against Melon Il2Cpp. Typically located at `steamapps/Schedule I/MelonLoader/Il2CppAssemblies` -->
+        <Il2CppAssembliesPath Condition="'$(Configuration)' == 'Il2CppMelon'">C:\Program Files (x86)\Steam\steamapps\common\Schedule I\Melonloader\Il2CppAssemblies</Il2CppAssembliesPath>
+
+        <!-- Used only when building against BepInEx Il2Cpp. Typically located at `steamapps/Schedule I/BepInEx/interop` -->
+        <Il2CppAssembliesPath Condition="'$(Configuration)' == 'Il2CppBepInEx'">C:\Program Files (x86)\Steam\steamapps\common\Schedule I\BepInEx\interop</Il2CppAssembliesPath>
     </PropertyGroup>
 </Project>

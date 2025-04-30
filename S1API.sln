@@ -6,17 +6,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1APILoader", "S1APILoader\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Mono|Any CPU = Mono|Any CPU
-		Il2Cpp|Any CPU = Il2Cpp|Any CPU
+		MonoBepInEx|Any CPU = MonoBepInEx|Any CPU
+		Il2CppMelon|Any CPU = Il2CppMelon|Any CPU
+		MonoMelon|Any CPU = MonoMelon|Any CPU
+		Il2CppBepInEx|Any CPU = Il2CppBepInEx|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Mono|Any CPU.ActiveCfg = Mono|Any CPU
-		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Mono|Any CPU.Build.0 = Mono|Any CPU
-		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2Cpp|Any CPU.ActiveCfg = Il2Cpp|Any CPU
-		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2Cpp|Any CPU.Build.0 = Il2Cpp|Any CPU
-		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Mono|Any CPU.ActiveCfg = Mono|Any CPU
-		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Mono|Any CPU.Build.0 = Mono|Any CPU
-		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2Cpp|Any CPU.ActiveCfg = Il2Cpp|Any CPU
-		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2Cpp|Any CPU.Build.0 = Il2Cpp|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.MonoBepInEx|Any CPU.ActiveCfg = MonoBepInEx|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.MonoBepInEx|Any CPU.Build.0 = MonoBepInEx|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2CppMelon|Any CPU.ActiveCfg = Il2CppMelon|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2CppMelon|Any CPU.Build.0 = Il2CppMelon|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.MonoMelon|Any CPU.ActiveCfg = MonoMelon|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.MonoMelon|Any CPU.Build.0 = MonoMelon|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2CppBepInEx|Any CPU.ActiveCfg = Il2CppBepInEx|Any CPU
+		{D2C9A6B1-B9E0-4E6D-AE65-B5264C2A4E04}.Il2CppBepInEx|Any CPU.Build.0 = Il2CppBepInEx|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.MonoBepInEx|Any CPU.ActiveCfg = MonoBepInEx|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.MonoBepInEx|Any CPU.Build.0 = MonoBepInEx|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2CppMelon|Any CPU.ActiveCfg = Il2CppMelon|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2CppMelon|Any CPU.Build.0 = Il2CppMelon|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.MonoMelon|Any CPU.ActiveCfg = MonoMelon|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.MonoMelon|Any CPU.Build.0 = MonoMelon|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2CppBepInEx|Any CPU.ActiveCfg = Il2CppBepInEx|Any CPU
+		{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}.Il2CppBepInEx|Any CPU.Build.0 = Il2CppBepInEx|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -4,6 +4,7 @@
 obj/
 bin/
 *.user
+.vs/
 
 # Build props
 local.*

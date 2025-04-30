@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace S1API.Utils
+namespace S1API.Internal.Utils
 {
     /// <summary>
     /// A utility class providing random selection functionality for lists and numeric ranges.
@@ -17,7 +16,7 @@ namespace S1API.Utils
         public static T PickOne<T>(this IList<T> list)
         {
             if (list == null || list.Count == 0)
-                return default;
+                return default!;
 
             return list[UnityEngine.Random.Range(0, list.Count)];
         }
@@ -32,8 +31,8 @@ namespace S1API.Utils
         /// <returns>A randomly selected item that satisfies the condition, or the default value of the type if no valid item is found.</returns>
         public static T PickUnique<T>(this IList<T> list, Func<T, bool> isDuplicate, int maxTries = 10)
         {
-            if (list == null || list.Count == 0)
-                return default;
+            if (list.Count == 0)
+                return default!;
 
             for (int i = 0; i < maxTries; i++)
             {
@@ -42,7 +41,7 @@ namespace S1API.Utils
                     return item;
             }
 
-            return default;
+            return default!;
         }
 
         /// <summary>
@@ -54,7 +53,9 @@ namespace S1API.Utils
         /// <returns>A list containing the selected random items, or an empty list if the input list is null or empty.</returns>
         public static List<T> PickMany<T>(this IList<T> list, int count)
         {
-            if (list == null || list.Count == 0) return new List<T>();
+            if (list.Count == 0) 
+                return new List<T>();
+            
             var copy = new List<T>(list);
             var result = new List<T>();
 

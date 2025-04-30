@@ -1,7 +1,7 @@
-﻿#if (IL2CPP)
+﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
 using S1ItemFramework = Il2CppScheduleOne.ItemFramework;
 using S1Product = Il2CppScheduleOne.Product;
-#elif (MONO)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1ItemFramework = ScheduleOne.ItemFramework;
 using S1Product = ScheduleOne.Product;
 #endif
@@ -22,18 +22,18 @@ namespace S1API.Items
         /// INTERNAL: The reference to the item slot in the game.
         /// </summary>
         internal readonly S1ItemFramework.ItemSlot S1ItemSlot;
-        
+
         /// <summary>
         /// Creates an item slot instance from the in game slot.
         /// </summary>
         /// <param name="itemSlot"></param>
-        internal ItemSlotInstance(S1ItemFramework.ItemSlot itemSlot) => 
+        internal ItemSlotInstance(S1ItemFramework.ItemSlot itemSlot) =>
             S1ItemSlot = itemSlot;
-        
+
         /// <summary>
         /// The quantity of item in this slot.
         /// </summary>
-        public int Quantity => 
+        public int Quantity =>
             S1ItemSlot.Quantity;
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace S1API.Items
                 if (CrossType.Is(S1ItemSlot.ItemInstance,
                         out S1Product.ProductItemInstance productItemInstance))
                     return new ProductInstance(productItemInstance);
-                
+
                 if (CrossType.Is(S1ItemSlot.ItemInstance,
                         out S1ItemFramework.CashInstance cashInstance))
                     return new CashInstance(cashInstance);
-                
+
                 if (CrossType.Is(S1ItemSlot.ItemInstance,
                         out S1ItemFramework.ItemInstance itemInstance))
                     return new ItemInstance(itemInstance);
@@ -58,13 +58,13 @@ namespace S1API.Items
                 return null;
             }
         }
-        
+
         /// <summary>
         /// Adds a quantity to the item in this slot.
         /// NOTE: Negative numbers are supported and allowed.
         /// </summary>
         /// <param name="amount"></param>
-        public void AddQuantity(int amount) => 
-            S1ItemSlot.ChangeQuantity(amount); 
+        public void AddQuantity(int amount) =>
+            S1ItemSlot.ChangeQuantity(amount);
     }
 }

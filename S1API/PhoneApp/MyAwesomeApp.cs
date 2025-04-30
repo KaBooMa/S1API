@@ -5,13 +5,15 @@ using S1API.UI;
 
 namespace S1API.PhoneApp
 {
-    /// <summary>
-    /// Defines the MyAwesomeApp, a specialized application integrated into an in-game phone system.
-    /// </summary>
-    /// <remarks>
-    /// This class leverages the PhoneApp framework to specify application-specific properties like name, title,
-    /// icon label, and icon file name. It also overrides the method for defining the user interface layout upon creation.
-    /// </remarks>
+    // TODO(@omar-akermi): Can we move this into markdown pls <3
+    
+    // /// <summary>
+    // /// Defines the MyAwesomeApp, a specialized application integrated into an in-game phone system.
+    // /// </summary>
+    // /// <remarks>
+    // /// This class leverages the PhoneApp framework to specify application-specific properties like name, title,
+    // /// icon label, and icon file name. It also overrides the method for defining the user interface layout upon creation.
+    // /// </remarks>
     /*
     public class MyAwesomeApp : PhoneApp
     {

@@ -1,7 +1,7 @@
-#if IL2CPP
+#if (IL2CPPMELON || IL2CPPBEPINEX)
 using Il2CppScheduleOne.Product;
 using S1CocaineDefinition = Il2CppScheduleOne.Product.CocaineDefinition;
-#elif MONO
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using ScheduleOne.Product;
 using S1CocaineDefinition = ScheduleOne.Product.CocaineDefinition;
 #endif
@@ -21,7 +21,6 @@ namespace S1API.Products
         /// </summary>
         internal S1CocaineDefinition S1CocaineDefinition =>
             CrossType.As<S1CocaineDefinition>(S1ItemDefinition);
-        
 
         /// <summary>
         /// Creates a new cocaine product definition.
