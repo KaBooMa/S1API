@@ -261,6 +261,26 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Sets the player's energy level.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="amount">The level of energy to set to. Range is 0 to 100.</param>
+        public static void SetPlayerEnergyLevel(float amount)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetEnergy();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetEnergy();
+            var args = new List<string>();
+#endif
+            
+            args.Add(amount.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
