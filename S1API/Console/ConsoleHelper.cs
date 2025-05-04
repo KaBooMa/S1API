@@ -132,6 +132,26 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Adds the given amount of XP to the player.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="amount">The amount of XP to give. Must be a non-negative amount.</param>
+        public static void GiveXp(int amount)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new GiveXP();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new GiveXP();
+            var args = new List<string>();
+#endif
+            
+            args.Add(amount.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
