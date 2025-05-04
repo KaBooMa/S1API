@@ -12,6 +12,7 @@ public class DialogueInjection
     /// This value is expected to match or partially match the name of an NPC in the game, allowing the system
     /// to identify and target the specific NPC for dialogue modifications.
     /// </summary>
+#pragma warning disable S1104
     public string NpcName;
 
     /// <summary>
@@ -60,6 +61,7 @@ public class DialogueInjection
     /// Represents a callback action that is invoked when a dialogue choice is confirmed.
     /// </summary>
     public Action OnConfirmed;
+#pragma warning restore S1104
 
     /// <summary>
     /// Represents an injectable dialogue configuration that can be used to add or modify dialogue interactions in a game.

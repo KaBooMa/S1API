@@ -27,7 +27,9 @@ namespace S1API.PhoneCalls
         /// <summary>
         /// The caller of the <see cref="PhoneCallDefinition"/> instance
         /// </summary>
+#pragma warning disable S1104
         public CallerDefinition? Caller;
+#pragma warning restore S1104
 
         // ReSharper disable once MemberCanBePrivate.Global
         /// <summary>

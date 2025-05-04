@@ -14,6 +14,8 @@ namespace S1API.Leveling
         /// <summary>
         /// The current rank of the save file.
         /// </summary>
+#pragma warning disable S1104
         public static Rank Rank = (Rank)S1Levelling.LevelManager.Instance.Rank;
+#pragma warning restore S1104
     }
 }

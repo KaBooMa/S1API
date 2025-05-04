@@ -13,6 +13,7 @@ namespace S1API.GameTime
     /// </summary>
     public static class TimeManager
     {
+#pragma warning disable S1104
         /// <summary>
         /// Called when a new in-game day starts.
         /// </summary>
@@ -33,6 +34,7 @@ namespace S1API.GameTime
         /// Parameter: total minutes skipped during sleep.
         /// </summary>
         public static Action<int> OnSleepEnd = delegate { };
+#pragma warning restore S1104
 
         static TimeManager()
         {
