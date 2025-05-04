@@ -177,14 +177,18 @@ namespace S1API.Quests
             S1Quest.InitializeQuest(Title, Description, Array.Empty<S1Data.QuestEntryData>(), S1Quest?.StaticGUID);
 
             if (AutoBegin)
-                S1Quest?.Begin();
+            {
+	            S1Quest?.Begin();
+            }
         }
 
         internal override void SaveInternal(string folderPath, ref List<string> extraSaveables)
         {
             string questDataPath = Path.Combine(folderPath, S1Quest.SaveFolderName);
             if (!Directory.Exists(questDataPath))
-                Directory.CreateDirectory(questDataPath);
+            {
+	            Directory.CreateDirectory(questDataPath);
+            }
 
             base.SaveInternal(questDataPath, ref extraSaveables);
         }

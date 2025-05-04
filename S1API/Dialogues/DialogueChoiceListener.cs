@@ -46,7 +46,9 @@ namespace S1API.Dialogues
                 handlerRef.onDialogueChoiceChosen.AddListener((UnityAction<string>)delegate (string choice)
                 {
                     if (choice == expectedChoiceLabel)
-                        ((UnityAction)ForwardCall).Invoke();
+                    {
+	                    ((UnityAction)ForwardCall).Invoke();
+                    }
                 });
             }
         }

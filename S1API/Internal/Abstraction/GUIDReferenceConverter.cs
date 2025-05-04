@@ -49,12 +49,16 @@ namespace S1API.Internal.Abstraction
         {
             string? guid = reader.Value?.ToString();
             if (string.IsNullOrEmpty(guid))
-                return null;
-            
+            {
+	            return null;
+            }
+
             MethodInfo? getGUIDMethod = ReflectionUtils.GetMethod(objectType, "GetFromGUID", BindingFlags.NonPublic | BindingFlags.Static);
             if (getGUIDMethod == null)
-                throw new Exception($"The type {objectType.Name} does not have a valid implementation of the GetFromGUID(string guid) method!");
-            
+            {
+	            throw new Exception($"The type {objectType.Name} does not have a valid implementation of the GetFromGUID(string guid) method!");
+            }
+
             return getGUIDMethod.Invoke(null, new object[] { guid });
         }
 

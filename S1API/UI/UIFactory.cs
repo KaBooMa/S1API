@@ -137,7 +137,10 @@ namespace S1API.UI
         {
             var fitter = content.gameObject.GetComponent<ContentSizeFitter>();
             if (fitter == null)
-                fitter = content.gameObject.AddComponent<ContentSizeFitter>();
+            {
+	            fitter = content.gameObject.AddComponent<ContentSizeFitter>();
+            }
+
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         }
 
@@ -227,7 +230,9 @@ namespace S1API.UI
         private static Sprite GetRoundedSprite()
         {
             if (roundedSprite != null)
-                return roundedSprite;
+            {
+	            return roundedSprite;
+            }
 
             int size = 32;
             var tex = new Texture2D(size, size, TextureFormat.ARGB32, false);
@@ -356,8 +361,9 @@ namespace S1API.UI
             Text(parent.name + "Title", title, parent, 16, TextAnchor.MiddleLeft, FontStyle.Bold);
             Text(parent.name + "Subtitle", subtitle, parent, 14, TextAnchor.UpperLeft);
             if (isCompleted)
-                Text("CompletedLabel", "<color=#888888><i>Already Delivered</i></color>", parent, 12,
-                    TextAnchor.UpperLeft);
+            {
+	            Text("CompletedLabel", "<color=#888888><i>Already Delivered</i></color>", parent, 12, TextAnchor.UpperLeft);
+            }
         }
 
         /// Adds a button to the specified GameObject, sets its target graphic, and configures its interactivity and click behavior.
@@ -379,7 +385,9 @@ namespace S1API.UI
         public static void ClearChildren(Transform parent)
         {
             foreach (Transform child in parent)
-                GameObject.Destroy(child.gameObject);
+            {
+	            GameObject.Destroy(child.gameObject);
+            }
         }
 
         /// Configures a GameObject to use a VerticalLayoutGroup with specified spacing and padding.
@@ -409,8 +417,8 @@ namespace S1API.UI
             rowRT.sizeDelta = new Vector2(0f, 90f); // Let layout handle width
             row.AddComponent<LayoutElement>().minHeight = 50f;
             row.AddComponent<Outline>().effectColor = new Color(0, 0, 0, 0.2f); // or Image line separator below
-            
-            
+
+
             var line = UIFactory.Panel("Separator", row.transform, new Color(1,1,1,0.05f));
             line.GetComponent<RectTransform>().sizeDelta = new Vector2(300f, 1f);
 

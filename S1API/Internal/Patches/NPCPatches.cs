@@ -41,11 +41,15 @@ namespace S1API.Internal.Patches
             {
                 NPC? customNPC = (NPC)Activator.CreateInstance(type, true)!;
                 if (customNPC == null)
-                    throw new Exception($"Unable to create instance of {type.FullName}!");
+                {
+	                throw new Exception($"Unable to create instance of {type.FullName}!");
+                }
 
                 // We skip any S1API NPCs, as they are base NPC wrappers.
                 if (type.Assembly == Assembly.GetExecutingAssembly())
-                    continue;
+                {
+	                continue;
+                }
 
                 string npcPath = Path.Combine(mainPath, customNPC.S1NPC.SaveFolderName);
                 customNPC.LoadInternal(npcPath);

@@ -28,13 +28,15 @@ namespace S1API.Items
         {
             S1ItemFramework.ItemDefinition itemDefinition = S1.Registry.GetItem(itemID);
 
-            if (CrossType.Is(itemDefinition,
-                    out S1Product.ProductDefinition productDefinition))
-                return new ProductDefinition(productDefinition);
+            if (CrossType.Is(itemDefinition, out S1Product.ProductDefinition productDefinition))
+            {
+	            return new ProductDefinition(productDefinition);
+            }
 
-            if (CrossType.Is(itemDefinition,
-                    out S1ItemFramework.CashDefinition cashDefinition))
-                return new CashDefinition(cashDefinition);
+            if (CrossType.Is(itemDefinition, out S1ItemFramework.CashDefinition cashDefinition))
+            {
+	            return new CashDefinition(cashDefinition);
+            }
 
             return new ItemDefinition(itemDefinition);
         }

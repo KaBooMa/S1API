@@ -151,7 +151,9 @@ namespace S1API.Entities
         public void Damage(int amount)
         {
             if (amount <= 0)
-                return;
+            {
+	            return;
+            }
 
             S1Player.Health.TakeDamage(amount);
         }
@@ -163,7 +165,9 @@ namespace S1API.Entities
         public void Heal(int amount)
         {
             if (amount <= 0)
-                return;
+            {
+	            return;
+            }
 
             S1Player.Health.SetHealth(CurrentHealth + amount);
         }

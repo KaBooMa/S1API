@@ -415,7 +415,9 @@ namespace S1API.Entities
         public void Damage(int amount)
         {
             if (amount <= 0)
-                return;
+            {
+	            return;
+            }
 
             S1NPC.Health.TakeDamage(amount, true);
         }
@@ -427,7 +429,9 @@ namespace S1API.Entities
         public void Heal(int amount)
         {
             if (amount <= 0)
-                return;
+            {
+	            return;
+            }
 
             float actualHealAmount = Mathf.Min(amount, S1NPC.Health.MaxHealth - S1NPC.Health.Health);
             S1NPC.Health.TakeDamage(-actualHealAmount, false);
@@ -544,7 +548,9 @@ namespace S1API.Entities
             S1NPC.MSGConversation.ClearResponses();
 
             if (responses == null || responses.Length == 0)
-                return;
+            {
+	            return;
+            }
 
             Responses.Clear();
 

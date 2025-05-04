@@ -35,7 +35,9 @@ namespace S1API.Internal.Patches
         private static void Postfix(HomeScreen __instance)
         {
             if (__instance == null)
-                return;
+            {
+	            return;
+            }
 
             // Re-register all PhoneApps
             var phoneApps = ReflectionUtils.GetDerivedClasses<PhoneApp.PhoneApp>();
@@ -44,7 +46,9 @@ namespace S1API.Internal.Patches
                 _logger.Msg($"Found phone app: {type.FullName}");
 
                 if (type.GetConstructor(Type.EmptyTypes) == null)
-                    continue;
+                {
+	                continue;
+                }
 
                 try
                 {

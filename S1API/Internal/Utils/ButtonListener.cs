@@ -16,7 +16,11 @@ namespace S1API.Internal.Utils
         /// </summary>
         public static void AddListener(Button button, Action action)
         {
-            if (button == null || action == null) return;
+            if (button == null || action == null)
+            {
+	            return;
+            }
+
             EventHelper.AddListener(action, button.onClick);
         }
 
@@ -25,7 +29,11 @@ namespace S1API.Internal.Utils
         /// </summary>
         public static void RemoveListener(Button button, Action action)
         {
-            if (button == null || action == null) return;
+            if (button == null || action == null)
+            {
+	            return;
+            }
+
             EventHelper.RemoveListener(action, button.onClick);
         }
 
@@ -34,7 +42,11 @@ namespace S1API.Internal.Utils
         /// </summary>
         public static void ClearListeners(Button button)
         {
-            if (button == null) return;
+            if (button == null)
+            {
+	            return;
+            }
+
             button.onClick.RemoveAllListeners();
         }
 
@@ -43,8 +55,15 @@ namespace S1API.Internal.Utils
         /// </summary>
         public static void Enable(Button button, Text? label = null, string? text = null)
         {
-            if (button != null) button.interactable = true;
-            if (label != null && !string.IsNullOrEmpty(text)) label.text = text;
+            if (button != null)
+            {
+	            button.interactable = true;
+            }
+
+            if (label != null && !string.IsNullOrEmpty(text))
+            {
+	            label.text = text;
+            }
         }
 
         /// <summary>
@@ -52,8 +71,15 @@ namespace S1API.Internal.Utils
         /// </summary>
         public static void Disable(Button button, Text? label = null, string? text = null)
         {
-            if (button != null) button.interactable = false;
-            if (label != null && !string.IsNullOrEmpty(text)) label.text = text;
+            if (button != null)
+            {
+	            button.interactable = false;
+            }
+
+            if (label != null && !string.IsNullOrEmpty(text))
+            {
+	            label.text = text;
+            }
         }
 
         /// <summary>
@@ -61,14 +87,21 @@ namespace S1API.Internal.Utils
         /// </summary>
         public static void SetLabel(Text label, string text)
         {
-            if (label != null) label.text = text;
+            if (label != null)
+            {
+	            label.text = text;
+            }
         }
         /// <summary>
         /// Sets the button label and background color.
         /// </summary>
         public static void SetStyle(Button button, Text label, string text, Color bg)
         {
-            if (button == null || label == null) return;
+            if (button == null || label == null)
+            {
+	            return;
+            }
+
             label.text = text;
             button.image.color = bg;
         }

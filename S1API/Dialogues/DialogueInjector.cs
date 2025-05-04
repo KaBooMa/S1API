@@ -56,16 +56,20 @@ public static class DialogueInjector
     /// </remarks>
     private static void HookUpdateLoop()
     {
-        if (isHooked) return;
+        if (isHooked)
+        {
+	        return;
+        }
+
         isHooked = true;
-        
+
         // TODO (@omar-akermi): Can we please look into attaching during the patch process of NPCs?
         // I really do not like the use of Coroutines and this in particular is causing issues in Il2CppBepInEx builds...
 #if (IL2CPPMELON || MONOMELON)
         MelonCoroutines.Start(WaitForNPCsAndInject());
 #elif (IL2CPPBEPINEX || MONOBEPINEX)
         // InstanceFinder.TimeManager.StartCoroutine(WaitForNPCsAndInject());
-        
+
 #endif
     }
 
@@ -118,12 +122,21 @@ public static class DialogueInjector
     {
         var handler = npc.GetComponent<DialogueHandler>();
         var dialogueEvent = npc.GetComponentInChildren<NPCEvent_LocationDialogue>(true);
-        if (dialogueEvent == null || dialogueEvent.DialogueOverride == null) return;
+        if (dialogueEvent == null || dialogueEvent.DialogueOverride == null)
+        {
+	        return;
+        }
 
-        if (dialogueEvent.DialogueOverride.name != injection.ContainerName) return;
+        if (dialogueEvent.DialogueOverride.name != injection.ContainerName)
+        {
+	        return;
+        }
 
         var container = dialogueEvent.DialogueOverride;
-        if (container.DialogueNodeData == null) return;
+        if (container.DialogueNodeData == null)
+        {
+	        return;
+        }
 
         DialogueNodeData node = null;
         for (int i = 0; i < container.DialogueNodeData.Count; i++)
@@ -136,7 +149,10 @@ public static class DialogueInjector
             }
         }
 
-        if (node == null) return;
+        if (node == null)
+        {
+	        return;
+        }
 
         var choice = new DialogueChoiceData
         {
@@ -147,7 +163,9 @@ public static class DialogueInjector
 
         var choiceList = new List<DialogueChoiceData>();
         if (node.choices != null)
-            choiceList.AddRange(node.choices);
+        {
+	        choiceList.AddRange(node.choices);
+        }
 
         choiceList.Add(choice);
         node.choices = choiceList.ToArray();
@@ -160,11 +178,13 @@ public static class DialogueInjector
         };
 
         if (container.NodeLinks == null)
+        {
             #if IL2CPPMELON || IL2CPPBEPINEX
             container.NodeLinks = new Il2CppSystem.Collections.Generic.List<NodeLinkData>();
 #else
-        container.NodeLinks = new List<NodeLinkData>();
+			container.NodeLinks = new List<NodeLinkData>();
 #endif
+        }
         container.NodeLinks.Add(link);
 
         DialogueChoiceListener.Register(handler, injection.ChoiceLabel, injection.OnConfirmed);

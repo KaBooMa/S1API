@@ -17,11 +17,20 @@ namespace S1API.Products
         {
             var item = def.S1ItemDefinition;
             if (CrossType.Is<S1Product.WeedDefinition>(item, out var weed))
-                return new WeedDefinition(weed);
+            {
+	            return new WeedDefinition(weed);
+            }
+
             if (CrossType.Is<S1Product.MethDefinition>(item, out var meth))
-                return new MethDefinition(meth);
+            {
+	            return new MethDefinition(meth);
+            }
+
             if (CrossType.Is<S1Product.CocaineDefinition>(item, out var coke))
-                return new CocaineDefinition(coke);
+            {
+	            return new CocaineDefinition(coke);
+            }
+
             return def;
         }
     }

@@ -92,7 +92,9 @@ namespace S1API.Money
         public static void AddNetworthCalculation(System.Action<object> callback)
         {
             if (Internal != null)
-                Internal.onNetworthCalculation += callback;
+            {
+	            Internal.onNetworthCalculation += callback;
+            }
         }
 
         /// <summary>
@@ -102,7 +104,9 @@ namespace S1API.Money
         public static void RemoveNetworthCalculation(System.Action<object> callback)
         {
             if (Internal != null)
-                Internal.onNetworthCalculation -= callback;
+            {
+	            Internal.onNetworthCalculation -= callback;
+            }
         }
 
         /// <summary>

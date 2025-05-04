@@ -189,7 +189,9 @@ namespace S1API.PhoneApp
         internal void SpawnIcon(HomeScreen homeScreenInstance)
         {
             if (_iconModified)
-                return;
+            {
+	            return;
+            }
 
             GameObject? appIcons = homeScreenInstance.transform.Find("AppIcons")?.gameObject;
             if (appIcons == null)
@@ -213,7 +215,9 @@ namespace S1API.PhoneApp
             Transform labelTransform = iconObj.transform.Find("Label");
             Text? label = labelTransform?.GetComponent<Text>();
             if (label != null)
-                label.text = IconLabel;
+            {
+	            label.text = IconLabel;
+            }
 
             // Update image
             _iconModified = ChangeAppIconImage(iconObj, IconFileName);
@@ -247,7 +251,9 @@ namespace S1API.PhoneApp
         private void ClearContainer(GameObject container)
         {
             for (int i = container.transform.childCount - 1; i >= 0; i--)
-                Object.Destroy(container.transform.GetChild(i).gameObject);
+            {
+	            Object.Destroy(container.transform.GetChild(i).gameObject);
+            }
         }
 
         /// <summary>

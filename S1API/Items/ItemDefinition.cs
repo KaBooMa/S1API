@@ -58,7 +58,11 @@ namespace S1API.Items
         /// <returns>Whether the item definitions are the same or not.</returns>
         public static bool operator ==(ItemDefinition? left, ItemDefinition? right)
         {
-            if (ReferenceEquals(left, right)) return true;
+            if (ReferenceEquals(left, right))
+            {
+	            return true;
+            }
+
             return left?.S1ItemDefinition == right?.S1ItemDefinition;
         }
 

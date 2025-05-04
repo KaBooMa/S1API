@@ -45,7 +45,9 @@ namespace S1API.Internal.Patches
             string questsPath = Path.Combine(parentFolderPath, "Quests");
 
             foreach (Quest quest in QuestManager.Quests)
-                quest.SaveInternal(questsPath, ref __result);
+            {
+	            quest.SaveInternal(questsPath, ref __result);
+            }
         }
 
         /// <summary>
@@ -59,7 +61,9 @@ namespace S1API.Internal.Patches
         {
             // Make sure we have a quests directory (fresh saves don't at this point in runtime)
             if (!Directory.Exists(mainPath))
-                return;
+            {
+	            return;
+            }
 
             string[] questDirectories = Directory.GetDirectories(mainPath)
                 .Select(Path.GetFileName)
@@ -71,22 +75,30 @@ namespace S1API.Internal.Patches
                 string baseQuestPath = Path.Combine(mainPath, questDirectory);
                 __instance.TryLoadFile(baseQuestPath, out string questDataText);
                 if (questDataText == null)
-                    continue;
+                {
+	                continue;
+                }
 
                 S1Datas.QuestData baseQuestData = JsonUtility.FromJson<S1Datas.QuestData>(questDataText);
 
                 string questDirectoryPath = Path.Combine(mainPath, questDirectory);
                 string questDataPath = Path.Combine(questDirectoryPath, "QuestData");
                 if (!__instance.TryLoadFile(questDataPath, out string questText))
-                    continue;
+                {
+	                continue;
+                }
 
                 QuestData? questData = JsonConvert.DeserializeObject<QuestData>(questText, ISaveable.SerializerSettings);
                 if (questData?.ClassName == null)
-                    continue;
+                {
+	                continue;
+                }
 
                 Type? questType = ReflectionUtils.GetTypeByName(questData.ClassName);
                 if (questType == null || !typeof(Quest).IsAssignableFrom(questType))
-                    continue;
+                {
+	                continue;
+                }
 
                 Quest quest = QuestManager.CreateQuest(questType, baseQuestData?.GUID);
                 quest.LoadInternal(questDirectoryPath);
@@ -110,7 +122,9 @@ namespace S1API.Internal.Patches
                 .ToArray();
 
             foreach (string unapprovedQuestDirectory in unapprovedQuestDirectories)
-                Directory.Delete(unapprovedQuestDirectory, true);
+            {
+	            Directory.Delete(unapprovedQuestDirectory, true);
+            }
         }
 
         [HarmonyPatch(typeof(S1Quests.Quest), "Start")]

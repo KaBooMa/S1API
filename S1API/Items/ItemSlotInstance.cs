@@ -43,17 +43,20 @@ namespace S1API.Items
         {
             get
             {
-                if (CrossType.Is(S1ItemSlot.ItemInstance,
-                        out S1Product.ProductItemInstance productItemInstance))
-                    return new ProductInstance(productItemInstance);
+                if (CrossType.Is(S1ItemSlot.ItemInstance, out S1Product.ProductItemInstance productItemInstance))
+                {
+	                return new ProductInstance(productItemInstance);
+                }
 
-                if (CrossType.Is(S1ItemSlot.ItemInstance,
-                        out S1ItemFramework.CashInstance cashInstance))
-                    return new CashInstance(cashInstance);
+                if (CrossType.Is(S1ItemSlot.ItemInstance, out S1ItemFramework.CashInstance cashInstance))
+                {
+	                return new CashInstance(cashInstance);
+                }
 
-                if (CrossType.Is(S1ItemSlot.ItemInstance,
-                        out S1ItemFramework.ItemInstance itemInstance))
-                    return new ItemInstance(itemInstance);
+                if (CrossType.Is(S1ItemSlot.ItemInstance, out S1ItemFramework.ItemInstance itemInstance))
+                {
+	                return new ItemInstance(itemInstance);
+                }
 
                 return null;
             }

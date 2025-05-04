@@ -35,7 +35,9 @@ namespace S1API.Internal.Abstraction
             {
                 SaveableField? saveableFieldAttribute = saveableField.GetCustomAttribute<SaveableField>();
                 if (saveableFieldAttribute == null)
-                    continue;
+                {
+	                continue;
+                }
 
                 string filename = saveableFieldAttribute.SaveName.EndsWith(".json")
                     ? saveableFieldAttribute.SaveName
@@ -43,7 +45,9 @@ namespace S1API.Internal.Abstraction
 
                 string saveDataPath = Path.Combine(folderPath, filename);
                 if (!File.Exists(saveDataPath))
-                    continue;
+                {
+	                continue;
+                }
 
                 string json = File.ReadAllText(saveDataPath);
                 Type type = saveableField.FieldType;
@@ -70,7 +74,9 @@ namespace S1API.Internal.Abstraction
             {
                 SaveableField? saveableFieldAttribute = saveableField.GetCustomAttribute<SaveableField>();
                 if (saveableFieldAttribute == null)
-                    continue;
+                {
+	                continue;
+                }
 
                 string saveFileName = saveableFieldAttribute.SaveName.EndsWith(".json")
                     ? saveableFieldAttribute.SaveName
@@ -80,8 +86,10 @@ namespace S1API.Internal.Abstraction
 
                 object? value = saveableField.GetValue(this);
                 if (value == null)
+                {
                     // Remove the save if the field is null
-                    File.Delete(saveDataPath);
+	                File.Delete(saveDataPath);
+                }
                 else
                 {
                     // We add this to the extra saveables to prevent the game from deleting it

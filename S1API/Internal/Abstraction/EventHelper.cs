@@ -22,8 +22,10 @@ namespace S1API.Internal.Abstraction
         internal static void AddListener(Action listener, UnityEvent unityEvent)
         {
             if (SubscribedActions.ContainsKey(listener))
-                return;
-            
+            {
+	            return;
+            }
+
             UnityAction wrappedListener = (UnityAction)listener.Invoke;
             unityEvent.AddListener(wrappedListener);
             SubscribedActions.Add(listener, wrappedListener);

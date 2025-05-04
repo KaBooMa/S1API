@@ -42,10 +42,14 @@ namespace S1API.Internal.Utils
 
             var result = new Il2CppReferenceArray<T>(newLength);
             for (var i = 0; i < originalLength; i++)
-                result[i] = array[i];
+            {
+	            result[i] = array[i];
+            }
 
             for (var i = 0; i < additionalLength; i++)
-                result[originalLength + i] = itemsToAdd[i];
+            {
+	            result[originalLength + i] = itemsToAdd[i];
+            }
 
             return result;
         }

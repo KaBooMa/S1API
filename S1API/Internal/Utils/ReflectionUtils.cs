@@ -31,10 +31,12 @@ namespace S1API.Internal.Utils
                         !assembly.FullName!.StartsWith("__Generated"))
                 .ToArray();
             foreach (Assembly assembly in applicableAssemblies)
-                derivedClasses.AddRange(assembly.GetTypes()
-                    .Where(type => typeof(TBaseClass).IsAssignableFrom(type)
-                                   && type != typeof(TBaseClass)
-                                   && !type.IsAbstract));
+            {
+	            derivedClasses.AddRange(assembly.GetTypes()
+		            .Where(type => typeof(TBaseClass).IsAssignableFrom(type)
+		                           && type != typeof(TBaseClass)
+		                           && !type.IsAbstract));
+            }
 
             return derivedClasses;
         }
@@ -51,7 +53,9 @@ namespace S1API.Internal.Utils
             {
                 Type? foundType = assembly.GetTypes().FirstOrDefault(type => type.Name == typeName);
                 if (foundType == null)
-                    continue;
+                {
+	                continue;
+                }
 
                 return foundType;
             }
@@ -89,7 +93,9 @@ namespace S1API.Internal.Utils
             {
                 MethodInfo? method = type.GetMethod(methodName, bindingFlags);
                 if (method != null)
-                    return method;
+                {
+	                return method;
+                }
 
                 type = type.BaseType;
             }
