@@ -134,8 +134,10 @@ namespace S1API.Entities
         /// </summary>
         public bool IsInvincible
         {
-            get => MaxHealth == InvincibleHealth;
-            set
+#pragma warning disable S1244
+	        get => MaxHealth == InvincibleHealth;
+#pragma warning restore S1244
+	        set
             {
                 MaxHealth = value ? InvincibleHealth : MortalHealth;
                 S1Player.Health.SetHealth(MaxHealth);
