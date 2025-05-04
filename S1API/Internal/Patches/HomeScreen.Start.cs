@@ -18,14 +18,14 @@ namespace S1API.Internal.Patches
     /// A Harmony patch for the Start method of the HomeScreen class, facilitating the registration and initialization of PhoneApps.
     /// </summary>
     [HarmonyPatch(typeof(HomeScreen), "Start")]
-    internal static class HomeScreen_Start_Patch
+    internal static class HomeScreenStartPatch
     {
         /// <summary>
         /// A logging instance used for handling log messages pertaining to PhoneApp registration
         /// and operations. Provides methods to log messages with different severity levels such
         /// as Info, Warning, Error, and Fatal.
         /// </summary>
-        private static readonly Log Logger = new Log("PhoneApp");
+        private static readonly Log _logger = new Log("PhoneApp");
 
         /// <summary>
         /// Executes after the HomeScreen's Start method to handle the registration
@@ -41,21 +41,21 @@ namespace S1API.Internal.Patches
             var phoneApps = ReflectionUtils.GetDerivedClasses<PhoneApp.PhoneApp>();
             foreach (var type in phoneApps)
             {
-                Logger.Msg($"Found phone app: {type.FullName}");
+                _logger.Msg($"Found phone app: {type.FullName}");
 
                 if (type.GetConstructor(Type.EmptyTypes) == null)
                     continue;
 
                 try
                 {
-                    var instance = (PhoneApp.PhoneApp)Activator.CreateInstance(type)!;
-                    ((IRegisterable)instance).CreateInternal();
-                    instance.SpawnUI(__instance);
-                    instance.SpawnIcon(__instance);
+                    var phoneAppInstance = (PhoneApp.PhoneApp)Activator.CreateInstance(type)!;
+                    ((IRegisterable)phoneAppInstance).CreateInternal();
+                    phoneAppInstance.SpawnUI(__instance);
+                    phoneAppInstance.SpawnIcon(__instance);
                 }
                 catch (Exception e)
                 {
-                    Logger.Warning($"[PhoneApp] Failed to register {type.FullName}: {e.Message}");
+                    _logger.Warning($"[PhoneApp] Failed to register {type.FullName}: {e.Message}");
                 }
             }
         }
