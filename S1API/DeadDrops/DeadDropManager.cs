@@ -19,6 +19,8 @@ namespace S1API.DeadDrops
         /// Gets all dead drops in the scene.
         /// </summary>
         public static DeadDropInstance[] All =>
-            S1Economy.DeadDrop.DeadDrops.ToArray()
+#pragma warning disable S2365
+	        S1Economy.DeadDrop.DeadDrops.ToArray()
                 .Select(deadDrop => new DeadDropInstance(deadDrop)).ToArray(); }
+#pragma warning restore S2365
 }
