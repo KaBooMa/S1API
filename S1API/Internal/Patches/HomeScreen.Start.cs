@@ -32,7 +32,7 @@ namespace S1API.Internal.Patches
         /// and initialization of PhoneApps.
         /// </summary>
         /// <param name="__instance">The HomeScreen instance being targeted in the patch.</param>
-        static void Postfix(HomeScreen __instance)
+        private static void Postfix(HomeScreen __instance)
         {
             if (__instance == null)
                 return;
