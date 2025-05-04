@@ -8,7 +8,9 @@ namespace S1API.Saveables
     /// (For example, custom NPCs, quests, etc.)
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
+#pragma warning disable S3376
     public class SaveableField : Attribute
+#pragma warning restore S3376
     {
         /// <summary>
         /// What the save data should be named.
