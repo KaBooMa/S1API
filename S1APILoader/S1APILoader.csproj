@@ -18,6 +18,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="*">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <Reference Include="0Harmony">
             <HintPath>$(MelonLoaderAssembliesPath)\0Harmony.dll</HintPath>
         </Reference>
