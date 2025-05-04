@@ -68,7 +68,7 @@ namespace S1API.UI
         {
             GameObject go = new GameObject(name);
             go.transform.SetParent(parent, false);
-            var rt = go.AddComponent<RectTransform>();
+            go.AddComponent<RectTransform>();
 
             var txt = go.AddComponent<Text>();
             txt.text = content;
@@ -274,7 +274,7 @@ namespace S1API.UI
             var row = new GameObject(name);
             row.transform.SetParent(parent, false);
 
-            var rt = row.AddComponent<RectTransform>();
+            row.AddComponent<RectTransform>();
             HorizontalLayoutGroup hLayout = row.AddComponent<HorizontalLayoutGroup>();
             hLayout.spacing = spacing;
             hLayout.childAlignment = alignment;
