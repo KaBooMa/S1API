@@ -58,8 +58,8 @@ dotnet_style_require_accessibility_modifiers = always:error
 dotnet_style_readonly_field = true:suggestion
 
 # Prefer expression-bodied members for simple methods and properties
-csharp_style_expression_bodied_methods = when_on_single_line:suggestion
-csharp_style_expression_bodied_properties = when_on_single_line:suggestion
+csharp_style_expression_bodied_methods = when_on_single_line:warning
+csharp_style_expression_bodied_properties = when_on_single_line:warning
 
 # Documentation rules
 dotnet_diagnostic.CS1591.severity = error  # Missing XML comment for publicly visible type or member
