@@ -38,6 +38,30 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Executes the AddItemToInventoryCommand with the given arguments.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="itemName">The name of the item.</param>
+        /// <param name="amount">The amount to add to inventory. Optional.</param>
+        public static void AddItemToInventory(string itemName, int? amount = null)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new AddItemToInventoryCommand();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new AddItemToInventoryCommand();
+            var args = new List<string>();
+#endif
+            args.Add(itemName);
+            if (amount.HasValue)
+            {
+                args.Add(amount.ToString()!);
+            }
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
