@@ -26,7 +26,9 @@ namespace S1API.Internal.Patches
     /// INTERNAL: All patches related to NPCs.
     /// </summary>
     [HarmonyPatch]
+#pragma warning disable S101
     internal class NPCPatches
+#pragma warning restore S101
     {
         /// <summary>
         /// Patching performed for when game NPCs are loaded.

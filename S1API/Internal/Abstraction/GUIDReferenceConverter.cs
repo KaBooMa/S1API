@@ -8,7 +8,9 @@ namespace S1API.Internal.Abstraction
     /// <summary>
     /// INTERNAL: JSON Converter to handle GUID referencing classes when saved and loaded.
     /// </summary>
+#pragma warning disable S101
     internal class GUIDReferenceConverter : JsonConverter
+#pragma warning restore S101
     {
         /// <summary>
         /// TODO

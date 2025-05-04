@@ -53,7 +53,9 @@ namespace S1API.Entities
     /// <summary>
     /// An abstract class intended to be derived from for creating custom NPCs in the game.
     /// </summary>
+#pragma warning disable S101
     public abstract class NPC : Saveable, IEntity, IHealth
+#pragma warning restore S101
     {
         // Protected members intended to be used by modders.
         // Intended to be used from within the class / derived classes ONLY.

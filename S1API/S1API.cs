@@ -8,7 +8,9 @@ namespace S1API
     /// <summary>
     /// Not currently utilized by S1API.
     /// </summary>
+#pragma warning disable S101
     public class S1API : MelonMod
+#pragma warning restore S101
     {
     }
 }
@@ -26,7 +28,7 @@ using HarmonyLib;
 namespace S1API
 {
     [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-    public class S1API : 
+    public class S1API :
 #if MONOBEPINEX
         BaseUnityPlugin
 #elif IL2CPPBEPINEX
