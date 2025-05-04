@@ -81,6 +81,23 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Clears the player's inventory.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        public static void ClearInventory()
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new ClearInventoryCommand();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new ClearInventoryCommand();
+            var args = new List<string>();
+#endif
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
