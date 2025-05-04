@@ -41,6 +41,7 @@ dotnet_diagnostic.IDE0130.severity = error
 # default severity for all SonarAnalyzer diagnostics is warning, but some are explicitly set to denote that they are acknowledged and warning is the intended severity
 # View documentation at https://rules.sonarsource.com/csharp/RSPEC-101/ replace number after RSPEC with the diagnostic code below (ex. 101 for S101)
 dotnet_diagnostic.S101.severity = error
+dotnet_diagnostic.S125.severity = warning
 dotnet_diagnostic.S1118.severity = error
 dotnet_diagnostic.S1135.severity = warning
 
