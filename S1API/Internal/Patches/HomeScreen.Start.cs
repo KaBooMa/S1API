@@ -32,7 +32,9 @@ namespace S1API.Internal.Patches
         /// and initialization of PhoneApps.
         /// </summary>
         /// <param name="__instance">The HomeScreen instance being targeted in the patch.</param>
+#pragma warning disable S1144
         private static void Postfix(HomeScreen __instance)
+#pragma warning restore S1144
         {
             if (__instance == null)
             {

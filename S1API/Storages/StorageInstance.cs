@@ -30,8 +30,10 @@ namespace S1API.Storages
         /// <summary>
         /// An array of all slots available on the storage container.
         /// </summary>
+#pragma warning disable S2365
         public ItemSlotInstance[] Slots => S1Storage.ItemSlots.ToArray()
             .Select(itemSlot => new ItemSlotInstance(itemSlot)).ToArray();
+#pragma warning restore S2365
 
         /// <summary>
         /// Whether an item can fit inside this storage container or not.

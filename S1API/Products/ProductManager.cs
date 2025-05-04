@@ -16,9 +16,11 @@ namespace S1API.Products
         /// <summary>
         /// A list of product definitions discovered on this save.
         /// </summary>
+#pragma warning disable S2365
         public static ProductDefinition[] DiscoveredProducts => S1Product.ProductManager.DiscoveredProducts.ToArray()
             .Select(productDefinition => ProductDefinitionWrapper.Wrap(new ProductDefinition(productDefinition)))
             .ToArray();
+#pragma warning restore S2365
 
     }
 }

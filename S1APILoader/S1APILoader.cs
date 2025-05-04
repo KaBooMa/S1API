@@ -11,8 +11,6 @@ namespace S1APILoader
 	public class S1APILoader : MelonPlugin
 #pragma warning restore S101
 	{
-        private const string BuildFolderName = "S1API";
-
         public override void OnPreModsLoaded()
         {
             string? pluginsFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
