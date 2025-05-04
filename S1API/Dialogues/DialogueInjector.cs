@@ -21,7 +21,9 @@ using FishNet;
 /// into a game's dialogue system at runtime. It provides methods for registering custom dialogue injections
 /// and ensures that these injections are processed correctly within the update loop.
 /// </summary>
+#pragma warning disable S3903
 public static class DialogueInjector
+#pragma warning restore S3903
 {
     /// <summary>
     /// Represents a collection of dialogue injections waiting to be processed for corresponding NPCs in the game.

@@ -543,7 +543,9 @@ namespace S1API.UI
         /// This class provides a mechanism to handle and execute logic when a click event is triggered.
         /// It associates an action defined by a UnityAction delegate with the click event.
         /// </remarks>
+#pragma warning disable S3903
         public class ClickHandler
+#pragma warning restore S3903
         {
             /// <summary>
             /// A private field that stores the UnityAction delegate to be executed when a specific UI interaction or click event occurs.

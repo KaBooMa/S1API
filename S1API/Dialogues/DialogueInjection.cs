@@ -3,7 +3,9 @@ using System;
 /// <summary>
 /// Represents a dialogue injection configuration for adding custom dialogues into an NPC's conversation flow dynamically.
 /// </summary>
+#pragma warning disable S3903
 public class DialogueInjection
+#pragma warning restore S3903
 {
     /// <summary>
     /// Represents the name of the NPC (Non-Player Character) to which the dialogue injection is associated.
