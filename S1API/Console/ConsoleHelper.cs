@@ -98,6 +98,23 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Clears all trash from the world.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        public static void ClearTrash()
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new ClearTrash();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new ClearTrash();
+            var args = new List<string>();
+#endif
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
