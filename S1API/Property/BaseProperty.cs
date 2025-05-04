@@ -3,7 +3,9 @@ namespace S1API.Property
     /// <summary>
     /// Represents an abstract base class for properties in the system.
     /// </summary>
+#pragma warning disable S1694
     public abstract class BaseProperty
+#pragma warning restore S1694
     {
         /// <summary>
         /// Gets the name of the property.
