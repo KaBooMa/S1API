@@ -384,8 +384,10 @@ namespace S1API.UI
         /// <param name="parent">The transform whose child objects will be destroyed.</param>
         public static void ClearChildren(Transform parent)
         {
-            foreach (Transform child in parent)
-            {
+#pragma warning disable S3217
+	        foreach (Transform child in parent)
+#pragma warning restore S3217
+	        {
 	            GameObject.Destroy(child.gameObject);
             }
         }
