@@ -7,6 +7,7 @@ using static ScheduleOne.Console;
 using System.Collections.Generic;
 using ScheduleOne.Employees;
 #endif
+using S1API.Products.Packaging;
 using S1API.Property;
 
 namespace S1API.Console
@@ -181,6 +182,27 @@ namespace S1API.Console
             var command = new LowerWanted();
             var args = new List<string>();
 #endif
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Packages the currently equipped item into the specified package type.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <remarks>This method can convert between package types. It can change baggies to jars, baggies to bricks, bricks to baggies, etc.</remarks>
+        /// <param name="packageType">The type of packaging to package the product as.</param>
+        public static void PackageSelectedProduct(PackageType packageType)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new PackageProduct();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new PackageProduct();
+            var args = new List<string>();
+#endif
+            
+            args.Add(packageType.ToString());
 
             command.Execute(args);
         }
