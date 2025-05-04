@@ -47,7 +47,9 @@ namespace S1API.PhoneApp
         /// This variable is used internally to track the state of the application's UI.
         /// When set to true, it denotes that the app UI panel has been created and configured.
         /// </remarks>
+#pragma warning disable S4487
         private bool _appCreated;
+#pragma warning restore S4487
 
         /// <summary>
         /// Indicates whether the phone application icon has been modified.
