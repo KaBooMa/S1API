@@ -7,6 +7,7 @@ using static ScheduleOne.Console;
 using System.Collections.Generic;
 using ScheduleOne.Employees;
 #endif
+using System.Globalization;
 using S1API.Products.Packaging;
 using S1API.Property;
 
@@ -275,7 +276,27 @@ namespace S1API.Console
             var args = new List<string>();
 #endif
             
-            args.Add(amount.ToString());
+            args.Add(amount.ToString(CultureInfo.InvariantCulture));
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets the player's health.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="amount">The health value to set to.</param>
+        public static void SetPlayerHealth(float amount)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetHealth();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetHealth();
+            var args = new List<string>();
+#endif
+            
+            args.Add(amount.ToString(CultureInfo.InvariantCulture));
 
             command.Execute(args);
         }
