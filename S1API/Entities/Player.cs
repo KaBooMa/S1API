@@ -37,7 +37,11 @@ namespace S1API.Entities
         /// <summary>
         /// All players currently in the game.
         /// </summary>
+#pragma warning disable S3887
+#pragma warning disable S2386
         public static readonly List<Player> All = new List<Player>();
+#pragma warning restore S3887
+#pragma warning restore S2386
 
         /// <summary>
         /// INTERNAL: Tracking of the S1 instance of the player.

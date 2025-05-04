@@ -231,7 +231,11 @@ namespace S1API.Entities
         /// <summary>
         /// List of all NPCs within the base game and modded.
         /// </summary>
+#pragma warning disable S3887
+#pragma warning disable S2386
         public static readonly System.Collections.Generic.List<NPC> All = new System.Collections.Generic.List<NPC>();
+#pragma warning restore S2386
+#pragma warning restore S3887
 
         /// <summary>
         /// The first name of this NPC.
