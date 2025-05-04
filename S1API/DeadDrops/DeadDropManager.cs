@@ -11,7 +11,9 @@ namespace S1API.DeadDrops
     /// <summary>
     /// Provides access to managing dead drops across the scene.
     /// </summary>
+#pragma warning disable S1118
     public class DeadDropManager
+#pragma warning restore S1118
     {
         /// <summary>
         /// Gets all dead drops in the scene.

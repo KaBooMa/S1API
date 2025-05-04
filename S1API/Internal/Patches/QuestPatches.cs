@@ -30,7 +30,9 @@ namespace S1API.Internal.Patches
     /// INTERNAL: All patches related to quests.
     /// </summary>
     [HarmonyPatch]
+#pragma warning disable S1118
     internal class QuestPatches
+#pragma warning restore S1118
     {
         /// <summary>
         /// Patching performed when all quests are saved.

@@ -14,7 +14,9 @@ namespace S1API.Internal.Patches
     /// INTERNAL: All patches related to NPCs.
     /// </summary>
     [HarmonyPatch]
+#pragma warning disable S1118
     internal class TimePatches
+#pragma warning restore S1118
     {
         /// <summary>
         /// Patch performed for when the time manager wakes up.

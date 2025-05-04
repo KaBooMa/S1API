@@ -27,7 +27,9 @@ namespace S1API.Internal.Patches
     /// </summary>
     [HarmonyPatch]
 #pragma warning disable S101
+#pragma warning disable S1118
     internal class NPCPatches
+#pragma warning restore S1118
 #pragma warning restore S101
     {
         /// <summary>

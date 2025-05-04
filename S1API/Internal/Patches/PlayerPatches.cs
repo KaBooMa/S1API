@@ -15,7 +15,9 @@ namespace S1API.Internal.Patches
     /// INTERNAL: Patches to apply to the Players for tracking.
     /// </summary>
     [HarmonyPatch]
+#pragma warning disable S1118
     internal class PlayerPatches
+#pragma warning restore S1118
     {
         /// <summary>
         /// INTERNAL: Adds players to the player list upon wake.
