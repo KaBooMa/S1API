@@ -38,8 +38,10 @@ dotnet_diagnostic.CS1591.severity = error  # Missing XML comment for publicly vi
 dotnet_diagnostic.IDE0130.severity = error
 
 # SonarAnalyzer config
+# default severity for all SonarAnalyzer diagnostics is warning, but some are explicitly set to denote that they are acknowledged and warning is the intended severity
 # View documentation at https://rules.sonarsource.com/csharp/RSPEC-101/ replace number after RSPEC with the diagnostic code below (ex. 101 for S101)
 dotnet_diagnostic.S101.severity = error
+dotnet_diagnostic.S1135.severity = warning
 
 # Prefer modern language features
 csharp_style_var_for_built_in_types = true:suggestion
