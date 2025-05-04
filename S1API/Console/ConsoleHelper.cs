@@ -169,6 +169,23 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Lower the player's wanted level.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        public static void LowerWanted()
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new LowerWanted();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new LowerWanted();
+            var args = new List<string>();
+#endif
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
