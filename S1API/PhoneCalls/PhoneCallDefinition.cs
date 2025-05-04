@@ -17,6 +17,10 @@ using UnityEngine;
 
 namespace S1API.PhoneCalls
 {
+    /// <summary>
+    /// Represents the definition of a phone call, including the caller, stages, and associated data.
+    /// This abstract class provides the base structure for creating custom phone calls.
+    /// </summary>
     public abstract class PhoneCallDefinition
     {
         // ReSharper disable once MemberCanBePrivate.Global

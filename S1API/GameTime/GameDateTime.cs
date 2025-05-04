@@ -17,10 +17,17 @@ namespace S1API.GameTime
     /// </summary>
     public struct GameDateTime
     {
-        public int ElapsedDays;
-        public int Time;
+	    /// <summary>
+	    /// Gets or sets the number of elapsed days.
+	    /// </summary>
+	    public int ElapsedDays { get; set; }
 
-        /// <summary>
+	    /// <summary>
+		/// Gets or sets the time of day in 24-hour format (e.g. 1430 = 2:30 PM).
+		/// </summary>
+		public int Time { get; set; }
+
+	    /// <summary>
         /// Constructs a GameDateTime from elapsed days and 24-hour time.
         /// </summary>
         public GameDateTime(int elapsedDays, int time)
@@ -127,24 +134,48 @@ namespace S1API.GameTime
             return $"Day {ElapsedDays}, {GetFormattedTime()}";
         }
 
-        public static GameDateTime operator +(GameDateTime a, GameDateTime b)
-        {
-            return new GameDateTime(a.GetMinSum() + b.GetMinSum());
-        }
+        /// <summary>
+		/// Adds two GameDateTimes by combining their total minute sums.
+		/// </summary>
+		/// <param name="a">The first GameDateTime.</param>
+		/// <param name="b">The second GameDateTime.</param>
+		/// <returns>A new GameDateTime representing the sum.</returns>
+		public static GameDateTime operator +(GameDateTime a, GameDateTime b)
+		{
+			return new GameDateTime(a.GetMinSum() + b.GetMinSum());
+		}
 
-        public static GameDateTime operator -(GameDateTime a, GameDateTime b)
-        {
-            return new GameDateTime(a.GetMinSum() - b.GetMinSum());
-        }
+		/// <summary>
+		/// Subtracts two GameDateTimes by finding the difference between their total minute sums.
+		/// </summary>
+		/// <param name="a">The GameDateTime to subtract from.</param>
+		/// <param name="b">The GameDateTime to subtract.</param>
+		/// <returns>A new GameDateTime representing the difference.</returns>
+		public static GameDateTime operator -(GameDateTime a, GameDateTime b)
+		{
+			return new GameDateTime(a.GetMinSum() - b.GetMinSum());
+		}
 
-        public static bool operator >(GameDateTime a, GameDateTime b)
-        {
-            return a.GetMinSum() > b.GetMinSum();
-        }
+		/// <summary>
+		/// Determines if the first GameDateTime is later than the second by comparing minute sums.
+		/// </summary>
+		/// <param name="a">The first GameDateTime to compare.</param>
+		/// <param name="b">The second GameDateTime to compare.</param>
+		/// <returns>True if the first GameDateTime is later than the second.</returns>
+		public static bool operator >(GameDateTime a, GameDateTime b)
+		{
+			return a.GetMinSum() > b.GetMinSum();
+		}
 
-        public static bool operator <(GameDateTime a, GameDateTime b)
-        {
-            return a.GetMinSum() < b.GetMinSum();
-        }
+		/// <summary>
+		/// Determines if the first GameDateTime is earlier than the second by comparing minute sums.
+		/// </summary>
+		/// <param name="a">The first GameDateTime to compare.</param>
+		/// <param name="b">The second GameDateTime to compare.</param>
+		/// <returns>True if the first GameDateTime is earlier than the second.</returns>
+		public static bool operator <(GameDateTime a, GameDateTime b)
+		{
+			return a.GetMinSum() < b.GetMinSum();
+		}
     }
 }
