@@ -1,7 +1,3 @@
-<!-- This file should be placed inside your local directory in order to build. -->
-<!-- Name the file `local.build.props`. -->
-<!-- Adjust the properties below to fit your local configuration. -->
-
 <Project>
     <PropertyGroup>
 <!-- General Configuration -->
