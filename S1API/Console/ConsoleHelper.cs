@@ -242,6 +242,25 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Sets a product as discovered.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        public static void DiscoverProduct(string productName)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetDiscovered();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetDiscovered();
+            var args = new List<string>();
+#endif
+            
+            args.Add(productName);
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
