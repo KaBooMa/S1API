@@ -61,8 +61,8 @@ namespace S1API.Internal.Abstraction
         /// <summary>
         /// TODO
         /// </summary>
-        void ISaveable.SaveInternal(string folderPath, ref List<string> extraSaveables) =>
-            SaveInternal(folderPath, ref extraSaveables);
+        void ISaveable.SaveInternal(string path, ref List<string> extraSaveables) =>
+            SaveInternal(path, ref extraSaveables);
 
         /// <summary>
         /// TODO
