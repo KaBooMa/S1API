@@ -4,6 +4,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1API", "S1API\S1API.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1APILoader", "S1APILoader\S1APILoader.csproj", "{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{C35D5E13-A785-42CA-B84F-F141533D9DA6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		CODING_STANDARDS.md = CODING_STANDARDS.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		MonoBepInEx|Any CPU = MonoBepInEx|Any CPU

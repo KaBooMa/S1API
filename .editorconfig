@@ -1,0 +1,81 @@
+# EditorConfig is awesome: https://EditorConfig.org
+# This file defines coding standards as described in CODING_STANDARDS.md
+
+# top-most EditorConfig file
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# C# files
+[*.cs]
+indent_style = tab
+indent_size = 4
+
+# Naming conventions
+dotnet_naming_rule.pascal_case_for_public.severity = error
+dotnet_naming_rule.pascal_case_for_public.symbols = public_symbols
+dotnet_naming_rule.pascal_case_for_public.style = pascal_case_style
+
+dotnet_naming_rule.pascal_case_for_non_private_fields.severity = error
+dotnet_naming_rule.pascal_case_for_non_private_fields.symbols = non_private_fields
+dotnet_naming_rule.pascal_case_for_non_private_fields.style = pascal_case_style
+
+dotnet_naming_rule.camel_case_for_private.severity = error
+dotnet_naming_rule.camel_case_for_private.symbols = private_fields
+dotnet_naming_rule.camel_case_for_private.style = camel_case_with_underscore_style
+
+dotnet_naming_symbols.public_symbols.applicable_kinds = class, struct, interface, enum, property, method, event
+dotnet_naming_symbols.public_symbols.applicable_accessibilities = public, internal, protected, protected_internal
+
+dotnet_naming_symbols.non_private_fields.applicable_kinds = field
+dotnet_naming_symbols.non_private_fields.applicable_accessibilities = public, internal, protected, protected_internal
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+
+dotnet_naming_style.camel_case_with_underscore_style.required_prefix = _
+dotnet_naming_style.camel_case_with_underscore_style.capitalization = camel_case
+
+# Code style rules
+csharp_prefer_braces = true:error
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_indent_case_contents = true
+csharp_indent_switch_labels = true
+
+# Prefer explicit access modifiers
+dotnet_style_require_accessibility_modifiers = always:error
+
+# Prefer using readonly or const where appropriate
+dotnet_style_readonly_field = true:suggestion
+
+# Prefer expression-bodied members for simple methods and properties
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties = when_on_single_line:suggestion
+
+# Documentation rules
+dotnet_diagnostic.CS1591.severity = error  # Missing XML comment for publicly visible type or member
+
+# Namespace structure
+dotnet_diagnostic.IDE0130.severity = error
+
+# Prefer modern language features
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+
+# Prefer pattern matching
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+
+# Indentation preferences
+csharp_indent_block_contents = true
+csharp_indent_braces = false
