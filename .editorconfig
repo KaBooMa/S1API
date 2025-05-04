@@ -59,6 +59,7 @@ dotnet_diagnostic.S3011.severity = warning
 dotnet_diagnostic.S3217.severity = error
 dotnet_diagnostic.S3261.severity = error
 dotnet_diagnostic.S3376.severity = error
+dotnet_diagnostic.S3442.severity = warning
 dotnet_diagnostic.S3887.severity = error
 dotnet_diagnostic.S3903.severity = error
 dotnet_diagnostic.S4487.severity = error
