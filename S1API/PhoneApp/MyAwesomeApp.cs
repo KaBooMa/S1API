@@ -3,10 +3,11 @@ using UnityEngine.UI;
 using S1API.PhoneApp;
 using S1API.UI;
 
+#pragma warning disable S3261
 namespace S1API.PhoneApp
 {
     // TODO(@omar-akermi): Can we move this into markdown pls <3
-    
+
     // /// <summary>
     // /// Defines the MyAwesomeApp, a specialized application integrated into an in-game phone system.
     // /// </summary>
@@ -29,3 +30,4 @@ namespace S1API.PhoneApp
         }
     }*/
 }
+#pragma warning restore S3261
