@@ -17,7 +17,7 @@ namespace S1API.Console
     public static class ConsoleHelper
     {
         /// <summary>
-        /// Executes the AddEmployeeCommand with the given arguments.
+        /// Adds an employee to a property.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
         /// <param name="employeeType">The type of employee.</param>
@@ -38,7 +38,7 @@ namespace S1API.Console
         }
         
         /// <summary>
-        /// Executes the AddItemToInventoryCommand with the given arguments.
+        /// Adds an item, with optional quantity, to the player's inventory.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
         /// <param name="itemName">The name of the item.</param>
@@ -57,6 +57,25 @@ namespace S1API.Console
             {
                 args.Add(amount.ToString()!);
             }
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets the player's bank balance to the given amount.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="amount">The amount to set the player's bank balance to.</param>
+        public static void ChangeOnlineBalance(int amount)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new ChangeOnlineBalanceCommand();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new ChangeOnlineBalanceCommand();
+            var args = new List<string>();
+#endif
+            args.Add(amount.ToString());
 
             command.Execute(args);
         }
