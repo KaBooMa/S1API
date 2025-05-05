@@ -305,7 +305,7 @@ namespace S1API.Console
         /// Sets the player's jump multiplier.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
-        /// <param name="amount">The multiplier to set to.</param>
+        /// <param name="amount">The multiplier to set to. Must be non-negative.</param>
         public static void SetPlayerJumpMultiplier(float amount)
         {
 #if (IL2CPPMELON || IL2CPPBEPINEX)
@@ -333,6 +333,26 @@ namespace S1API.Console
             var args = new Il2CppSystem.Collections.Generic.List<string>();
 #else
             var command = new SetLawIntensity();
+            var args = new List<string>();
+#endif
+            
+            args.Add(amount.ToString(CultureInfo.InvariantCulture));
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets the player's move speed multiplier.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="amount">The multiplier to set to. Must be non-negative.</param>
+        public static void SetPlayerMoveSpeedMultiplier(float amount)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetMoveSpeedCommand();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetMoveSpeedCommand();
             var args = new List<string>();
 #endif
             
