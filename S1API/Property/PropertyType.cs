@@ -34,4 +34,27 @@
         /// </summary>
         Sweatshop
     }
+    
+    /// <summary>
+    /// The types of businesses in the game.
+    /// </summary>
+    public enum BusinessType
+    {
+        /// <summary>
+        /// The Car Wash business.
+        /// </summary>
+        CarWash,
+        /// <summary>
+        /// The Laundromat business.
+        /// </summary>
+        Laundromat,
+        /// <summary>
+        /// The Post Office business.
+        /// </summary>
+        PostOffice,
+        /// <summary>
+        /// The Taco Ticklers business.
+        /// </summary>
+        TacoTicklers,
+    }
 }

@@ -1,5 +1,4 @@
 #if (IL2CPPMELON)
-using Il2CppSystem.Collections.Generic;
 using static Il2CppScheduleOne.Console;
 using Il2CppScheduleOne.Employees;
 #else
@@ -7,9 +6,9 @@ using static ScheduleOne.Console;
 using System.Collections.Generic;
 using ScheduleOne.Employees;
 #endif
-using System.Globalization;
 using S1API.Products.Packaging;
 using S1API.Property;
+using System.Globalization;
 
 namespace S1API.Console
 {
@@ -357,6 +356,46 @@ namespace S1API.Console
 #endif
             
             args.Add(amount.ToString(CultureInfo.InvariantCulture));
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets a business as owned.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="business">The business to set as owned.</param>
+        public static void SetBusinessAsOwned(BusinessType business)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetPropertyOwned();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetPropertyOwned();
+            var args = new List<string>();
+#endif
+            
+            args.Add(business.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets a property as owned.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="property">The property to set as owned.</param>
+        public static void SetPropertyAsOwned(PropertyType property)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetPropertyOwned();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetPropertyOwned();
+            var args = new List<string>();
+#endif
+            
+            args.Add(property.ToString());
 
             command.Execute(args);
         }
