@@ -30,6 +30,10 @@
         /// </summary>
         Rv,
         /// <summary>
+        /// The Storage Unit property.
+        /// </summary>
+        StorageUnit,
+        /// <summary>
         /// The Sweatshop property
         /// </summary>
         Sweatshop
