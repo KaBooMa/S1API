@@ -10,6 +10,7 @@ using ScheduleOne.ItemFramework;
 #endif
 using S1API.Products.Packaging;
 using S1API.Property;
+using S1API.Quests.Constants;
 using System.Globalization;
 
 namespace S1API.Console
@@ -418,6 +419,50 @@ namespace S1API.Console
 #endif
             
             args.Add(quality.ToString());
+
+            command.Execute(args);
+        }
+
+        /// <summary>
+        /// Sets the state for a given quest.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="quest">The quest to set the state for.</param>
+        /// <param name="state">The state to set for the quest.</param>
+        public static void SetQuestState(string quest, QuestState state)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetQuestState();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetQuestState();
+            var args = new List<string>();
+#endif
+            
+            args.Add(quest);
+            args.Add(state.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets the state for a given quest.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="quest">The quest to set the state for.</param>
+        /// <param name="state">The state to set for the quest.</param>
+        public static void SetQuestState(VanillaQuest quest, QuestState state)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetQuestState();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetQuestState();
+            var args = new List<string>();
+#endif
+            
+            args.Add(quest.ToString());
+            args.Add(state.ToString());
 
             command.Execute(args);
         }
