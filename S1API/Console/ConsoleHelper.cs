@@ -2,6 +2,7 @@
 using static Il2CppScheduleOne.Console;
 using Il2CppScheduleOne.Employees;
 using Il2CppScheduleOne.ItemFramework;
+using Il2CppSystem.Collections.Generic;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using static ScheduleOne.Console;
 using System.Collections.Generic;
@@ -28,13 +29,9 @@ namespace S1API.Console
         /// <param name="propertyName">The property to add the employee to. You must own the property.</param>
         public static void AddEmployee(EEmployeeType employeeType, PropertyType propertyName)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new AddEmployeeCommand();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new AddEmployeeCommand();
             var args = new List<string>();
-#endif
+
             args.Add(employeeType.ToString());
             args.Add(propertyName.ToString());
             
@@ -49,13 +46,9 @@ namespace S1API.Console
         /// <param name="amount">The amount to add to inventory. Optional.</param>
         public static void AddItemToInventory(string itemName, int? amount = null)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new AddItemToInventoryCommand();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new AddItemToInventoryCommand();
             var args = new List<string>();
-#endif
+
             args.Add(itemName);
             if (amount.HasValue)
             {
@@ -72,13 +65,9 @@ namespace S1API.Console
         /// <param name="amount">The amount to set the player's bank balance to.</param>
         public static void ChangeOnlineBalance(int amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new ChangeOnlineBalanceCommand();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new ChangeOnlineBalanceCommand();
             var args = new List<string>();
-#endif
+
             args.Add(amount.ToString());
 
             command.Execute(args);
@@ -90,13 +79,8 @@ namespace S1API.Console
         /// </summary>
         public static void ClearInventory()
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new ClearInventoryCommand();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new ClearInventoryCommand();
             var args = new List<string>();
-#endif
 
             command.Execute(args);
         }
@@ -107,13 +91,8 @@ namespace S1API.Console
         /// </summary>
         public static void ClearTrash()
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new ClearTrash();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new ClearTrash();
             var args = new List<string>();
-#endif
 
             command.Execute(args);
         }
@@ -124,13 +103,8 @@ namespace S1API.Console
         /// </summary>
         public static void ClearWanted()
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new ClearWanted();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new ClearWanted();
             var args = new List<string>();
-#endif
 
             command.Execute(args);
         }
@@ -142,13 +116,8 @@ namespace S1API.Console
         /// <param name="amount">The amount of XP to give. Must be a non-negative amount.</param>
         public static void GiveXp(int amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new GiveXP();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new GiveXP();
             var args = new List<string>();
-#endif
             
             args.Add(amount.ToString());
 
@@ -161,13 +130,8 @@ namespace S1API.Console
         /// </summary>
         public static void GrowPlants()
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new GrowPlants();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new GrowPlants();
             var args = new List<string>();
-#endif
 
             command.Execute(args);
         }
@@ -178,13 +142,8 @@ namespace S1API.Console
         /// </summary>
         public static void LowerWanted()
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new LowerWanted();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new LowerWanted();
             var args = new List<string>();
-#endif
 
             command.Execute(args);
         }
@@ -197,13 +156,8 @@ namespace S1API.Console
         /// <param name="packageType">The type of packaging to package the product as.</param>
         public static void PackageSelectedProduct(PackageType packageType)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new PackageProduct();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new PackageProduct();
             var args = new List<string>();
-#endif
             
             args.Add(packageType.ToString());
 
@@ -216,13 +170,8 @@ namespace S1API.Console
         /// </summary>
         public static void RaiseWanted()
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new RaisedWanted();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new RaisedWanted();
             var args = new List<string>();
-#endif
 
             command.Execute(args);
         }
@@ -233,13 +182,8 @@ namespace S1API.Console
         /// </summary>
         public static void SaveGame()
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new Save();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new Save();
             var args = new List<string>();
-#endif
 
             command.Execute(args);
         }
@@ -250,13 +194,8 @@ namespace S1API.Console
         /// </summary>
         public static void DiscoverProduct(string productName)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetDiscovered();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetDiscovered();
             var args = new List<string>();
-#endif
             
             args.Add(productName);
 
@@ -270,13 +209,8 @@ namespace S1API.Console
         /// <param name="amount">The level of energy to set to. Range is 0 to 100.</param>
         public static void SetPlayerEnergyLevel(float amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetEnergy();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetEnergy();
             var args = new List<string>();
-#endif
             
             args.Add(amount.ToString(CultureInfo.InvariantCulture));
 
@@ -290,13 +224,8 @@ namespace S1API.Console
         /// <param name="amount">The health value to set to.</param>
         public static void SetPlayerHealth(float amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetHealth();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetHealth();
             var args = new List<string>();
-#endif
             
             args.Add(amount.ToString(CultureInfo.InvariantCulture));
 
@@ -310,13 +239,8 @@ namespace S1API.Console
         /// <param name="amount">The multiplier to set to. Must be non-negative.</param>
         public static void SetPlayerJumpMultiplier(float amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetJumpMultiplier();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetJumpMultiplier();
             var args = new List<string>();
-#endif
             
             args.Add(amount.ToString(CultureInfo.InvariantCulture));
 
@@ -330,13 +254,8 @@ namespace S1API.Console
         /// <param name="amount">The level of activity. Ranges from 0 to 10.</param>
         public static void SetLawIntensity(float amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetLawIntensity();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetLawIntensity();
             var args = new List<string>();
-#endif
             
             args.Add(amount.ToString(CultureInfo.InvariantCulture));
 
@@ -350,13 +269,8 @@ namespace S1API.Console
         /// <param name="amount">The multiplier to set to. Must be non-negative.</param>
         public static void SetPlayerMoveSpeedMultiplier(float amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetMoveSpeedCommand();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetMoveSpeedCommand();
             var args = new List<string>();
-#endif
             
             args.Add(amount.ToString(CultureInfo.InvariantCulture));
 
@@ -370,13 +284,8 @@ namespace S1API.Console
         /// <param name="business">The business to set as owned.</param>
         public static void SetBusinessAsOwned(BusinessType business)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetPropertyOwned();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetPropertyOwned();
             var args = new List<string>();
-#endif
             
             args.Add(business.ToString());
 
@@ -390,13 +299,8 @@ namespace S1API.Console
         /// <param name="property">The property to set as owned.</param>
         public static void SetPropertyAsOwned(PropertyType property)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetPropertyOwned();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetPropertyOwned();
             var args = new List<string>();
-#endif
             
             args.Add(property.ToString());
 
@@ -410,13 +314,8 @@ namespace S1API.Console
         /// <param name="quality">The quality to set the current equipped item to.</param>
         public static void SetQuality(EQuality quality)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetQuality();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetQuality();
             var args = new List<string>();
-#endif
             
             args.Add(quality.ToString());
 
@@ -431,13 +330,8 @@ namespace S1API.Console
         /// <param name="state">The state to set for the quest.</param>
         public static void SetQuestState(string quest, QuestState state)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetQuestState();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetQuestState();
             var args = new List<string>();
-#endif
             
             args.Add(quest);
             args.Add(state.ToString());
@@ -453,13 +347,8 @@ namespace S1API.Console
         /// <param name="state">The state to set for the quest.</param>
         public static void SetQuestState(VanillaQuest quest, QuestState state)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new SetQuestState();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new SetQuestState();
             var args = new List<string>();
-#endif
             
             args.Add(quest.ToString());
             args.Add(state.ToString());
@@ -474,13 +363,9 @@ namespace S1API.Console
         /// <param name="amount">The cash amount to add or remove.</param>
         public static void RunCashCommand(int amount)
         {
-#if (IL2CPPMELON || IL2CPPBEPINEX)
-            var command = new ChangeCashCommand();
-            var args = new Il2CppSystem.Collections.Generic.List<string>();
-#else
             var command = new ChangeCashCommand();
             var args = new List<string>();
-#endif
+            
             args.Add(amount.ToString());
             command.Execute(args);
         }
