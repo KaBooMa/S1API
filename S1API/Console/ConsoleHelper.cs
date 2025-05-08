@@ -1,10 +1,12 @@
 #if (IL2CPPMELON)
 using static Il2CppScheduleOne.Console;
 using Il2CppScheduleOne.Employees;
-#else
+using Il2CppScheduleOne.ItemFramework;
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using static ScheduleOne.Console;
 using System.Collections.Generic;
 using ScheduleOne.Employees;
+using ScheduleOne.ItemFramework;
 #endif
 using S1API.Products.Packaging;
 using S1API.Property;
@@ -396,6 +398,26 @@ namespace S1API.Console
 #endif
             
             args.Add(property.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets the equipped product's quality.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="quality">The quality to set the current equipped item to.</param>
+        public static void SetQuality(EQuality quality)
+        {
+#if (IL2CPPMELON || IL2CPPBEPINEX)
+            var command = new SetQuality();
+            var args = new Il2CppSystem.Collections.Generic.List<string>();
+#else
+            var command = new SetQuality();
+            var args = new List<string>();
+#endif
+            
+            args.Add(quality.ToString());
 
             command.Execute(args);
         }
