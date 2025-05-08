@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using ScheduleOne.Employees;
 using ScheduleOne.ItemFramework;
 #endif
+using S1API.Internal.Utils;
+using S1API.NPCs;
 using S1API.Products.Packaging;
 using S1API.Property;
 using S1API.Quests.Constants;
@@ -350,8 +352,25 @@ namespace S1API.Console
             var command = new SetQuestState();
             var args = new List<string>();
             
-            args.Add(quest.ToString());
+            args.Add(quest.GetDescriptionValue());
             args.Add(state.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets the relationship for a given NPC.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="npc">The NPC to set the relationship for.</param>
+        /// <param name="level">The relationship value to set. Must be between 0 and 5 inclusive.</param>
+        public static void SetNpcRelationship(VanillaNpcList npc, float level)
+        {
+            var command = new SetRelationship();
+            var args = new List<string>();
+            
+            args.Add(npc.GetDescriptionValue());
+            args.Add(level.ToString(CultureInfo.InvariantCulture));
 
             command.Execute(args);
         }
