@@ -438,6 +438,36 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Teleport to a business.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="business">The business to teleport to.</param>
+        public static void TeleportToBusiness(BusinessType business)
+        {
+            var command = new Teleport();
+            var args = new List<string>();
+            
+            args.Add(business.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Teleport to a property.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="property">The property to teleport to.</param>
+        public static void TeleportToProperty(PropertyType property)
+        {
+            var command = new Teleport();
+            var args = new List<string>();
+            
+            args.Add(property.ToString());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
