@@ -125,6 +125,7 @@ namespace S1API.NPCs
         MickLubbin,
         [Description("molly_presley")]
         MollyPresley,
+        [Description("ming")]
         Ming,
         [Description("pearl_moore")]
         PearlMoore,
