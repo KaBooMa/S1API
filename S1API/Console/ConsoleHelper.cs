@@ -14,6 +14,7 @@ using S1API.NPCs;
 using S1API.Products.Packaging;
 using S1API.Property;
 using S1API.Quests.Constants;
+using S1API.Vehicles;
 using System.Globalization;
 
 namespace S1API.Console
@@ -403,6 +404,36 @@ namespace S1API.Console
             var args = new List<string>();
             
             args.Add(time);
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Spawns a vehicle at the player's location.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="vehicle">The vehicle to spawn.</param>
+        public static void SpawnVehicle(string vehicle)
+        {
+            var command = new SpawnVehicleCommand();
+            var args = new List<string>();
+            
+            args.Add(vehicle);
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Spawns a vehicle at the player's location.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="vehicle">The vehicle to spawn.</param>
+        public static void SpawnVehicle(VanillaVehicleList vehicle)
+        {
+            var command = new SpawnVehicleCommand();
+            var args = new List<string>();
+            
+            args.Add(vehicle.ToString());
 
             command.Execute(args);
         }
