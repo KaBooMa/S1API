@@ -376,6 +376,21 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Sets the time.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="time">The time to set. Requires a valid value with Regex <c>^([01]?[0-9]|2[0-3])[0-5][0-9]$</c> (e.g. 1530 for 15:30 / 3:30 PM)</param>
+        public static void SetTime(string time)
+        {
+            var command = new SetTimeCommand();
+            var args = new List<string>();
+            
+            args.Add(time);
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
