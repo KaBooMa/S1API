@@ -30,7 +30,7 @@ namespace S1API.Console
         /// </summary>
         /// <param name="employeeType">The type of employee.</param>
         /// <param name="propertyName">The property to add the employee to. You must own the property.</param>
-        public static void AddEmployee(EEmployeeType employeeType, PropertyType propertyName)
+        public static void AddEmployeeToProperty(EEmployeeType employeeType, PropertyType propertyName)
         {
             var command = new AddEmployeeCommand();
             var args = new List<string>();
@@ -66,7 +66,7 @@ namespace S1API.Console
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
         /// <param name="amount">The amount to set the player's bank balance to.</param>
-        public static void ChangeOnlineBalance(int amount)
+        public static void SetOnlineBalance(int amount)
         {
             var command = new ChangeOnlineBalanceCommand();
             var args = new List<string>();
