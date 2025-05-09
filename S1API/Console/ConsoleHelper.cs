@@ -408,6 +408,36 @@ namespace S1API.Console
         }
         
         /// <summary>
+        /// Unlocks the connection for the given NPC.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="npcId">The ID of the NPC to set the relationship for.</param>
+        public static void UnlockNpc(string npcId)
+        {
+            var command = new SetUnlocked();
+            var args = new List<string>();
+            
+            args.Add(npcId);
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Unlocks the connection for the given NPC.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
+        /// <param name="npc">The NPC to set the relationship for.</param>
+        public static void UnlockNpc(VanillaNpcList npc)
+        {
+            var command = new SetUnlocked();
+            var args = new List<string>();
+            
+            args.Add(npc.GetDescriptionValue());
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
         /// Executes the ChangeCashCommand with the given amount.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
