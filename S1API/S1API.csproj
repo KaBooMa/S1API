@@ -2,7 +2,11 @@
     <!-- Imports the standard GitHub build properties. -->
     <Import Project="../github.build.props" Condition="Exists('../github.build.props')" />
 
-    <!-- Imports any local build properties over the GitHub repository one. -->
+    <!-- Imports build properties for developers using Thunderstore Mod Manager. -->
+    <Import Project="../thunderstore.build.props" Condition="Exists('../thunderstore.build.props')" />
+
+    <!-- Imports any local build properties over the other build properties.
+    Serves as the "ultimate override" that is tailored specifically to the developer building the code. -->
     <Import Project="../local.build.props" Condition="Exists('../local.build.props')" />
 
     <!-- General properties -->
