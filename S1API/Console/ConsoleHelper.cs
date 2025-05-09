@@ -362,6 +362,23 @@ namespace S1API.Console
         /// Sets the relationship for a given NPC.
         /// This method works across both IL2CPP and Mono builds.
         /// </summary>
+        /// <param name="npcId">The ID of the NPC to set the relationship for.</param>
+        /// <param name="level">The relationship value to set. Must be between 0 and 5 inclusive.</param>
+        public static void SetNpcRelationship(string npcId, float level)
+        {
+            var command = new SetRelationship();
+            var args = new List<string>();
+            
+            args.Add(npcId);
+            args.Add(level.ToString(CultureInfo.InvariantCulture));
+
+            command.Execute(args);
+        }
+        
+        /// <summary>
+        /// Sets the relationship for a given NPC.
+        /// This method works across both IL2CPP and Mono builds.
+        /// </summary>
         /// <param name="npc">The NPC to set the relationship for.</param>
         /// <param name="level">The relationship value to set. Must be between 0 and 5 inclusive.</param>
         public static void SetNpcRelationship(VanillaNpcList npc, float level)
