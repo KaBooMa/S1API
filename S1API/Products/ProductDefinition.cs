@@ -5,6 +5,7 @@ using S1Product = Il2CppScheduleOne.Product;
 using S1Product = ScheduleOne.Product;
 #endif
 
+using System.Collections.Generic;
 using S1API.Internal.Utils;
 using S1API.Items;
 using UnityEngine;
@@ -26,8 +27,11 @@ namespace S1API.Products
         /// INTERNAL: Creates a product definition from the in-game product definition.
         /// </summary>
         /// <param name="productDefinition"></param>
-        internal ProductDefinition(S1Product.ProductDefinition productDefinition) : base(productDefinition) { }
-
+#if IL2CPPBEPINEX || IL2CPPMELON
+        internal ProductDefinition(Il2CppScheduleOne.ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
+#else
+        internal ProductDefinition(ScheduleOne.ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
+#endif
         /// <summary>
         /// The price associated with this product.
         /// </summary>
@@ -49,6 +53,14 @@ namespace S1API.Products
         {
             get { return S1ProductDefinition.Icon; }
         }
+#if IL2CPPBEPINEX || IL2CPPMELON
+        private List<Il2CppScheduleOne.Properties.Property> properties; // or however properties are stored
+        public List<Il2CppScheduleOne.Properties.Property> Properties; // or however properties are stored
+#else
+        private List<ScheduleOne.Properties.Property> properties; // or however properties are stored
+        public IReadOnlyList<ScheduleOne.Properties.Property> Properties => properties.AsReadOnly();
+#endif
 
-    }
+
+}
 }
