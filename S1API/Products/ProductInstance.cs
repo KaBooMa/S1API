@@ -1,4 +1,4 @@
-﻿#if (IL2CPPMELON )
+#if (IL2CPPMELON )
 using S1Product = Il2CppScheduleOne.Product;
 using Il2CppScheduleOne.ItemFramework;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)

@@ -1,4 +1,4 @@
-﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
+﻿#if (IL2CPPMELON)
 using S1ScriptableObjects = Il2CppScheduleOne.ScriptableObjects;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1ScriptableObjects = ScheduleOne.ScriptableObjects;
@@ -35,7 +35,7 @@ namespace S1API.PhoneCalls
         /// <summary>
         /// A list of all stage entries added to this phone call.
         /// </summary>
-        protected readonly List<CallStageEntry> StageEntries = new List<CallStageEntry>();
+        protected readonly System.Collections.Generic.List<CallStageEntry> StageEntries = new System.Collections.Generic.List<CallStageEntry>();
 
         /// <summary>
         /// INTERNAL: Public constructor used for instancing a new <see cref="S1ScriptableObjects.PhoneCallData"/>

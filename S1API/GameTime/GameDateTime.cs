@@ -1,4 +1,4 @@
-#if (IL2CPPMELON || IL2CPPBEPINEX)
+#if (IL2CPPMELON)
 using S1GameDateTime = Il2CppScheduleOne.GameTime.GameDateTime;
 using S1TimeManager = Il2CppScheduleOne.GameTime.TimeManager;
 using S1GameDateTimeData = Il2CppScheduleOne.Persistence.Datas.GameDateTimeData;

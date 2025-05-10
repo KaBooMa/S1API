@@ -30,10 +30,9 @@ jobs:
 
       - name: Run .NET build for MonoBepInEx
         run: dotnet build ./S1API.sln -c MonoBepInEx -f netstandard2.1
-      
-# TODO (@MaxtorCoder): Il2CppBepInEx still does not build properly.
-#      - name: Run .NET build for Il2CppBepInEx
-#        run: dotnet build ./S1API.sln -c Il2CppBepInEx -f net6.0
+
+      - name: Run .NET build for Il2CppBepInEx
+        run: dotnet build ./S1API.sln -c Il2CppBepInEx -f net6.0
 
       - name: Run .NET build for MonoMelon
         run: dotnet build ./S1API.sln -c MonoMelon -f netstandard2.1

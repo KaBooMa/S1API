@@ -6,7 +6,7 @@ using S1API.Internal.Abstraction;
 using S1API.PhoneApp;
 using S1API.Logging;
 
-#if (IL2CPPMELON || IL2CPPBEPINEX)
+#if (IL2CPPMELON)
 using Il2CppScheduleOne.UI.Phone;
 #else
 using ScheduleOne.UI.Phone;
