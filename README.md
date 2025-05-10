@@ -21,7 +21,8 @@ The goal is to provide a standard place for common functionalities so you can fo
 
 ## How It's Designed to Work
 S1API is designed to compile for Mono and Il2Cpp separately.
-Mod users install the version applicable to they're preferred build.
+Mod users don't need to worry about this though. 
+The standard installation ships with all builds and a plugin to dynamically load the proper version!
 
 Mod developers can develop their mods on whichever build, Mono or Il2Cpp, without having to step into the Il2Cpp environment.
 Caveat: If you do utilize Il2Cpp functionality within your mod, you lose cross compatibility.

@@ -41,6 +41,7 @@
         <Reference Include="$(MelonLoaderAssembliesPath)\Il2CppInterop.Common.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
         <Reference Include="$(MelonLoaderAssembliesPath)\Il2CppInterop.HarmonySupport.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
         <Reference Include="$(MelonLoaderAssembliesPath)\Il2CppInterop.Generator.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
+        <Reference Include="$(MelonLoaderAssembliesPath)\UnityEngine.Il2CppAssetBundleManager.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
 
         <Reference Include="$(BepInExAssembliesPath)\Il2CppInterop.Runtime.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
         <Reference Include="$(BepInExAssembliesPath)\Il2CppInterop.Common.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
@@ -56,6 +57,7 @@
         <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.JSONSerializeModule.dll" />
         <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.TextRenderingModule.dll" />
         <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.ImageConversionModule.dll" />
+        <Reference Include="$(Il2CppAssembliesPath)\UnityEngine.PhysicsModule.dll" />
 
         <Reference Include="$(Il2CppAssembliesPath)\Il2CppFishNet.Runtime.dll" Condition="'$(Configuration)' == 'Il2CppMelon'" />
         <Reference Include="$(Il2CppAssembliesPath)\FishNet.Runtime.dll" Condition="'$(Configuration)' == 'Il2CppBepInEx'" />
@@ -63,15 +65,18 @@
 
     <!-- Mono Specific Deps -->
     <ItemGroup Condition="'$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'MonoBepInEx'">
+<!--        <Reference Include="$(MonoAssembliesPath)\Assembly-CSharp.dll" Publicize="true" />-->
         <Reference Include="$(MonoAssembliesPath)\Assembly-CSharp.dll" />
         <Reference Include="$(MonoAssembliesPath)\UnityEngine.dll" />
         <Reference Include="$(MonoAssembliesPath)\UnityEngine.CoreModule.dll" />
         <Reference Include="$(MonoAssembliesPath)\FishNet.Runtime.dll" />
         <Reference Include="$(MonoAssembliesPath)\UnityEngine.UI.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.AssetBundleModule.dll" />
         <Reference Include="$(MonoAssembliesPath)\UnityEngine.UIModule.dll" />
         <Reference Include="$(MonoAssembliesPath)\UnityEngine.JSONSerializeModule.dll" />
         <Reference Include="$(MonoAssembliesPath)\UnityEngine.TextRenderingModule.dll" />
         <Reference Include="$(MonoAssembliesPath)\UnityEngine.ImageConversionModule.dll" />
+        <Reference Include="$(MonoAssembliesPath)\UnityEngine.PhysicsModule.dll" />
     </ItemGroup>
 
     <!-- Melon Deps -->
@@ -93,18 +98,31 @@
     <!-- Shared Deps -->
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+<!--        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.5.0-beta.1" PrivateAssets="all" Condition="'$(Configuration)' == 'MonoBepInEx' or '$(Configuration)' == 'MonoMelon'"/>-->
     </ItemGroup>
 
     <!-- Automated local deployment -->
-    <Target Name="PostBuildIl2Cpp" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and ('$(Configuration)' == 'Il2CppMono' or '$(Configuration)' == 'Il2CppBepInEx') ">
-        <Message Text="Deploying S1API to local Il2Cpp plugins folder" Importance="high"/>
+    <Target Name="PostBuildIl2CppMelon" AfterTargets="Build" Condition="'$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Il2CppMono'">
+        <Message Text="[IL2CPP/MelonLoader] Deploying S1API to local Il2Cpp plugins folder" Importance="high"/>
         <Copy SourceFiles=".\bin\Il2CppMelon\net6.0\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
         <Copy SourceFiles=".\bin\MonoMelon\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
     </Target>
 
-    <Target Name="PostBuildMono" AfterTargets="Build" Condition=" '$(AutomateLocalDeployment)' == 'true' and ('$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'MonoBepInEx') ">
-        <Message Text="Deploying S1API to local Mono plugins folder" Importance="high"/>
+    <Target Name="PostBuildIl2CppBepInEx" AfterTargets="Build" Condition="'$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Il2CppBepInEx'">
+        <Message Text="[IL2CPP/BepInEx] Deploying S1API to local Il2Cpp plugins folder" Importance="high"/>
+        <Copy SourceFiles=".\bin\Il2CppBepInEx\net6.0\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\BepInEx\Plugins\S1API\S1API.Il2Cpp.dll"/>
+        <Copy SourceFiles=".\bin\MonoBepInEx\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\BepInEx\Plugins\S1API\S1API.Mono.dll"/>
+    </Target>
+
+    <Target Name="PostBuildMonoMelon" AfterTargets="Build" Condition="'$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'MonoMelon'">
+        <Message Text="[Mono/MelonLoader] Deploying S1API to local Mono plugins folder" Importance="high"/>
         <Copy SourceFiles=".\bin\Il2CppMelon\net6.0\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
         <Copy SourceFiles=".\bin\MonoMelon\netstandard2.1\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
+    </Target>
+
+    <Target Name="PostBuildMonoBepInEx" AfterTargets="Build" Condition="'$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'MonoBepInEx'">
+        <Message Text="[Mono/BepInEx] Deploying S1API to local Mono plugins folder" Importance="high"/>
+        <Copy SourceFiles=".\bin\Il2CppBepInEx\net6.0\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\BepInEx\Plugins\S1API\S1API.Il2Cpp.dll"/>
+        <Copy SourceFiles=".\bin\MonoBepInEx\netstandard2.1\S1API.dll" DestinationFiles="$(LocalMonoDeploymentPath)\BepInEx\Plugins\S1API\S1API.Mono.dll"/>
     </Target>
 </Project>

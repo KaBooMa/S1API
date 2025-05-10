@@ -1,4 +1,4 @@
-#if (IL2CPPMELON || IL2CPPBEPINEX)
+#if (IL2CPPMELON)
 using Il2CppScheduleOne.Product;
 using S1CocaineDefinition = Il2CppScheduleOne.Product.CocaineDefinition;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
