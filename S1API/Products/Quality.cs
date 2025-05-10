@@ -1,4 +1,4 @@
-#if IL2CPPBEPINEX || IL2CPPMELON
+#if  IL2CPPMELON
 using InternalQuality = Il2CppScheduleOne.ItemFramework.EQuality;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using InternalQuality = ScheduleOne.ItemFramework.EQuality;
