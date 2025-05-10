@@ -1,6 +1,6 @@
 #if IL2CPPBEPINEX || IL2CPPMELON
 using InternalQuality = Il2CppScheduleOne.ItemFramework.EQuality;
-#else
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using InternalQuality = ScheduleOne.ItemFramework.EQuality;
 #endif
 namespace S1API.Products
@@ -15,27 +15,28 @@ namespace S1API.Products
     public enum Quality
     {
         /// <summary>
-        /// Represents the lowest quality level, indicating an item of no value or unusable condition.
+        /// Represents "Trash" Quality
         /// </summary>
         Trash = 0,
 
         /// <summary>
-        /// Represents a quality level that is below standard but better than trash-quality.
+        /// Represents "Poor" Quality
         /// </summary>
         Poor = 1,
 
         /// <summary>
-        /// Represents a standard level of quality in the predefined quality enumeration.
-        /// Typically used to indicate an average or commonly acceptable quality level.
+        /// Represents "Standard" Quality
         /// </summary>
         Standard = 2,
 
         /// <summary>
-        /// Represents a higher-tier quality level compared to lower
+        /// Represents "Premium" quality
+        /// </summary>
         Premium = 3,
 
         /// <summary>
-        /// Represents the highest level of quality, denoted as "Heavenly".
+        /// Represents "Heavenly" quality
+        /// </summary>
         Heavenly = 4
     }
 
