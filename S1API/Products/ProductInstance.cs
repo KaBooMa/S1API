@@ -52,7 +52,7 @@ namespace S1API.Products
 
         // Add Definition property if you don't have one yet
 
-#if IL2CPPBEPINEX || IL2CPPMELON
+#if IL2CPPMELON
         public IReadOnlyList<Il2CppScheduleOne.Properties.Property> Properties => Definition.Properties;
         public ProductDefinition Definition => new ProductDefinition(S1ProductInstance.Definition);
 #else

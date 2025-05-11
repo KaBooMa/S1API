@@ -58,13 +58,13 @@ namespace S1API.Products
         /// associated with the weed definition. If no properties are found,
         /// an empty list is returned.
         /// </returns>
-#if IL2CPPBEPINEX || IL2CPPMELON
+#if IL2CPPMELON
         public List<Il2CppScheduleOne.Properties.Property> GetProperties()
 #else
 public List<ScheduleOne.Properties.Property> GetProperties()
 #endif
         {
-#if IL2CPPBEPINEX || IL2CPPMELON
+#if  IL2CPPMELON
             var result = new List<Il2CppScheduleOne.Properties.Property>();
 #else
             var result = new List<ScheduleOne.Properties.Property>();

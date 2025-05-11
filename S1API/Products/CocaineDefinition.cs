@@ -44,13 +44,13 @@ namespace S1API.Products
         /// Retrieves a list of properties associated with the current cocaine product definition.
         /// </summary>
         /// <returns>A list of properties specific to the cocaine product definition.</returns>
-#if IL2CPPBEPINEX || IL2CPPMELON
+#if   IL2CPPMELON
         public List<Il2CppScheduleOne.Properties.Property> GetProperties()
 #else
         public List<ScheduleOne.Properties.Property> GetProperties()
 #endif
         {
-#if IL2CPPBEPINEX || IL2CPPMELON
+#if IL2CPPMELON
             var result = new List<Il2CppScheduleOne.Properties.Property>();
 #else
             var result = new List<ScheduleOne.Properties.Property>();
