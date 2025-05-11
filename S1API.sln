@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1API", "S1API\S1API.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1APILoader", "S1APILoader\S1APILoader.csproj", "{B97277C2-27FE-4BB9-AB5A-D479C8DF6827}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{C090D161-6958-471A-A97B-DBFB36EE57DA}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deploy-build.yml = .github\workflows\deploy-build.yml
+		.github\workflows\verify-build.yml = .github\workflows\verify-build.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		MonoBepInEx|Any CPU = MonoBepInEx|Any CPU
