@@ -104,7 +104,7 @@
     </ItemGroup>
 
     <!-- Automated local deployment -->
-    <Target Name="PostBuildIl2CppMelon" AfterTargets="Build" Condition="'$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Il2CppMono'">
+    <Target Name="PostBuildIl2CppMelon" AfterTargets="Build" Condition="'$(AutomateLocalDeployment)' == 'true' and '$(Configuration)' == 'Il2CppMelon'">
         <Message Text="[IL2CPP/MelonLoader] Deploying S1API to local Il2Cpp plugins folder" Importance="high"/>
         <Copy SourceFiles=".\bin\Il2CppMelon\net6.0\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Il2Cpp.dll"/>
         <Copy SourceFiles=".\bin\MonoMelon\netstandard2.1\S1API.dll" DestinationFiles="$(LocalIl2CppDeploymentPath)\Plugins\S1API\S1API.Mono.dll"/>
