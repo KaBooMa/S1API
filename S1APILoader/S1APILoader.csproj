@@ -11,7 +11,7 @@
         <Configurations>Il2CppMelon;MonoBepInEx;MonoMelon;Il2CppBepInEx</Configurations>
         <Platforms>AnyCPU</Platforms>
         <RootNamespace>S1APILoader</RootNamespace>
-        <Version>${VERSION_NUMBER}</Version>
+        <Version>$(Version)</Version>
     </PropertyGroup>
     
     <ItemGroup>
