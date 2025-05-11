@@ -18,6 +18,7 @@
         <RootNamespace>S1API</RootNamespace>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>latest</LangVersion>
+        <Version>${VERSION_NUMBER}</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'MonoBepInEx'">
