@@ -592,7 +592,7 @@ namespace S1API.Entities
         /// </summary>
         /// <typeparam name="T">The NPC class to get the instance of.</typeparam>
         /// <returns></returns>
-        public static NPC? Get<T>() =>
+        public static NPC? Get<T>() where T : NPC =>
             All.FirstOrDefault(npc => npc.GetType() == typeof(T));
 
         #endregion
