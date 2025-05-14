@@ -52,11 +52,9 @@ namespace S1API.Internal.Patches
 
                 foreach (Quest quest in QuestManager.Quests)
                 {
-#if (IL2CPPMELON)
-                    List<string> dummy = new();
-#else
+
                     List<string> dummy = new List<string>();
-#endif
+
                     quest.SaveInternal(moddedQuestsPath, ref dummy);
 
                 }
@@ -64,7 +62,7 @@ namespace S1API.Internal.Patches
             }
             catch (Exception ex)
             {
-                return;
+                throw new Exception("Failed during SaveManager_Save_Postfix execution.", ex);
             }
         }
 
