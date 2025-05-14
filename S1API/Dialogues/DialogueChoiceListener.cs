@@ -1,8 +1,9 @@
 using System;
 using UnityEngine.Events;
-#if IL2CPPBEPINEX || IL2CPPMELON
+
+#if  IL2CPPMELON
 using Il2CppScheduleOne.Dialogue;
-#elif MONOBEPINEX || MONOMELON
+#elif MONOBEPINEX || MONOMELON || IL2CPPBEPINEX
 using ScheduleOne.Dialogue;
 #endif
 
@@ -22,12 +23,12 @@ namespace S1API.Dialogues
         /// to match the label of the choice selected by the user. When the label matches
         /// <c>expectedChoiceLabel</c>, the registered callback is executed.
         /// </remarks>
-        private static string expectedChoiceLabel;
+        private static string? _expectedChoiceLabel;
 
         /// <summary>
         /// Represents a delegate invoked when a specific dialogue choice is selected during interaction.
         /// </summary>
-        private static Action callback;
+        private static Action? _callback;
 
         /// Registers a specific dialogue choice with a callback to be invoked when the choice is selected.
         /// <param name="handlerRef">The reference to the DialogueHandler that manages dialogue choices.</param>
@@ -35,8 +36,8 @@ namespace S1API.Dialogues
         /// <param name="action">The callback action to execute when the dialogue choice is selected.</param>
         public static void Register(DialogueHandler handlerRef, string label, Action action)
         {
-            expectedChoiceLabel = label;
-            callback = action;
+            _expectedChoiceLabel = label;
+            _callback = action;
 
             if (handlerRef != null)
             {
@@ -45,7 +46,7 @@ namespace S1API.Dialogues
                 // ✅ IL2CPP-safe: explicit method binding via wrapper
                 handlerRef.onDialogueChoiceChosen.AddListener((UnityAction<string>)delegate (string choice)
                 {
-                    if (choice == expectedChoiceLabel)
+                    if (choice == _expectedChoiceLabel)
                         ((UnityAction)ForwardCall).Invoke();
                 });
             }
@@ -60,8 +61,8 @@ namespace S1API.Dialogues
         /// </remarks>
         private static void OnChoice()
         {
-            callback?.Invoke();
-            callback = null; // optional: remove if one-time use
+            _callback?.Invoke();
+            _callback = null; // optional: remove if one-time use
         }
     }
 }

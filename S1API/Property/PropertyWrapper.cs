@@ -7,7 +7,7 @@ namespace S1API.Property
     /// Il2CppScheduleOne.Property.Property class. Provides an abstraction for
     /// interacting with property details and operations in Unity.
     /// </summary>
-    public class PropertyWrapper : BaseProperty 
+    public class PropertyWrapper : BaseProperty
     {
         /// <summary>
         /// A readonly backing field encapsulating the core property instance
@@ -16,20 +16,19 @@ namespace S1API.Property
         /// and is leveraged across multiple overriden members to delegate
         /// operations to the actual property instance.
         /// </summary>
-        #if IL2CPPBEPINEX || IL2CPPMELON
+#if IL2CPPMELON
         internal readonly Il2CppScheduleOne.Property.Property InnerProperty;
-        #else
+#else
         internal readonly ScheduleOne.Property.Property InnerProperty;
-        #endif
+#endif
         /// <summary>
         /// A wrapper class that extends the functionality of <see cref="BaseProperty"/>
         /// and acts as a bridge to interact with an inner property implementation
         /// from the Il2CppScheduleOne.Property namespace.
         /// </summary>
-#if IL2CPPBEPINEX || IL2CPPMELON
+#if IL2CPPMELON
         public PropertyWrapper(Il2CppScheduleOne.Property.Property property)
-
-        #else
+#else
         public PropertyWrapper(ScheduleOne.Property.Property property)
 #endif
         {
