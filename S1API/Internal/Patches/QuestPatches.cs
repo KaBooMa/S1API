@@ -7,6 +7,8 @@ using S1Persistence = Il2CppScheduleOne.Persistence;
 using S1Loaders = ScheduleOne.Persistence.Loaders;
 using S1Datas = ScheduleOne.Persistence.Datas;
 using S1Quests = ScheduleOne.Quests;
+using S1Persistence = ScheduleOne.Persistence;
+
 #endif
 #if (IL2CPPMELON || IL2CPPBEPINEX)
 using Il2CppSystem.Collections.Generic;
@@ -18,7 +20,6 @@ using System;
 using System.IO;
 using System.Linq;
 using HarmonyLib;
-using MelonLoader;
 using Newtonsoft.Json;
 using S1API.Internal.Utils;
 using S1API.Quests;
@@ -51,8 +52,11 @@ namespace S1API.Internal.Patches
 
                 foreach (Quest quest in QuestManager.Quests)
                 {
-
+#if (IL2CPPMELON)
                     List<string> dummy = new();
+#else
+                    List<string> dummy = new List<string>();
+#endif
                     quest.SaveInternal(moddedQuestsPath, ref dummy);
 
                 }
