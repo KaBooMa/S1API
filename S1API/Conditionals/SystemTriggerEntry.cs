@@ -1,8 +1,8 @@
-﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
+﻿#if (IL2CPPMELON)
 using S1Quests = Il2CppScheduleOne.Quests;
 using S1Variables = Il2CppScheduleOne.Variables;
 using static Il2CppScheduleOne.Quests.QuestManager;
-#elif (MONOMELON || MONOBEPINEX)
+#elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Quests = ScheduleOne.Quests;
 using S1Variables = ScheduleOne.Variables;
 using static ScheduleOne.Quests.QuestManager;

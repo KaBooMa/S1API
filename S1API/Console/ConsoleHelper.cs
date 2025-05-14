@@ -1,4 +1,4 @@
-#if (IL2CPPMELON || IL2CPPBEPINEX)
+#if (IL2CPPMELON)
 using Il2CppSystem.Collections.Generic;
 using static Il2CppScheduleOne.Console;
 #else

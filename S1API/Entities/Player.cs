@@ -1,4 +1,4 @@
-﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
+﻿#if (IL2CPPMELON)
 using S1PlayerScripts = Il2CppScheduleOne.PlayerScripts;
 using S1Health = Il2CppScheduleOne.PlayerScripts.Health;
 #else

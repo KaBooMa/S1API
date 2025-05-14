@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-#if IL2CPPMELON || IL2CPPBEPINEX
+#if IL2CPPMELON
 using Il2CppScheduleOne.Property;
-#elif MONOMELON || MONOBEPINEX
+#elif MONOMELON || MONOBEPINEX || IL2CPPBEPINEX
 using ScheduleOne.Property;
 #endif
 namespace S1API.Property
@@ -18,11 +18,11 @@ namespace S1API.Property
         public static List<PropertyWrapper> GetAllProperties()
         {
             var list = new List<PropertyWrapper>();
-            #if IL2CPPMELON || IL2CPPBEPINEX
+#if IL2CPPMELON
             foreach (var prop in Il2CppScheduleOne.Property.Property.Properties)
 #else
             foreach (var prop in ScheduleOne.Property.Property.Properties)
-                #endif
+#endif
             {
                 list.Add(new PropertyWrapper(prop));
             }
@@ -36,9 +36,9 @@ namespace S1API.Property
         public static List<PropertyWrapper> GetOwnedProperties()
         {
             var list = new List<PropertyWrapper>();
-#if IL2CPPMELON || IL2CPPBEPINEX
+#if IL2CPPMELON
             foreach (var prop in Il2CppScheduleOne.Property.Property.OwnedProperties)
-#elif MONOMELON || MONOBEPINEX
+#elif MONOMELON || MONOBEPINEX || IL2CPPBEPINEX
             foreach (var prop in ScheduleOne.Property.Property.OwnedProperties)
 #endif
             {
@@ -56,9 +56,9 @@ namespace S1API.Property
         /// </returns>
         public static PropertyWrapper FindPropertyByName(string name)
         {
-#if IL2CPPMELON || IL2CPPBEPINEX
+#if IL2CPPMELON
             foreach (var prop in Il2CppScheduleOne.Property.Property.Properties)
-#elif MONOMELON || MONOBEPINEX
+#elif MONOMELON || MONOBEPINEX || IL2CPPBEPINEX
             foreach (var prop in ScheduleOne.Property.Property.Properties)
 #endif
             {

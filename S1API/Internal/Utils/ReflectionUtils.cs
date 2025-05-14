@@ -96,5 +96,56 @@ namespace S1API.Internal.Utils
 
             return null;
         }
+
+        /// <summary>
+        /// INTERNAL: The different ValueTuple types.
+        /// </summary>
+        private static readonly HashSet<Type> _valueTupleTypes = new HashSet<Type>()
+        {
+            typeof(ValueTuple<>),
+            typeof(ValueTuple<,>),
+            typeof(ValueTuple<,,>),
+            typeof(ValueTuple<,,,>),
+            typeof(ValueTuple<,,,,>),
+            typeof(ValueTuple<,,,,,>),
+            typeof(ValueTuple<,,,,,,>),
+            typeof(ValueTuple<,,,,,,,>)
+        };
+
+        /// <summary>
+        /// INTERNAL: Checks whether the object is a ValueTuple
+        /// </summary>
+        /// <param name="obj">The object type to check</param>
+        /// <returns>Whether the type is a ValueTuple or not</returns>
+        public static bool IsValueTuple(this object obj)
+        {
+            if (obj == null)
+                return false;
+
+            var type = obj.GetType();
+            if (!type.IsValueType || !type.IsGenericType)
+                return false;
+
+            var genericType = type.GetGenericTypeDefinition();
+            return _valueTupleTypes.Contains(genericType);
+        }
+
+        /// <summary>
+        /// INTERNAL: Retrieves the Items from the ValueTuple instance.
+        /// </summary>
+        /// <param name="obj">The ValueTuple instance</param>
+        /// <returns>The items in the ValueTuple instance.</returns>
+        public static object[]? GetValueTupleItems(this object obj)
+        {
+            if (!obj.IsValueTuple())
+                return null;
+
+            var fields = GetAllFields(obj.GetType(), BindingFlags.Instance | BindingFlags.Public);
+            if (fields == null || fields.Length == 0)
+                return null;
+
+            return fields.Select(f => f.GetValue(obj))
+                .ToArray();
+        }
     }
 }
