@@ -1,13 +1,13 @@
-﻿#if (IL2CPPMELON || IL2CPPBEPINEX)
+﻿#if (IL2CPPMELON)
 using S1Loaders = Il2CppScheduleOne.Persistence.Loaders;
 using S1Datas = Il2CppScheduleOne.Persistence.Datas;
 using S1Quests = Il2CppScheduleOne.Quests;
+using S1Persistence = Il2CppScheduleOne.Persistence;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Loaders = ScheduleOne.Persistence.Loaders;
 using S1Datas = ScheduleOne.Persistence.Datas;
 using S1Quests = ScheduleOne.Quests;
 #endif
-
 #if (IL2CPPMELON || IL2CPPBEPINEX)
 using Il2CppSystem.Collections.Generic;
 #elif (MONOMELON || MONOBEPINEX)
@@ -18,64 +18,78 @@ using System;
 using System.IO;
 using System.Linq;
 using HarmonyLib;
+using MelonLoader;
 using Newtonsoft.Json;
-using S1API.Internal.Abstraction;
 using S1API.Internal.Utils;
 using S1API.Quests;
 using UnityEngine;
+using ISaveable = S1API.Internal.Abstraction.ISaveable;
 
 namespace S1API.Internal.Patches
 {
     /// <summary>
-    /// INTERNAL: All patches related to quests.
+    /// INTERNAL: Contains patches specific to quest handling and modification.
     /// </summary>
     [HarmonyPatch]
     internal class QuestPatches
     {
         /// <summary>
-        /// Patching performed when all quests are saved.
+        /// Invoked after all quests are saved.
+        /// Ensures that modded quest data is correctly saved to a designated folder.
         /// </summary>
-        /// <param name="__instance">Instance of the quest manager.</param>
-        /// <param name="parentFolderPath">Path to the base Quest folder.</param>
-        /// <param name="__result">List of extra saveable data. The game uses this for cleanup later.</param>
-        [HarmonyPatch(typeof(S1Quests.QuestManager), "WriteData")]
+        /// <param name="saveFolderPath">The path to the primary save folder where quest data will be stored.</param>
+        [HarmonyPatch(typeof(S1Persistence.SaveManager), nameof(S1Persistence.SaveManager.Save), typeof(string))]
         [HarmonyPostfix]
-        private static void QuestManagerWriteData(S1Quests.QuestManager __instance, string parentFolderPath, ref List<string> __result)
+        private static void SaveManager_Save_Postfix(string saveFolderPath)
         {
-            string questsPath = Path.Combine(parentFolderPath, "Quests");
+            try
+            {
+                string moddedQuestsPath = Path.Combine(saveFolderPath, "..\\Players\\ModdedQuests");
 
-            foreach (Quest quest in QuestManager.Quests)
-                quest.SaveInternal(questsPath, ref __result);
+                if (!Directory.Exists(moddedQuestsPath))
+                    Directory.CreateDirectory(moddedQuestsPath);
+
+                foreach (Quest quest in QuestManager.Quests)
+                {
+
+                    List<string> dummy = new();
+                    quest.SaveInternal(moddedQuestsPath, ref dummy);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
+
         /// <summary>
-        /// Patching performed for when all quests are loaded.
+        /// Patching performed for when all quests are loaded from the modded quests directory.
         /// </summary>
-        /// <param name="__instance">Instance of the quest loader.</param>
-        /// <param name="mainPath">Path to the base Quest folder.</param>
+        /// <param name="__instance">Instance of the quest loader responsible for loading quests.</param>
+        /// <param name="mainPath">Path to the base Quest folder where quests are located.</param>
         [HarmonyPatch(typeof(S1Loaders.QuestsLoader), "Load")]
         [HarmonyPostfix]
         private static void QuestsLoaderLoad(S1Loaders.QuestsLoader __instance, string mainPath)
         {
-            // Make sure we have a quests directory (fresh saves don't at this point in runtime)
-            if (!Directory.Exists(mainPath))
-                return;
+            string moddedQuestsPath = Path.Combine(mainPath, "..\\Players\\ModdedQuests");
 
-            string[] questDirectories = Directory.GetDirectories(mainPath)
+            string[] questDirectories = Directory.GetDirectories(moddedQuestsPath)
                 .Select(Path.GetFileName)
                 .Where(directory => directory != null && directory.StartsWith("Quest_"))
                 .ToArray()!;
-
             foreach (string questDirectory in questDirectories)
             {
-                string baseQuestPath = Path.Combine(mainPath, questDirectory);
+                string baseQuestPath = Path.Combine(moddedQuestsPath, questDirectory);
                 __instance.TryLoadFile(baseQuestPath, out string questDataText);
                 if (questDataText == null)
                     continue;
 
                 S1Datas.QuestData baseQuestData = JsonUtility.FromJson<S1Datas.QuestData>(questDataText);
 
-                string questDirectoryPath = Path.Combine(mainPath, questDirectory);
+                string questDirectoryPath = Path.Combine(moddedQuestsPath, questDirectory);
                 string questDataPath = Path.Combine(questDirectoryPath, "QuestData");
                 if (!__instance.TryLoadFile(questDataPath, out string questText))
                     continue;
@@ -93,26 +107,11 @@ namespace S1API.Internal.Patches
             }
         }
 
+
         /// <summary>
-        /// Patching performed for when stale files are deleted.
+        /// Executes custom initialization logic whenever a quest starts.
         /// </summary>
-        /// <param name="__instance">Instance of the quest manager.</param>
-        /// <param name="parentFolderPath">Path to the base Quest folder.</param>
-        [HarmonyPatch(typeof(S1Quests.QuestManager), "DeleteUnapprovedFiles")]
-        [HarmonyPostfix]
-        private static void QuestManagerDeleteUnapprovedFiles(S1Quests.QuestManager __instance, string parentFolderPath)
-        {
-            string questFolder = Path.Combine(parentFolderPath, "Quests");
-            string?[] existingQuests = QuestManager.Quests.Select(quest => quest.SaveFolder).ToArray();
-
-            string[] unapprovedQuestDirectories = Directory.GetDirectories(questFolder)
-                .Where(directory => directory.StartsWith("Quest_") && !existingQuests.Contains(directory))
-                .ToArray();
-
-            foreach (string unapprovedQuestDirectory in unapprovedQuestDirectories)
-                Directory.Delete(unapprovedQuestDirectory, true);
-        }
-
+        /// <param name="__instance">The instance of the quest that is starting.</param>
         [HarmonyPatch(typeof(S1Quests.Quest), "Start")]
         [HarmonyPrefix]
         private static void QuestStart(S1Quests.Quest __instance) =>
