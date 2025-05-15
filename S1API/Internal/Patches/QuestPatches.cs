@@ -34,6 +34,8 @@ namespace S1API.Internal.Patches
     [HarmonyPatch]
     internal class QuestPatches
     {
+        protected static readonly Logging.Log Logger = new Logging.Log("QuestPatches");
+
         /// <summary>
         /// Invoked after all quests are saved.
         /// Ensures that modded quest data is correctly saved to a designated folder.
@@ -62,7 +64,7 @@ namespace S1API.Internal.Patches
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed during SaveManager_Save_Postfix execution.", ex);
+                Logger.Error("Failed during SaveManager_Save_Postfix execution.");
             }
         }
 
