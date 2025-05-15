@@ -64,7 +64,8 @@ namespace S1API.Internal.Patches
             }
             catch (Exception ex)
             {
-                Logger.Error("Failed during SaveManager_Save_Postfix execution.");
+                Logger.Error("Failed during SaveManager_Save_Postfix execution.\n" + ex);
+                throw;
             }
         }
 
