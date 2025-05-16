@@ -53,7 +53,7 @@ namespace S1API.Internal.Patches
         {
             try
             {
-                var saveManager = Singleton<S1Persistence.SaveManager>.Instance;
+                var saveManager = S1Persistence.SaveManager.Instance;
 
                 string[] approved = {
                     "Modded",
@@ -80,7 +80,6 @@ namespace S1API.Internal.Patches
                     }
                 }
 
-                Logger.Msg($"[S1API] ✅ Saved modded quests to: {questsPath}");
             }
             catch (Exception ex)
             {
@@ -109,8 +108,6 @@ namespace S1API.Internal.Patches
                 Logger.Warning("[S1API] No Modded/Quests folder found: " + moddedQuestsPath);
                 return;
             }
-
-            Logger.Msg("[S1API] ✅ Loading modded quests from: " + moddedQuestsPath);
 
             string[] questDirectories = Directory.GetDirectories(moddedQuestsPath)
                 .Select(Path.GetFileName)
