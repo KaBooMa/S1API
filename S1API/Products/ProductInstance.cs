@@ -1,73 +1,72 @@
 #if (IL2CPPMELON )
 using S1Product = Il2CppScheduleOne.Product;
-using Properties = Il2CppScheduleOne.Properties;
+using S1Properties = Il2CppScheduleOne.Properties;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Product = ScheduleOne.Product;
 using Properties = ScheduleOne.Properties;
 #endif
 using System.Collections.Generic;
 using S1API.Internal.Utils;
-using ItemInstance = S1API.Items.ItemInstance;
-
+using S1ItemInstance = S1API.Items.ItemInstance;
 namespace S1API.Products
 {
     /// <summary>
     /// Represents an instance of a product in the game.
     /// </summary>
-    public class ProductInstance : ItemInstance
+    /// <remarks>
+    /// This class defines specific properties and behaviors for a product instance,
+    /// such as quality, packaging, and definition, derived from the S1API's item instance structure.
+    /// </remarks>
+    public class ProductInstance : S1ItemInstance
     {
         /// <summary>
-        /// INTERNAL: Reference to the in-game product item instance.
+        /// INTERNAL: Provides access to the underlying in-game product item instance.
         /// </summary>
         internal S1Product.ProductItemInstance S1ProductInstance =>
             CrossType.As<S1Product.ProductItemInstance>(S1ItemInstance);
 
         /// <summary>
-        /// Represents an instance of a product derived from an in-game product item instance.
+        /// Represents an instance of a product, derived from a specific in-game product item instance,
+        /// with additional properties for packaging, quality, and product definition.
         /// </summary>
-        internal ProductInstance(S1Product.ProductItemInstance productInstance) : base(productInstance)
+        internal ProductInstance(S1Product.ProductItemInstance productInstance)
+            : base(productInstance)
         {
         }
 
         /// <summary>
         /// Indicates whether the product instance has applied packaging.
         /// </summary>
-        public bool IsPackaged =>
-            S1ProductInstance.AppliedPackaging;
+        public bool IsPackaged => S1ProductInstance.AppliedPackaging;
 
         /// <summary>
-        /// Represents the packaging details currently applied to the product instance, if any.
+        /// Provides access to the packaging information applied to the product,
+        /// represented as a specific packaging definition instance.
         /// </summary>
         public PackagingDefinition AppliedPackaging =>
             new PackagingDefinition(S1ProductInstance.AppliedPackaging);
 
         /// <summary>
-        /// Represents the quality tier of the product instance.
+        /// Represents the quality level of the product instance.
         /// </summary>
         /// <remarks>
-        /// The quality indicates the standard or grade of the product, ranging through predefined levels such as Trash, Poor, Standard, Premium, and Heavenly.
+        /// Quality levels provide a measure of the product's grading, ranging from "Trash" to "Heavenly".
         /// </remarks>
         public Quality Quality => S1ProductInstance.Quality.ToAPI();
 
-        // Expose the underlying definition's properties (if S1ProductInstance.Definition is available)
-
-        // Add Definition property if you don't have one yet
-
-#if IL2CPPMELON
-        public IReadOnlyList<Properties.Property> Properties => Definition.Properties;
-        public ProductDefinition Definition => new ProductDefinition(S1ProductInstance.Definition);
-#else
         /// <summary>
-        /// Represents the collection of properties associated with the product.
-        /// </summary>
-        public IReadOnlyList<Properties.Property> Properties => Definition.Properties;
-
-        /// <summary>
-        /// Represents the definition of a product in the game, including its core properties.
+        /// Gets the definition of the product associated with this instance.
         /// </summary>
         public ProductDefinition Definition => new ProductDefinition(S1ProductInstance.Definition);
 
-#endif
-
+        /// <summary>
+        /// Gets the list of properties associated with the product definition.
+        /// </summary>
+        /// <remarks>
+        /// This property provides an unmodifiable list of properties associated
+        /// with the underlying product definition. Each property represents
+        /// a specific characteristic or behavior of the corresponding product.
+        /// </remarks>
+        public IReadOnlyList<S1Properties.Property> Properties => Definition.Properties;
     }
 }
