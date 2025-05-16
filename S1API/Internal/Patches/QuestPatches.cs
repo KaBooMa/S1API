@@ -3,6 +3,7 @@ using S1Loaders = Il2CppScheduleOne.Persistence.Loaders;
 using S1Datas = Il2CppScheduleOne.Persistence.Datas;
 using S1Quests = Il2CppScheduleOne.Quests;
 using S1Persistence = Il2CppScheduleOne.Persistence;
+using Il2CppScheduleOne.DevUtilities;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Loaders = ScheduleOne.Persistence.Loaders;
 using S1Datas = ScheduleOne.Persistence.Datas;
@@ -47,25 +48,38 @@ namespace S1API.Internal.Patches
         {
             try
             {
-                string moddedQuestsPath = Path.Combine(saveFolderPath, "..\\Players\\ModdedQuests");
+                var saveManager = Singleton<S1Persistence.SaveManager>.Instance;
 
-                if (!Directory.Exists(moddedQuestsPath))
-                    Directory.CreateDirectory(moddedQuestsPath);
+                string[] approved = {
+                    "Modded",
+                    Path.Combine("Modded", "Quests")
+                };
 
-                foreach (Quest quest in QuestManager.Quests)
+                foreach (var path in approved)
                 {
-
-                    List<string> dummy = new List<string>();
-
-                    quest.SaveInternal(moddedQuestsPath, ref dummy);
-
+                    if (!saveManager.ApprovedBaseLevelPaths.Contains(path))
+                        saveManager.ApprovedBaseLevelPaths.Add(path);
                 }
 
+                // ✅ Create the directory structure
+                string questsPath = Path.Combine(saveFolderPath, "Modded", "Quests");
+                Directory.CreateDirectory(questsPath);
+
+                // ✅ Save only non-vanilla modded quests
+                foreach (Quest quest in QuestManager.Quests)
+                {
+                    if (!quest.GetType().Namespace.StartsWith("ScheduleOne"))
+                    {
+                        List<string> dummy = new();
+                        quest.SaveInternal(questsPath, ref dummy);
+                    }
+                }
+
+                Logger.Msg($"[S1API] ✅ Saved modded quests to: {questsPath}");
             }
             catch (Exception ex)
             {
-                Logger.Error("Failed during SaveManager_Save_Postfix execution.\n" + ex);
-                throw;
+                Logger.Error("[S1API] ❌ Failed to save modded quests:\n" + ex);
             }
         }
 
@@ -79,12 +93,20 @@ namespace S1API.Internal.Patches
         [HarmonyPostfix]
         private static void QuestsLoaderLoad(S1Loaders.QuestsLoader __instance, string mainPath)
         {
-            string moddedQuestsPath = Path.Combine(mainPath, "..\\Players\\ModdedQuests");
+            string moddedQuestsPath = Path.Combine(mainPath, "..//Modded", "Quests");
+
+            if (!Directory.Exists(moddedQuestsPath))
+            {
+                Logger.Warning("[S1API] No Modded/Quests folder found: " + moddedQuestsPath);
+                return;
+            }
+
+            Logger.Msg("[S1API] ✅ Loading modded quests from: " + moddedQuestsPath);
 
             string[] questDirectories = Directory.GetDirectories(moddedQuestsPath)
                 .Select(Path.GetFileName)
                 .Where(directory => directory != null && directory.StartsWith("Quest_"))
-                .ToArray()!;
+                .ToArray();
             foreach (string questDirectory in questDirectories)
             {
                 string baseQuestPath = Path.Combine(moddedQuestsPath, questDirectory);
