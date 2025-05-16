@@ -99,7 +99,7 @@ namespace S1API.Internal.Patches
         private static void QuestsLoaderLoad(S1Loaders.QuestsLoader __instance, string mainPath)
         {
             string moddedQuestsPath = Path.Combine(
-                Singleton<S1Persistence.LoadManager>.Instance.LoadedGameFolderPath,
+                S1Persistence.LoadManager.Instance.LoadedGameFolderPath,
                 "Modded", "Quests"
             );
 
