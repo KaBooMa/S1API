@@ -9,7 +9,7 @@ using S1Loaders = ScheduleOne.Persistence.Loaders;
 using S1Datas = ScheduleOne.Persistence.Datas;
 using S1Quests = ScheduleOne.Quests;
 using S1Persistence = ScheduleOne.Persistence;
-
+using ScheduleOne.DevUtilities;
 #endif
 #if (IL2CPPMELON || IL2CPPBEPINEX)
 using Il2CppSystem.Collections.Generic;
@@ -30,18 +30,23 @@ using ISaveable = S1API.Internal.Abstraction.ISaveable;
 namespace S1API.Internal.Patches
 {
     /// <summary>
-    /// INTERNAL: Contains patches specific to quest handling and modification.
+    /// INTERNAL: Contains patches related to quest processing and custom modifications.
     /// </summary>
     [HarmonyPatch]
     internal class QuestPatches
     {
+        /// <summary>
+        /// Provides a centralized logging mechanism to capture and output messages, warnings,
+        /// and errors during runtime, using underlying logging frameworks like BepInEx or MelonLoader.
+        /// </summary>
         protected static readonly Logging.Log Logger = new Logging.Log("QuestPatches");
 
         /// <summary>
-        /// Invoked after all quests are saved.
-        /// Ensures that modded quest data is correctly saved to a designated folder.
+        /// Executes additional logic after quests are saved by the SaveManager.
+        /// Ensures that directories for modded quests are properly created and that
+        /// only non-vanilla modded quests are saved into the specified folder.
         /// </summary>
-        /// <param name="saveFolderPath">The path to the primary save folder where quest data will be stored.</param>
+        /// <param name="saveFolderPath">The path to the save folder where quests are being stored.</param>
         [HarmonyPatch(typeof(S1Persistence.SaveManager), nameof(S1Persistence.SaveManager.Save), typeof(string))]
         [HarmonyPostfix]
         private static void SaveManager_Save_Postfix(string saveFolderPath)
@@ -70,7 +75,7 @@ namespace S1API.Internal.Patches
                 {
                     if (!quest.GetType().Namespace.StartsWith("ScheduleOne"))
                     {
-                        List<string> dummy = new();
+                        List<string> dummy = new List<string>();
                         quest.SaveInternal(questsPath, ref dummy);
                     }
                 }
@@ -85,15 +90,19 @@ namespace S1API.Internal.Patches
 
 
         /// <summary>
-        /// Patching performed for when all quests are loaded from the modded quests directory.
+        /// Invoked after all base quests are loaded to handle modded quest loading.
+        /// Loads modded quests from a specific "Modded/Quests" directory and integrates them into the game.
         /// </summary>
-        /// <param name="__instance">Instance of the quest loader responsible for loading quests.</param>
-        /// <param name="mainPath">Path to the base Quest folder where quests are located.</param>
+        /// <param name="__instance">The quest loader instance responsible for managing quest load operations.</param>
+        /// <param name="mainPath">The path to the primary quest directory in the base game.</param>
         [HarmonyPatch(typeof(S1Loaders.QuestsLoader), "Load")]
         [HarmonyPostfix]
         private static void QuestsLoaderLoad(S1Loaders.QuestsLoader __instance, string mainPath)
         {
-            string moddedQuestsPath = Path.Combine(mainPath, "..//Modded", "Quests");
+            string moddedQuestsPath = Path.Combine(
+                Singleton<S1Persistence.LoadManager>.Instance.LoadedGameFolderPath,
+                "Modded", "Quests"
+            );
 
             if (!Directory.Exists(moddedQuestsPath))
             {
@@ -107,6 +116,7 @@ namespace S1API.Internal.Patches
                 .Select(Path.GetFileName)
                 .Where(directory => directory != null && directory.StartsWith("Quest_"))
                 .ToArray();
+
             foreach (string questDirectory in questDirectories)
             {
                 string baseQuestPath = Path.Combine(moddedQuestsPath, questDirectory);
@@ -136,9 +146,10 @@ namespace S1API.Internal.Patches
 
 
         /// <summary>
-        /// Executes custom initialization logic whenever a quest starts.
+        /// Executes logic prior to the start of a quest.
+        /// Ensures that linked modded quest data is properly initialized.
         /// </summary>
-        /// <param name="__instance">The instance of the quest that is starting.</param>
+        /// <param name="__instance">The instance of the quest that is being started.</param>
         [HarmonyPatch(typeof(S1Quests.Quest), "Start")]
         [HarmonyPrefix]
         private static void QuestStart(S1Quests.Quest __instance) =>
