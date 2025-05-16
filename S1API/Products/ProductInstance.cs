@@ -3,7 +3,7 @@ using S1Product = Il2CppScheduleOne.Product;
 using S1Properties = Il2CppScheduleOne.Properties;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Product = ScheduleOne.Product;
-using Properties = ScheduleOne.Properties;
+using S1Properties = ScheduleOne.Properties;
 #endif
 using System.Collections.Generic;
 using S1API.Internal.Utils;
