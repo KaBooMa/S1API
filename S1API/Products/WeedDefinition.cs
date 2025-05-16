@@ -1,9 +1,11 @@
 #if (IL2CPPMELON)
 using Il2CppScheduleOne.Product;
 using S1WeedDefinition = Il2CppScheduleOne.Product.WeedDefinition;
+using Properties = Il2CppScheduleOne.Properties;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using ScheduleOne.Product;
 using S1WeedDefinition = ScheduleOne.Product.WeedDefinition;
+using Properties = ScheduleOne.Properties;
 #endif
 
 using S1API.Internal.Utils;
@@ -59,15 +61,15 @@ namespace S1API.Products
         /// an empty list is returned.
         /// </returns>
 #if IL2CPPMELON
-        public List<Il2CppScheduleOne.Properties.Property> GetProperties()
+        public List<Properties.Property> GetProperties()
 #else
-public List<ScheduleOne.Properties.Property> GetProperties()
+        public List<Properties.Property> GetProperties()
 #endif
         {
 #if  IL2CPPMELON
-            var result = new List<Il2CppScheduleOne.Properties.Property>();
+            var result = new List<Properties.Property>();
 #else
-            var result = new List<ScheduleOne.Properties.Property>();
+            var result = new List<Properties.Property>();
             #endif
             var list = S1WeedDefinition?.Properties;
             if (list != null)

@@ -1,9 +1,11 @@
 #if (IL2CPPMELON)
 using Il2CppScheduleOne.Product;
 using S1MethDefinition = Il2CppScheduleOne.Product.MethDefinition;
+    using Properties = Il2CppScheduleOne.Properties;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using ScheduleOne.Product;
 using S1MethDefinition = ScheduleOne.Product.MethDefinition;
+using Properties = ScheduleOne.Properties;
 #endif
 
 using System.Collections.Generic;
@@ -48,15 +50,15 @@ namespace S1API.Products
         /// </summary>
         /// <returns>A list of properties that belong to the meth product definition.</returns>
 #if IL2CPPMELON
-        public List<Il2CppScheduleOne.Properties.Property> GetProperties()
+        public List<Properties.Property> GetProperties()
 #else
-        public List<ScheduleOne.Properties.Property> GetProperties()
+        public List<Properties.Property> GetProperties()
 #endif
         {
 #if IL2CPPMELON
-            var result = new List<Il2CppScheduleOne.Properties.Property>();
+            var result = new List<Properties.Property>();
 #else
-            var result = new List<ScheduleOne.Properties.Property>();
+            var result = new List<Properties.Property>();
 #endif
             var list = S1MethDefinition?.Properties;
             if (list != null)

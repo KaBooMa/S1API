@@ -1,8 +1,12 @@
 ﻿#if (IL2CPPMELON)
 using Il2CppInterop.Runtime.InteropTypes;
 using S1Product = Il2CppScheduleOne.Product;
+using ItemFramework = Il2CppScheduleOne.ItemFramework;
+using Properties = Il2CppScheduleOne.Properties;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Product = ScheduleOne.Product;
+using ItemFramework = ScheduleOne.ItemFramework;
+using Properties = ScheduleOne.Properties;
 #endif
 
 using System.Collections.Generic;
@@ -28,9 +32,9 @@ namespace S1API.Products
         /// </summary>
         /// <param name="productDefinition"></param>
 #if  IL2CPPMELON
-        internal ProductDefinition(Il2CppScheduleOne.ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
+        internal ProductDefinition(ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
 #else
-        internal ProductDefinition(ScheduleOne.ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
+        internal ProductDefinition(ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
 #endif
         /// <summary>
         /// The price associated with this product.
@@ -54,11 +58,11 @@ namespace S1API.Products
             get { return S1ProductDefinition.Icon; }
         }
 #if  IL2CPPMELON
-        private List<Il2CppScheduleOne.Properties.Property> properties; // or however properties are stored
-        public List<Il2CppScheduleOne.Properties.Property> Properties; // or however properties are stored
+        private List<Properties.Property> properties; // or however properties are stored
+        public List<Properties.Property> Properties; // or however properties are stored
 #else
-        private List<ScheduleOne.Properties.Property> properties; // or however properties are stored
-        public IReadOnlyList<ScheduleOne.Properties.Property> Properties => properties.AsReadOnly();
+        private List<Properties.Property> properties; // or however properties are stored
+        public IReadOnlyList<Properties.Property> Properties => properties.AsReadOnly();
 #endif
 
 

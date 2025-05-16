@@ -93,26 +93,6 @@ namespace S1API.Internal.Patches
             }
         }
 
-        /// <summary>
-        /// Patching performed for when stale files are deleted.
-        /// </summary>
-        /// <param name="__instance">Instance of the quest manager.</param>
-        /// <param name="parentFolderPath">Path to the base Quest folder.</param>
-        [HarmonyPatch(typeof(S1Quests.QuestManager), "DeleteUnapprovedFiles")]
-        [HarmonyPostfix]
-        private static void QuestManagerDeleteUnapprovedFiles(S1Quests.QuestManager __instance, string parentFolderPath)
-        {
-            string questFolder = Path.Combine(parentFolderPath, "Quests");
-            string?[] existingQuests = QuestManager.Quests.Select(quest => quest.SaveFolder).ToArray();
-
-            string[] unapprovedQuestDirectories = Directory.GetDirectories(questFolder)
-                .Where(directory => directory.StartsWith("Quest_") && !existingQuests.Contains(directory))
-                .ToArray();
-
-            foreach (string unapprovedQuestDirectory in unapprovedQuestDirectories)
-                Directory.Delete(unapprovedQuestDirectory, true);
-        }
-
         [HarmonyPatch(typeof(S1Quests.Quest), "Start")]
         [HarmonyPrefix]
         private static void QuestStart(S1Quests.Quest __instance) =>
