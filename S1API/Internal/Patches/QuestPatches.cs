@@ -3,13 +3,11 @@ using S1Loaders = Il2CppScheduleOne.Persistence.Loaders;
 using S1Datas = Il2CppScheduleOne.Persistence.Datas;
 using S1Quests = Il2CppScheduleOne.Quests;
 using S1Persistence = Il2CppScheduleOne.Persistence;
-using Il2CppScheduleOne.DevUtilities;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Loaders = ScheduleOne.Persistence.Loaders;
 using S1Datas = ScheduleOne.Persistence.Datas;
 using S1Quests = ScheduleOne.Quests;
 using S1Persistence = ScheduleOne.Persistence;
-using ScheduleOne.DevUtilities;
 #endif
 #if (IL2CPPMELON || IL2CPPBEPINEX)
 using Il2CppSystem.Collections.Generic;
@@ -105,7 +103,7 @@ namespace S1API.Internal.Patches
 
             if (!Directory.Exists(moddedQuestsPath))
             {
-                Logger.Warning("[S1API] No Modded/Quests folder found: " + moddedQuestsPath);
+                Directory.CreateDirectory(moddedQuestsPath);
                 return;
             }
 
