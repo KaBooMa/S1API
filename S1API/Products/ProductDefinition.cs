@@ -1,10 +1,15 @@
 ﻿#if (IL2CPPMELON)
 using Il2CppInterop.Runtime.InteropTypes;
 using S1Product = Il2CppScheduleOne.Product;
+using ItemFramework = Il2CppScheduleOne.ItemFramework;
+using Properties = Il2CppScheduleOne.Properties;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Product = ScheduleOne.Product;
+using ItemFramework = ScheduleOne.ItemFramework;
+using Properties = ScheduleOne.Properties;
 #endif
 
+using System.Collections.Generic;
 using S1API.Internal.Utils;
 using S1API.Items;
 using UnityEngine;
@@ -26,8 +31,11 @@ namespace S1API.Products
         /// INTERNAL: Creates a product definition from the in-game product definition.
         /// </summary>
         /// <param name="productDefinition"></param>
-        internal ProductDefinition(S1Product.ProductDefinition productDefinition) : base(productDefinition) { }
-
+#if  IL2CPPMELON
+        internal ProductDefinition(ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
+#else
+        internal ProductDefinition(ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
+#endif
         /// <summary>
         /// The price associated with this product.
         /// </summary>
@@ -49,6 +57,14 @@ namespace S1API.Products
         {
             get { return S1ProductDefinition.Icon; }
         }
+#if  IL2CPPMELON
+        private List<Properties.Property> properties; // or however properties are stored
+        public List<Properties.Property> Properties; // or however properties are stored
+#else
+        private List<Properties.Property> properties; // or however properties are stored
+        public IReadOnlyList<Properties.Property> Properties => properties.AsReadOnly();
+#endif
 
-    }
+
+}
 }
