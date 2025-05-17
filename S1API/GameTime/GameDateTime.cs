@@ -8,8 +8,6 @@ using S1TimeManager = ScheduleOne.GameTime.TimeManager;
 using S1GameDateTimeData = ScheduleOne.Persistence.Datas.GameDateTimeData;
 #endif
 
-using System;
-
 namespace S1API.GameTime
 {
     /// <summary>
@@ -17,7 +15,14 @@ namespace S1API.GameTime
     /// </summary>
     public struct GameDateTime
     {
+        /// <summary>
+        /// The number of days that have elapsed since a reference point.
+        /// </summary>
         public int ElapsedDays;
+
+        /// <summary>
+        /// The time of day in 24-hour format (e.g., 1330 for 1:30 PM).
+        /// </summary>
         public int Time;
 
         /// <summary>
@@ -127,21 +132,45 @@ namespace S1API.GameTime
             return $"Day {ElapsedDays}, {GetFormattedTime()}";
         }
 
+        /// <summary>
+        /// Adds two GameDateTime instances by summing their total minutes.
+        /// </summary>
+        /// <param name="a">The first GameDateTime.</param>
+        /// <param name="b">The second GameDateTime.</param>
+        /// <returns>A new GameDateTime representing the total.</returns>
         public static GameDateTime operator +(GameDateTime a, GameDateTime b)
         {
             return new GameDateTime(a.GetMinSum() + b.GetMinSum());
         }
 
+        /// <summary>
+        /// Subtracts one GameDateTime from another by their total minutes.
+        /// </summary>
+        /// <param name="a">The GameDateTime to subtract from.</param>
+        /// <param name="b">The GameDateTime to subtract.</param>
+        /// <returns>The difference as a new GameDateTime.</returns>
         public static GameDateTime operator -(GameDateTime a, GameDateTime b)
         {
             return new GameDateTime(a.GetMinSum() - b.GetMinSum());
         }
 
+        /// <summary>
+        /// Determines whether one GameDateTime is later than another.
+        /// </summary>
+        /// <param name="a">The first GameDateTime.</param>
+        /// <param name="b">The second GameDateTime.</param>
+        /// <returns><c>true</c> if a is later than b; otherwise, <c>false</c>.</returns>
         public static bool operator >(GameDateTime a, GameDateTime b)
         {
             return a.GetMinSum() > b.GetMinSum();
         }
 
+        /// <summary>
+        /// Determines whether one GameDateTime is earlier than another.
+        /// </summary>
+        /// <param name="a">The first GameDateTime.</param>
+        /// <param name="b">The second GameDateTime.</param>
+        /// <returns><c>true</c> if a is earlier than b; otherwise, <c>false</c>.</returns>
         public static bool operator <(GameDateTime a, GameDateTime b)
         {
             return a.GetMinSum() < b.GetMinSum();

@@ -1,5 +1,6 @@
 ﻿using S1API.Entities.Appearances.Base;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 namespace S1API.Entities.Appearances.BodyLayerFields
 {
     /// <summary>
@@ -22,3 +23,4 @@ namespace S1API.Entities.Appearances.BodyLayerFields
         public const string VNeck = "Avatar/Layers/Top/V-Neck";
     }
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

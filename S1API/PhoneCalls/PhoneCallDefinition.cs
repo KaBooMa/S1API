@@ -17,6 +17,10 @@ using UnityEngine;
 
 namespace S1API.PhoneCalls
 {
+    /// <summary>
+    /// Base class for defining a scripted phone call, including caller information and stage entries.
+    /// This is a wrapper around the game's internal <see cref="S1ScriptableObjects.PhoneCallData"/>.
+    /// </summary>
     public abstract class PhoneCallDefinition
     {
         // ReSharper disable once MemberCanBePrivate.Global
