@@ -169,6 +169,12 @@ namespace S1API.Vehicles
         /// <param name="rotation">Rotation of the vehicle</param>
         public void Spawn(Vector3 position, Quaternion rotation)
         {
+            if (!InstanceFinder.IsServer)
+            {
+                Logger.Warning("Spawn can only be called on the server!");
+                return;
+            }
+            
             S1LandVehicle.transform.position = position;
             S1LandVehicle.transform.rotation = rotation;
             NetworkSingleton<S1Vehicles.VehicleManager>.Instance.Spawn(S1LandVehicle.gameObject);
