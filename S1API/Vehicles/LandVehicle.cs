@@ -10,6 +10,7 @@ using ScheduleOne.DevUtilities;
 using FishNet;
 using FishNet.Connection;
 #endif
+using System;
 using System.Reflection;
 using UnityEngine;
 using S1API.Logging;
@@ -93,6 +94,9 @@ namespace S1API.Vehicles
                 _logger.Warning("Spawn can only be called on the server!");
                 return;
             }
+
+            if (S1LandVehicle == null)
+                throw new Exception("Unable to spawn vehicle, S1LandVehicle is null!");
 
             S1LandVehicle.transform.position = position;
             S1LandVehicle.transform.rotation = rotation;
