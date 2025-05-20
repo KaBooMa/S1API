@@ -1,12 +1,10 @@
 ﻿#if (IL2CPPMELON)
 using S1Vehicles = Il2CppScheduleOne.Vehicles;
-using Il2CppScheduleOne.DevUtilities;
 using Il2Cpp;
 using Il2CppFishNet;
 using Il2CppFishNet.Connection;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1Vehicles = ScheduleOne.Vehicles;
-using ScheduleOne.DevUtilities;
 using FishNet;
 using FishNet.Connection;
 #endif
@@ -29,7 +27,7 @@ namespace S1API.Vehicles
         /// </summary>
         public LandVehicle(string vehicleCode)
         {
-            var vehiclePrefab = NetworkSingleton<S1Vehicles.VehicleManager>.Instance.GetVehiclePrefab(vehicleCode);
+            var vehiclePrefab = S1Vehicles.VehicleManager.Instance.GetVehiclePrefab(vehicleCode);
             if (vehiclePrefab == null)
             {
                 _logger.Error($"SpawnVehicle: '{vehicleCode}' is not a valid vehicle code!");
@@ -40,7 +38,7 @@ namespace S1API.Vehicles
                 .GetComponent<S1Vehicles.LandVehicle>();
 
             component.SetGUID(GUIDManager.GenerateUniqueGUID());
-            NetworkSingleton<S1Vehicles.VehicleManager>.Instance.AllVehicles.Add(component);
+            S1Vehicles.VehicleManager.Instance.AllVehicles.Add(component);
 
             S1LandVehicle = component;
             SetConnection();
@@ -100,7 +98,7 @@ namespace S1API.Vehicles
 
             S1LandVehicle.transform.position = position;
             S1LandVehicle.transform.rotation = rotation;
-            NetworkSingleton<S1Vehicles.VehicleManager>.Instance.Spawn(S1LandVehicle.gameObject);
+            S1Vehicles.VehicleManager.Instance.Spawn(S1LandVehicle.gameObject);
         }
         
         #endregion
@@ -173,9 +171,9 @@ namespace S1API.Vehicles
             S1LandVehicle.SetIsPlayerOwned(_conn, isPlayerOwned);
             // make sure to add/remove the vehicle from the player owned vehicles list
             if (isPlayerOwned)
-                NetworkSingleton<S1Vehicles.VehicleManager>.Instance.PlayerOwnedVehicles.Add(S1LandVehicle);
+                S1Vehicles.VehicleManager.Instance.PlayerOwnedVehicles.Add(S1LandVehicle);
             else
-                NetworkSingleton<S1Vehicles.VehicleManager>.Instance.PlayerOwnedVehicles.Remove(S1LandVehicle);
+                S1Vehicles.VehicleManager.Instance.PlayerOwnedVehicles.Remove(S1LandVehicle);
         }
 
         /// <summary>
