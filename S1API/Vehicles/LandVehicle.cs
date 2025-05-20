@@ -21,27 +21,8 @@ namespace S1API.Vehicles
     /// </summary>
     public class LandVehicle
     {
-        /// <summary>
-        /// Logger for the LandVehicle class.
-        /// </summary>
-        private static readonly Log Logger = new Log("S1API.LandVehicle");
-
-        /// <summary>
-        /// INTERNAL: The stored reference to the land vehicle in-game (see <see cref="S1Vehicles.LandVehicle"/>).
-        /// </summary>
-        internal S1Vehicles.LandVehicle S1LandVehicle = null!;
-
-        /// <summary>
-        /// The stored reference to protected vehiclePrice field in the land vehicle in-game.
-        /// </summary>
-        private static readonly FieldInfo? VehiclePriceField =
-            typeof(S1Vehicles.LandVehicle).GetField("vehiclePrice", BindingFlags.NonPublic);
-
-        /// <summary>
-        /// Connection to the player that owns the vehicle.
-        /// </summary>
-        private NetworkConnection? _conn;
-
+        // Public members intended to be used by modders
+        #region Public Members
         /// <summary>
         /// Creates a new LandVehicle instance.
         /// </summary>
@@ -50,7 +31,7 @@ namespace S1API.Vehicles
             var vehiclePrefab = NetworkSingleton<S1Vehicles.VehicleManager>.Instance.GetVehiclePrefab(vehicleCode);
             if (vehiclePrefab == null)
             {
-                Logger.Error($"SpawnVehicle: '{vehicleCode}' is not a valid vehicle code!");
+                _logger.Error($"SpawnVehicle: '{vehicleCode}' is not a valid vehicle code!");
                 return;
             }
 
@@ -61,37 +42,7 @@ namespace S1API.Vehicles
             NetworkSingleton<S1Vehicles.VehicleManager>.Instance.AllVehicles.Add(component);
 
             S1LandVehicle = component;
-            _setConnection();
-        }
-
-        /// <summary>
-        /// INTERNAL: Creates a LandVehicle instance from an in-game land vehicle instance.
-        /// </summary>
-        /// <param name="landVehicle">The in-game land vehicle instance.</param>
-        internal LandVehicle(S1Vehicles.LandVehicle landVehicle)
-        {
-            S1LandVehicle = landVehicle;
-            _setConnection();
-        }
-
-        /// <summary>
-        /// Sets the connection to the player that owns the vehicle.
-        /// </summary>
-        private void _setConnection()
-        {
-            var nm = InstanceFinder.NetworkManager;
-            if (nm.IsClientOnly)
-            {
-                var tempConn = InstanceFinder.ClientManager.Connection;
-                if (tempConn != null && tempConn.IsValid)
-                    _conn = tempConn;
-            }
-            else if (nm.IsServerOnly || (nm.IsServer && !nm.IsClient))
-            {
-                var owner = S1LandVehicle.Owner;
-                if (owner != null && owner.IsValid)
-                    _conn = owner;
-            }
+            SetConnection();
         }
 
         /// <summary>
@@ -118,21 +69,7 @@ namespace S1API.Vehicles
         public bool IsPlayerOwned
         {
             get => S1LandVehicle.IsPlayerOwned;
-            set => _setIsPlayerOwned(value);
-        }
-
-        /// <summary>
-        /// Helper method to set the vehicle as player owned.
-        /// </summary>
-        /// <param name="isPlayerOwned">If true, sets vehicle as player owned</param>
-        private void _setIsPlayerOwned(bool isPlayerOwned)
-        {
-            S1LandVehicle.SetIsPlayerOwned(_conn, isPlayerOwned);
-            // make sure to add/remove the vehicle from the player owned vehicles list
-            if (isPlayerOwned)
-                NetworkSingleton<S1Vehicles.VehicleManager>.Instance.PlayerOwnedVehicles.Add(S1LandVehicle);
-            else
-                NetworkSingleton<S1Vehicles.VehicleManager>.Instance.PlayerOwnedVehicles.Remove(S1LandVehicle);
+            set => SetIsPlayerOwned(value);
         }
 
         /// <summary>
@@ -141,25 +78,7 @@ namespace S1API.Vehicles
         public VehicleColor Color
         {
             get => (VehicleColor)S1LandVehicle.OwnedColor;
-            set => _setColor(value);
-        }
-
-        /// <summary>
-        /// Helper method to set the vehicle color.
-        /// </summary>
-        /// <param name="color">Vehicle's color</param>
-        private void _setColor(VehicleColor color)
-        {
-            var setOwnedColorMethod =
-                typeof(S1Vehicles.LandVehicle).GetMethod("SetOwnedColor",
-                    BindingFlags.Instance | BindingFlags.NonPublic);
-            if (setOwnedColorMethod == null)
-            {
-                Logger.Error("SetOwnedColor method not found!");
-                return;
-            }
-
-            setOwnedColorMethod.Invoke(S1LandVehicle, [_conn, (S1Vehicles.Modification.EVehicleColor)color]);
+            set => SetColor(value);
         }
 
         /// <summary>
@@ -171,13 +90,107 @@ namespace S1API.Vehicles
         {
             if (!InstanceFinder.IsServer)
             {
-                Logger.Warning("Spawn can only be called on the server!");
+                _logger.Warning("Spawn can only be called on the server!");
                 return;
             }
-            
+
             S1LandVehicle.transform.position = position;
             S1LandVehicle.transform.rotation = rotation;
             NetworkSingleton<S1Vehicles.VehicleManager>.Instance.Spawn(S1LandVehicle.gameObject);
         }
+        
+        #endregion
+        
+        // Internal members used by S1API
+        #region Internal Members
+
+        /// <summary>
+        /// INTERNAL: The stored reference to the land vehicle in-game (see <see cref="S1Vehicles.LandVehicle"/>).
+        /// </summary>
+        internal S1Vehicles.LandVehicle S1LandVehicle = null!;
+
+        /// <summary>
+        /// INTERNAL: Creates a LandVehicle instance from an in-game land vehicle instance.
+        /// </summary>
+        /// <param name="landVehicle">The in-game land vehicle instance.</param>
+        internal LandVehicle(S1Vehicles.LandVehicle landVehicle)
+        {
+            S1LandVehicle = landVehicle;
+            SetConnection();
+        }
+        
+        #endregion
+        
+        // Private members used by LandVehicle class
+        #region Private Members
+
+        /// <summary>
+        /// Logger for the LandVehicle class.
+        /// </summary>
+        private static readonly Log _logger = new Log("S1API.LandVehicle");
+
+        /// <summary>
+        /// The stored reference to protected vehiclePrice field in the land vehicle in-game.
+        /// </summary>
+        private static readonly FieldInfo? VehiclePriceField =
+            typeof(S1Vehicles.LandVehicle).GetField("vehiclePrice", BindingFlags.NonPublic);
+
+        /// <summary>
+        /// Connection to the player that owns the vehicle.
+        /// </summary>
+        private NetworkConnection? _conn;
+
+        /// <summary>
+        /// Sets the connection to the player that owns the vehicle.
+        /// </summary>
+        private void SetConnection()
+        {
+            var nm = InstanceFinder.NetworkManager;
+            if (nm.IsClientOnly)
+            {
+                var tempConn = InstanceFinder.ClientManager.Connection;
+                if (tempConn != null && tempConn.IsValid)
+                    _conn = tempConn;
+            }
+            else if (nm.IsServerOnly || (nm.IsServer && !nm.IsClient))
+            {
+                var owner = S1LandVehicle.Owner;
+                if (owner != null && owner.IsValid)
+                    _conn = owner;
+            }
+        }
+
+        /// <summary>
+        /// Helper method to set the vehicle as player owned.
+        /// </summary>
+        /// <param name="isPlayerOwned">If true, sets vehicle as player owned</param>
+        private void SetIsPlayerOwned(bool isPlayerOwned)
+        {
+            S1LandVehicle.SetIsPlayerOwned(_conn, isPlayerOwned);
+            // make sure to add/remove the vehicle from the player owned vehicles list
+            if (isPlayerOwned)
+                NetworkSingleton<S1Vehicles.VehicleManager>.Instance.PlayerOwnedVehicles.Add(S1LandVehicle);
+            else
+                NetworkSingleton<S1Vehicles.VehicleManager>.Instance.PlayerOwnedVehicles.Remove(S1LandVehicle);
+        }
+
+        /// <summary>
+        /// Helper method to set the vehicle color.
+        /// </summary>
+        /// <param name="color">Vehicle's color</param>
+        private void SetColor(VehicleColor color)
+        {
+            var setOwnedColorMethod =
+                typeof(S1Vehicles.LandVehicle).GetMethod("SetOwnedColor",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            if (setOwnedColorMethod == null)
+            {
+                _logger.Error("SetOwnedColor method not found!");
+                return;
+            }
+
+            setOwnedColorMethod.Invoke(S1LandVehicle, [_conn, (S1Vehicles.Modification.EVehicleColor)color]);
+        }
+        #endregion
     }
 }
