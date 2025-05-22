@@ -1,4 +1,4 @@
-﻿#if (IL2CPPMELON)
+#if (IL2CPPMELON)
 using S1ItemFramework = Il2CppScheduleOne.ItemFramework;
 #elif (MONOMELON || MONOBEPINEX || IL2CPPBEPINEX)
 using S1ItemFramework = ScheduleOne.ItemFramework;
@@ -153,16 +153,29 @@ namespace S1API.Items
         /// <param name="a">The first <see cref="ItemDefinition"/> to compare.</param>
         /// <param name="b">The second <see cref="ItemDefinition"/> to compare.</param>
         /// <returns><c>true</c> if both instances are equal or have the same S1ItemDefinition; otherwise, <c>false</c>.</returns>
-        public static bool operator ==(ItemDefinition? a, ItemDefinition? b) =>
-            ReferenceEquals(a, b) || a != null && b != null && a.S1ItemDefinition == b.S1ItemDefinition;
-
+        public static bool operator ==(ItemDefinition? a, ItemDefinition? b)
+        {
+            if (ReferenceEquals(a, b))
+                return true;
+            if (a is null || b is null)
+                return false;
+            return ReferenceEquals(a.S1ItemDefinition, b.S1ItemDefinition);
+        }
         /// <summary>
         /// Determines whether two <see cref="ItemDefinition"/> instances are not equal.
         /// </summary>
         /// <param name="a">The first <see cref="ItemDefinition"/> to compare.</param>
         /// <param name="b">The second <see cref="ItemDefinition"/> to compare.</param>
         /// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
-        public static bool operator !=(ItemDefinition? a, ItemDefinition? b) => !(a == b);
+        public static bool operator !=(ItemDefinition? a, ItemDefinition? b)
+        {
+            if (ReferenceEquals(a, b))
+                return false;
+            if (a is null || b is null)
+                return true;
+            return !ReferenceEquals(a.S1ItemDefinition, b.S1ItemDefinition);
+        }
+
     }
 
     /// <summary>

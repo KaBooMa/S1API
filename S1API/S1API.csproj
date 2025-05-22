@@ -17,6 +17,7 @@
         <Platforms>AnyCPU</Platforms>
         <RootNamespace>S1API</RootNamespace>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'MonoMelon' or '$(Configuration)' == 'MonoBepInEx'">
