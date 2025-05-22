@@ -55,6 +55,8 @@ jobs:
         run: |
           sed -i "s/{VERSION_NUMBER}/${{ steps.semantic-release.outputs.new_release_version }}/" ./S1API/S1API.cs
           sed -i "s/{VERSION_NUMBER}/${{ steps.semantic-release.outputs.new_release_version }}/" ./S1APILoader/S1APILoader.cs
+          sed -i "s/$(Version)/${{ steps.semantic-release.outputs.new_release_version }}/" ./S1API/S1API.csproj
+          sed -i "s/$(Version)/${{ steps.semantic-release.outputs.new_release_version }}/" ./S1APILoader/S1APILoader.csproj
 
       - name: Run .NET build for MonoBepInEx
         run: dotnet build ./S1API.sln -c MonoBepInEx -f netstandard2.1
@@ -99,7 +101,7 @@ jobs:
             libraries
 
       - name: Pack NuGet package
-        run: dotnet pack ./S1API/S1API.csproj -c MonoMelon --output ./nupkg /p:PackageVersion=${{ steps.semantic-release.outputs.new_release_version }}
+        run: dotnet pack ./S1API/S1API.csproj -c MonoMelon --output ./nupkg
         
       - name: Push to NuGet Gallery
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
