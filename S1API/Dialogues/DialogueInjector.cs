@@ -87,7 +87,7 @@ namespace S1API.Dialogues
                 for (int i = _pendingInjections.Count - 1; i >= 0; i--)
                 {
                     DialogueInjection? injection = _pendingInjections[i];
-                    var npcs = Object.FindObjectsOfType<NPC>();
+                    NPC[]? npcs = Object.FindObjectsOfType<NPC>();
                     NPC? target = null;
 
                     foreach (NPC npc in npcs)
@@ -115,8 +115,11 @@ namespace S1API.Dialogues
         /// </summary>
         /// <param name="injection">The dialogue injection object containing the data for the choice to inject.</param>
         /// <param name="npc">The NPC that will have the dialogue choice injected.</param>
-        private static void TryInject(DialogueInjection injection, NPC npc)
+        private static void TryInject(DialogueInjection injection, NPC? npc)
         {
+            if (npc == null)
+                return;
+
             DialogueHandler handler = npc.GetComponent<DialogueHandler>();
             NPCEvent_LocationDialogue dialogueEvent = npc.GetComponentInChildren<NPCEvent_LocationDialogue>(true);
             if (!dialogueEvent || !dialogueEvent.DialogueOverride)
