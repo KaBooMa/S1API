@@ -43,6 +43,18 @@ namespace S1API.Products
             S1ProductDefinition.Price;
 
         /// <summary>
+        /// The base price associated with this product.
+        /// </summary>
+        public float BasePrice =>
+            S1ProductDefinition.BasePrice;
+        
+        /// <summary>
+        /// The market value associated with this product.
+        /// </summary>
+        public float MarketValue =>
+            S1ProductDefinition.MarketValue;
+
+        /// <summary>
         /// Creates an instance of this product in-game.
         /// </summary>
         /// <param name="quantity">The quantity of product.</param>

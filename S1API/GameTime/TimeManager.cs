@@ -34,12 +34,18 @@ namespace S1API.GameTime
         /// </summary>
         public static Action<int> OnSleepEnd = delegate { };
 
+        /// <summary>
+        /// Called at every tick of gametime.
+        /// </summary>
+        public static Action OnTick = delegate { };
+
         static TimeManager()
         {
             if (S1GameTime.TimeManager.Instance != null)
             {
                 S1GameTime.TimeManager.Instance.onDayPass += (Action)(() => OnDayPass());
                 S1GameTime.TimeManager.Instance.onWeekPass += (Action)(() => OnWeekPass());
+                S1GameTime.TimeManager.Instance.onTick += (Action)(() => OnTick());
             }
 
             S1GameTime.TimeManager.onSleepStart += (Action)(() => OnSleepStart());
