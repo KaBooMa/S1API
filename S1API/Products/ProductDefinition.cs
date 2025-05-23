@@ -37,7 +37,7 @@ namespace S1API.Products
         internal ProductDefinition(ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
 #endif
         /// <summary>
-        /// The player set price associated with this product.
+        /// The price associated with this product.
         /// </summary>
         public float Price =>
             S1ProductDefinition.Price;
