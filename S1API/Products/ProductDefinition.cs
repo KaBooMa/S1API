@@ -55,12 +55,12 @@ namespace S1API.Products
             S1ProductDefinition.MarketValue;
 
         /// <summary>
-                /// Creates an instance of this product in-game.
-                /// </summary>
-                /// <param name="quantity">The quantity of product.</param>
-                /// <returns>An instance of the product.</returns>
-                public override ItemInstance CreateInstance(int quantity = 1) =>
-                    new ProductInstance(CrossType.As<S1Product.ProductItemInstance>(S1ProductDefinition.GetDefaultInstance(quantity)));
+        /// Creates an instance of this product in-game.
+        /// </summary>
+        /// <param name="quantity">The quantity of product.</param>
+        /// <returns>An instance of the product.</returns>
+        public override ItemInstance CreateInstance(int quantity = 1) =>
+            new ProductInstance(CrossType.As<S1Product.ProductItemInstance>(S1ProductDefinition.GetDefaultInstance(quantity)));
 
         /// <summary>
         /// Gets the in-game icon associated with the product.
