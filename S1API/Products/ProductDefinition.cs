@@ -37,18 +37,30 @@ namespace S1API.Products
         internal ProductDefinition(ItemFramework.ItemDefinition productDefinition) : base(productDefinition) { }
 #endif
         /// <summary>
-        /// The price associated with this product.
+        /// The player set price associated with this product.
         /// </summary>
         public float Price =>
             S1ProductDefinition.Price;
 
         /// <summary>
-        /// Creates an instance of this product in-game.
+        /// The base price associated with this product.
         /// </summary>
-        /// <param name="quantity">The quantity of product.</param>
-        /// <returns>An instance of the product.</returns>
-        public override ItemInstance CreateInstance(int quantity = 1) =>
-            new ProductInstance(CrossType.As<S1Product.ProductItemInstance>(S1ProductDefinition.GetDefaultInstance(quantity)));
+        public float BasePrice =>
+            S1ProductDefinition.BasePrice;
+        
+        /// <summary>
+        /// The market value associated with this product.
+        /// </summary>
+        public float MarketValue =>
+            S1ProductDefinition.MarketValue;
+
+        /// <summary>
+                /// Creates an instance of this product in-game.
+                /// </summary>
+                /// <param name="quantity">The quantity of product.</param>
+                /// <returns>An instance of the product.</returns>
+                public override ItemInstance CreateInstance(int quantity = 1) =>
+                    new ProductInstance(CrossType.As<S1Product.ProductItemInstance>(S1ProductDefinition.GetDefaultInstance(quantity)));
 
         /// <summary>
         /// Gets the in-game icon associated with the product.
